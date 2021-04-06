@@ -6,6 +6,11 @@ class publicationsController {
     }
 
     function index() {
-        View::render('publications');
+        login();
+        register();
+        
+        $data = ['title' => 'Publicaciones'];
+        View::render('publications', $data);
     }
+
 }

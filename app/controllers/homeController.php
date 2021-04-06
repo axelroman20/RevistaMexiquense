@@ -6,16 +6,21 @@ class homeController extends Controller {
     }
     
     function index() {
-        
         login();
         register();
-            
 
-
-        $data = [
-            'title' => 'Bienvenido',
-            'bg' => 'dark'
-        ];
+        $data = ['title' => 'Bienvenido'];
         View::render('main', $data);
     }
+
+    function publications() {
+        login();
+        register();
+
+        $data = [
+            'title' => 'Publicaciones'
+        ];
+        View::render('publications', $data);
+    }
+
 }

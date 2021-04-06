@@ -14,7 +14,7 @@ class usersModel extends Model {
      * Metodo para buscar un usuario
      * @return integer
      */
-    public function search() {
+    public function validate() {
         $sql = 'SELECT * FROM users WHERE user=:user AND pass=:pass';
         $params = [
             'user' => $this->user,
@@ -25,48 +25,26 @@ class usersModel extends Model {
         } catch (Exception $e) {
             throw $e;
         }
-
     }
 
-
-    /**
-     * Metodo para agregar un usuario
-     * @return integer
-     */
-    public function add() {
-        $sql = 'INSERT INTO tests (name, username, email, created_at) VALUES (:name, :username, :email, :created_at)';
+    public function loadSetting() {
+        $sql = 'SELECT * FROM users WHERE user=:user';
         $params = [
-            'name'       => $this->name,
-            'username'   => $this->username,
-            'email'      => $this->email,
-            'created_at' => $this->created_at
+            'user' => $this->user
         ];
-
+        
         try {
-            return ($this->id = parent::query($sql, $params)) ? $this->id : false;
+            return ($res = parent::query($sql, $params));
         } catch (Exception $e) {
             throw $e;
         }
+
+        /*
+        $sql = 'SELECT * FROM tests WHERE id=:id';
+        $res = Database::query($sql, ['id' => 1]);
+        print_r($res); 
+        */
     }
 
-    /**
-     * Metodo para actualizar un usuario
-     * @return integer
-     */
-    public function update() {
-        $sql = 'UPDATE tests SET name=:name, username=:username, email=:email WHERE id=:id';
-        $params = [
-            'id'         => $this->id,
-            'name'       => $this->name,
-            'username'   => $this->username,
-            'email'      => $this->email
-        ];
-
-        try {
-            return ($this->id = parent::query($sql, $params)) ? $this->id : false;
-        } catch (Exception $e) {
-            throw $e;
-        }
-    }
 
 }

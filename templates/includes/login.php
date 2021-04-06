@@ -4,7 +4,7 @@
             <a href="#" id="login-btn-close-popup" class="login-btn-close-popup"><i class="fa fa-times" aria-hidden="true"></i></a>
             <img src="<?php echo IMAGES.'icono.png';?>" class="login-avatar" alt="Avatar Image">
             <h1>Inicio de Sesión</h1>
-            <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
+            <form action="<?php echo CONTROLLER; ?>" method="post">
                 <!-- Usuario -->
                 <label for="username" class="labelname">Usuario</label>
                 <input type="text" name="user" placeholder="Ingresar Usuario">

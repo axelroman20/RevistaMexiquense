@@ -10,7 +10,6 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
     <link rel="stylesheet" href="<?php echo CSS.'style.css'?>">
-    <link rel="stylesheet" href="<?php echo CSS.'404.css'?>">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">   
     <link rel="preconnect" href="https://fonts.gstatic.com">

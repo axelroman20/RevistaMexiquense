@@ -6,6 +6,9 @@ class errorController extends Controller {
     }
 
     function index() {
+        login();
+        register();
+        
         $data = [
             'title' => 'Pagina no encontrada'
         ];

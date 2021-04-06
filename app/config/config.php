@@ -9,14 +9,14 @@
     define('LANG'       , 'es');
 
     // Ruta base de nuestros proyectos
-    define('BASEPATH'   , IS_LOCAL ? '/proyectos/Revista/' : '___EL BASEPATH EN PRODUCCION___');
+    define('BASEPATH'   , IS_LOCAL ? '/proyectos/Revista/' : '/proyectos/Revista/');
 
     // Sal del sistema
     define('AUTH_SALT'  , 'Framework');
 
     // Puerto y URL del sitio
     define('PORT'       , '80');
-    define('URL'        , IS_LOCAL ? 'http://127.0.0.1:'.PORT.BASEPATH : '___URL EN PROUDCCION___');
+    define('URL'        , IS_LOCAL ? 'http://127.0.0.1:'.PORT.BASEPATH : 'http://192.168.88.222:'.BASEPATH);
 
     // Las rutas de directorios y archivos
     define('DS'         , DIRECTORY_SEPARATOR);
@@ -46,15 +46,6 @@
 
     // Credenciales de la base de datos
     // Set para conexion local o de desarrollo
-    /*
-    define('LDB_ENGINE' , 'mysql');
-    define('LDB_HOST'   , 'localhost');
-    define('LDB_NAME'   , 'database');
-    define('LDB_USER'   , 'root');
-    define('LDB_PASS'   , '');
-    define('LDB_CHARSET', 'utf8');
-    */
-
     define('LDB_ENGINE' , 'mysql');
     define('LDB_HOST'   , 'sql458.main-hosting.eu');
     define('LDB_NAME'   , 'u730030579_revistagcm');
@@ -64,13 +55,16 @@
 
     // Set para conexion en produccion o servidor real
     define('DB_ENGINE'  , 'mysql');
-    define('DB_HOST'    , 'localhost');
-    define('DB_NAME'    , '___REMOTE DB___');
-    define('DB_USER'    , '___REMOTE DB___');
-    define('DB_PASS'    , '___REMOTE DB___');
-    define('DB_CHARSET' , '___REMOTE CHARSET___');
+    define('DB_HOST'    , 'sql458.main-hosting.eu');
+    define('DB_NAME'    , 'u730030579_revistagcm');
+    define('DB_USER'    , 'u730030579_revistagcm');
+    define('DB_PASS'    , 'Revista123');
+    define('DB_CHARSET' , 'utf8');
 
     // El controlador por defecto / el metodo por defecto / y el controlador de errores por defecto
     define('DEFAULT_CONTROLLER'      , 'home');
     define('DEFAULT_ERROR_CONTROLLER', 'error');
     define('DEFAULT_METHOD'          , 'index');
+
+    // Configuraciones del blog
+    define('POST_PAGE', '4');

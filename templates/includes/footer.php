@@ -1,7 +1,8 @@
 <footer class="footer">
         <div class="l-footer">
             <h1>
-                <img src="img/" alt=""></h1>
+                <img src="<?php echo IMAGES.''; ?>" alt="">
+            </h1>
         </div>
         <ul class="r-footer">
             <li>

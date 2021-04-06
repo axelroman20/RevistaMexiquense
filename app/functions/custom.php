@@ -1,10 +1,5 @@
 <?php
 
-    function close() {
-        session_start();
-        session_destroy();
-    }
-
     function login() {
         $errorLogin = "";
         
@@ -19,15 +14,19 @@
             if(empty($pass)) {
                 $errorLogin .= 'Porfavor agregar una Contraseña <br>';
             }
-            
+
             if(empty($errorLogin)) {
                 try {
                     $users = new usersModel();
                     $users->user = $_POST['user'];
                     $users->pass = $_POST['pass'];
-                    $users->search();
+                    $users->validate();
+
                     if($users->data) {
                         $_SESSION['user'] = $users->user;
+
+                    } else {
+                        $errorLogin .= 'Usuario o Contraseña Incorrecta <br>';
                     }
                 } catch (Exception $e) {
                     echo $e->getMessage();
