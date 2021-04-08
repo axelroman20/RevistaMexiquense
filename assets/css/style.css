@@ -686,6 +686,7 @@ h2 {
   font-weight: 300;
 }
 
+
 .login-box input {
   width: 100%;
   margin-bottom: 20px;
@@ -735,6 +736,15 @@ h2 {
 .login-error {
   color: red;
   font-size: 1em;
+}
+
+
+.login-box .errorLabel {
+  color: #ff0000 !important;
+}
+
+.login-box .errorInput {
+  border-bottom: 1px solid #ff0000 !important;
 }
 
 /* ------------------------- */
@@ -902,6 +912,14 @@ h2 {
 
 .register-error {
   color: red;
+}
+
+.register-box .errorLabel {
+  color: #ff0000 !important;
+}
+
+.register-box .errorInput {
+  border-bottom: 1px solid #ff0000 !important;
 }
 
 /* ------------------------- */

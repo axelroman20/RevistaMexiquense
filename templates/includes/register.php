@@ -6,22 +6,22 @@
             <h1>Registro de usuario</h1>
             <form action="<?php echo CONTROLLER; ?>" method="post">
                 <!-- Nombre -->
-                <label for="name">Nombre</label>
-                <input type="text" name="name" placeholder="Ingresar Nombre">
+                <label class="labelname_register" for="name">Nombre</label>
+                <input class="inputname_register" type="text" name="name" placeholder="Ingresar Nombre">
                 <!-- APELLIDO -->
-                <label for="lastname">Apellido</label>
-                <input type="text" name="lastname" placeholder="Ingresar Apellido">
+                <label class="labellastname_register" for="lastname">Apellido</label>
+                <input class="inputlastname_register" type="text" name="lastname" placeholder="Ingresar Apellido">
                 <!-- CORREO -->
-                <label for="email">Correo Electronico</label>
-                <input type="email" name="email" placeholder="Ingresar Correo Electronico">
+                <label class="labelemail_register" for="email">Correo Electronico</label>
+                <input class="inputemail_register" type="email" name="email" placeholder="Ingresar Correo Electronico">
                 <!-- USUARIO -->
-                <label for="user">Usuario</label>
-                <input type="text" name="user" placeholder="Ingresar Usuario">
+                <label class="labeluser_register" for="user">Usuario</label>
+                <input class="inputuser_register"  type="text" name="user" placeholder="Ingresar Usuario">
                 <!-- contraseña -->
-                <label for="password">Contraseña</label>
-                <input type="password" name="pass" placeholder="Ingresar Contraseña">
-                <label for="carrer">Carrera</label>
-                <select name="carrer" id="carrer">
+                <label class="labelpass_register" for="password">Contraseña</label>
+                <input class="inputpass_register" type="password" name="pass" placeholder="Ingresar Contraseña">
+                <label class="labelcarrer_register" for="carrer">Carrera</label>
+                <select class="inputcarrer_register" name="carrer" id="carrer">
                     <option selected>Selecciona Carrera</option>
                     <option>Ingeniería En Sistemas</option>
                     <option>Ingeniería Industrial</option>
@@ -29,9 +29,9 @@
                     <option>Derecho</option>
                 </select">
                 <input type="submit" name="submitRegister" value="Registrarse">
-                <a id="login-btn-open-popup">¿Ya tienes una cuenta?</a>
-                <?php if (!empty($errorRegister)) : ?>
-                    <div class="register-error"><?php echo "$errorRegister"; ?></div>
+                <a id="login-btn-open-popup2">¿Ya tienes una cuenta?</a>
+                <?php if (!empty($d->errorRegister)) : ?>
+                    <div class="register-error"><?php echo "$d->errorRegister"; ?></div>
                     <script type="text/javascript" charset="utf-8">
                         document.querySelector('#register-overlay').classList.add('active');
                         document.querySelector('#register-popup').classList.add('active');

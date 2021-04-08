@@ -20,7 +20,8 @@ if(document.querySelector('#register-btn-open-popup')){
   var btnOpenPopupRegister = document.querySelector('#register-btn-open-popup'),
   overlayRegister = document.querySelector('#register-overlay'),
   popupRegister = document.querySelector('#register-popup'),
-  btnClosePopupRegister = document.querySelector('#register-btn-close-popup');
+  btnClosePopupRegister = document.querySelector('#register-btn-close-popup'),
+  btnOpenPopupLogin2 = document.querySelector('#login-btn-open-popup2');
 
   btnOpenPopupRegister.addEventListener('click', function(){
     overlayLogin.classList.remove('active');
@@ -32,6 +33,13 @@ if(document.querySelector('#register-btn-open-popup')){
   btnClosePopupRegister.addEventListener('click', function(){
     overlayRegister.classList.remove('active');
     popupRegister.classList.remove('active');
+  });
+
+  btnOpenPopupLogin2.addEventListener('click', function(){
+    overlayRegister.classList.remove('active');
+    popupRegister.classList.remove('active');
+    overlayLogin.classList.add('active');
+    popupLogin.classList.add('active');
   });
 }
 

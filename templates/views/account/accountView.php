@@ -4,7 +4,9 @@
     <section class="account">
         <div class="container">
             <div class="row">
-                <div class="col-md-12"></div>
+                <div class="col-sm-12">
+                    
+                </div>
             </div>
             <div class="row">
                 <div class="col-md-6"></div>

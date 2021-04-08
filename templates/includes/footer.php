@@ -52,6 +52,18 @@
         </ul>
     </section>
 <!-------------------------------------------------------------------------------------------------------->
-    <?php require_once INCLUDES.'scripts.php'; ?>
+    
+    
+    <script src="<?php echo JS.'main.js'; ?>"></script>
+    <script type="text/javascript" charset="utf-8">
+        $(window).load(function() {
+            $('.flexslider').flexslider({
+                touch: true,
+                pauseOnAction: false,
+                pauseOnHover: false,
+            });
+        });
+    </script>
+
 </body>
 </html>

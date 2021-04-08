@@ -9,8 +9,20 @@ class accountController{
         if(!isset($_SESSION['user'])){
             Redirect::to('home');
         }
-        
-        $data = ['title' => 'Mi Cuenta'];
+
+        $users = loadSetting();
+
+        $data = [
+            'title'    => 'Mi Cuenta',
+            'id'       => $users->data[0]['id'],
+            'rol'      => $users->data[0]['rol'],
+            'name'     => $users->data[0]['name'],
+            'lastname' => $users->data[0]['lastname'],
+            'user'     => $users->data[0]['user'],
+            'pass'     => $users->data[0]['pass'],
+            'email'    => $users->data[0]['email'],
+            'carrer'   => $users->data[0]['carrer']
+        ];
         View::render('account', $data);
     }
     

@@ -12,13 +12,68 @@ class usersModel extends Model {
     
     /**
      * Metodo para buscar un usuario
-     * @return integer
+     * @return bool
      */
-    public function validate() {
-        $sql = 'SELECT * FROM users WHERE user=:user AND pass=:pass';
+    public function loginValidate() {
+        $sql = 'SELECT * FROM users WHERE user=:user';
+        $params = [
+            'user' => $this->user
+        ];
+        try {
+            return ($this->data = parent::query($sql, $params));
+        } catch (Exception $e) {
+            throw $e;
+        }
+    }
+
+    /**
+     * Metodo para agregar un usuario
+     * @return void
+     */
+    public function add() {
+        $sql = 'INSERT INTO users (id, rol, name, lastname, user, pass, email, carrer) VALUES (:id, :rol, :name, :lastname, :user, :pass, :email, :carrer)';
+        $registro = [
+            'id'         => $this->id,
+            'rol'        => $this->rol,
+            'name'       => $this->name,
+            'lastname'   => $this->lastname,
+            'user'       => $this->user,
+            'pass'       => $this->pass,
+            'email'      => $this->email,
+            'carrer'     => $this->carrer
+        ];
+
+        try {
+            return (parent::query($sql, $registro));
+        } catch (Exception $e) {
+            throw $e;
+        }
+    }
+
+    /**
+     * Metodo para buscar un usuario existente
+     * @return void
+     */
+    public function searchUser() {
+        $sql = 'SELECT * FROM users WHERE user=:user';
         $params = [
             'user' => $this->user,
-            'pass' => $this->pass
+        ];
+        try {
+            return ($this->data = parent::query($sql, $params));
+        } catch (Exception $e) {
+            throw $e;
+        }
+    }
+
+    /**
+     * Metodo para buscar un email existente
+     * @return void
+     */
+    public function searchEmail() {
+        $sql = 'SELECT * FROM users WHERE email=:email';
+        $params = [
+            'email' => $this->email,
         ];
         try {
             return ($this->data = parent::query($sql, $params) ? true : false);
@@ -27,24 +82,21 @@ class usersModel extends Model {
         }
     }
 
-    public function loadSetting() {
-        $sql = 'SELECT * FROM users WHERE user=:user';
+    /**
+     * Metodo para buscar un usuario existente
+     * @return void
+     */
+    public function settings() {
+        $sql = 'SELECT * FROM users WHERE id=:id';
         $params = [
-            'user' => $this->user
+            'id' => $this->id,
         ];
-        
         try {
-            return ($res = parent::query($sql, $params));
+            return ($this->data = parent::query($sql, $params));
         } catch (Exception $e) {
             throw $e;
         }
-
-        /*
-        $sql = 'SELECT * FROM tests WHERE id=:id';
-        $res = Database::query($sql, ['id' => 1]);
-        print_r($res); 
-        */
     }
-
+    
 
 }

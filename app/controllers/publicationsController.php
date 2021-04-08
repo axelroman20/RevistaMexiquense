@@ -6,10 +6,14 @@ class publicationsController {
     }
 
     function index() {
-        login();
-        register();
+        $errorLogin = login();
+        $errorRegister = register();
         
-        $data = ['title' => 'Publicaciones'];
+        $data = [
+            'title' => 'Publicaciones', 
+            'errorLogin' => $errorLogin,
+            'errorRegister' => $errorRegister
+        ];
         View::render('publications', $data);
     }
 
