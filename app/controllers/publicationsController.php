@@ -17,4 +17,17 @@ class publicationsController {
         View::render('publications', $data);
     }
 
+    function home() {
+        Redirect::to('home');
+    }
+    function publications() {
+        Redirect::to('publications');
+    }
+    function myarticle() {
+        Redirect::to('myarticle');
+    }
+    function account() {
+        Redirect::to('account');
+    }
+
 }

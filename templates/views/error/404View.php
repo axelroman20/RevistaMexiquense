@@ -3,10 +3,14 @@
     <main>
         <section class="not-found">
             <div class="container">
-                <h1>404</h1>
-                <h2>No encontrado.</h2>
-                <h3>¡UPS! La página que busca no existe. Puede que se haya movido o eliminado.</h3><br>
-                <a href="home">Regresar</a>
+                <div class="row">
+                    <div class="col-md-12">
+                        <h1>404</h1>
+                        <h2>No encontrado.</h2>
+                        <h3>¡UPS! La página que busca no existe. Puede que se haya movido o eliminado.</h3><br>
+                        <a href="error/back" class="back">Regresar</a>
+                    </div>
+                </div>
             </div>
         </section>
     </main>

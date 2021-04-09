@@ -6,7 +6,7 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav" >
         <li class="nav-item">
-            <?php if(CONTROLLER == 'home'): ?>
+            <?php if(CONTROLLER == 'home' || CONTROLLER == 'error'): ?>
                 <a class="nav-link active" href="home">Inicio</a>
             <?php else: ?>
                 <a class="nav-link" href="home">Inicio</a>

@@ -13,4 +13,17 @@ class myarticleController {
         $data = ['title' => 'Panel de Control'];
         View::render('myarticle', $data);
     }
+
+    function home() {
+        Redirect::to('home');
+    }
+    function publications() {
+        Redirect::to('publications');
+    }
+    function myarticle() {
+        Redirect::to('myarticle');
+    }
+    function account() {
+        Redirect::to('account');
+    }
 }

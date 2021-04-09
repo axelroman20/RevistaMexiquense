@@ -14,4 +14,21 @@ class errorController extends Controller {
         ];
         View::render('404', $data);
     }
+
+    function back() {
+        Redirect::to('home');
+    }
+
+    function home() {
+        Redirect::to('home');
+    }
+    function publications() {
+        Redirect::to('publications');
+    }
+    function myarticle() {
+        Redirect::to('myarticle');
+    }
+    function account() {
+        Redirect::to('account');
+    }
 }

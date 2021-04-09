@@ -7,20 +7,20 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form>
+        <form method="post" id="form-name">
             <div class="mb-3">
                 <label for="recipient-name" class="col-form-label">Nombre:</label>
-                <input type="text" class="form-control" id="recipient-name" name="name-update">
+                <input required type="text" class="form-control" id="recipient-name" name="name-update">
             </div>
             <div class="mb-3">
                 <label for="recipient-lastname" class="col-form-label">Apellido:</label>
-                <input type="text" class="form-control" id="recipient-lastname" name="lastname-update">
+                <input required type="text" class="form-control" id="recipient-lastname" name="lastname-update">
             </div>
         </form>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cerrar</button>
-        <button type="button" class="btn btn-secondary">Guardar Cambios</button>
+        <button type="submit" class="btn btn-secondary" name="submitUpdateName" form="form-name">Guardar Cambios</button>
       </div>
     </div>
   </div>
@@ -35,16 +35,16 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form>
+        <form method="post" id="form-user">
             <div class="mb-3">
                 <label for="recipient-user" class="col-form-label">Usuario:</label>
-                <input type="text" class="form-control" id="recipient-user" name="user-update">
+                <input required type="text" class="form-control" id="recipient-user" name="user-update">
             </div>
         </form>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cerrar</button>
-        <button type="button" class="btn btn-secondary">Guardar Cambios</button>
+        <button type="submit" class="btn btn-secondary" name="submitUpdateUser" form="form-user">Guardar Cambios</button>
       </div>
     </div>
   </div>
@@ -59,27 +59,27 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form>
+        <form method="post" id="form-pass">
             <div class="mb-3">
                 <label for="recipient-pass" class="col-form-label">Contraseña Actual:</label>
-                <input type="text" class="form-control" id="recipient-pass" name="pass-update">
+                <input required type="text" class="form-control" id="recipient-pass" name="pass-update">
             </div>
             <div class="mb-3">
                 <label for="recipient-passnew" class="col-form-label">Contraseña Nueva:</label>
-                <input type="text" class="form-control" id="recipient-passnew" name="passnew-update">
+                <input  type="text" class="form-control" id="recipient-passnew" name="passnew-update">
             </div>
             <div class="mb-3">
                 <label for="recipient-repitpassnew" class="col-form-label">Repite Contraseña Nueva:</label>
-                <input type="text" class="form-control" id="recipient-repitpassnew" name="repitpassnew-update">
+                <input  type="text" class="form-control" id="recipient-repitpassnew" name="repitpassnew-update">
             </div>
             <div class="mb-3">
-                <a href="recover-password" class="btn btn-link">¿Olvidaste tu contraseña?</a>
+                <a href="account/recover-password" class="btn btn-link">¿Olvidaste tu contraseña?</a>
             </div>
         </form>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cerrar</button>
-        <button type="button" class="btn btn-secondary">Guardar Cambios</button>
+        <button type="submit" class="btn btn-secondary" name="submitUpdatePass" form="form-pass">Guardar Cambios</button>
       </div>
     </div>
   </div>
@@ -94,16 +94,16 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form>
+        <form method="post" id="form-email">
             <div class="mb-3">
                 <label for="recipient-email" class="col-form-label">Correo Electronico:</label>
-                <input type="email" class="form-control" id="recipient-email" name="email-update">
+                <input required type="email" class="form-control" id="recipient-email" name="email-update">
             </div>
         </form>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cerrar</button>
-        <button type="button" class="btn btn-secondary">Guardar Cambios</button>
+        <button type="submit" class="btn btn-secondary" name="submitUpdateEmail" form="form-email">Guardar Cambios</button>
       </div>
     </div>
   </div>
@@ -118,10 +118,10 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form>
+        <form method="post" id="form-carrer">
             <div class="mb-3">
                 <label for="recipient-carrer" class="col-form-label">Carrera:</label>
-                <select class="form-select" id="recipient-carrer" name="carrer-update">
+                <select required class="form-select" id="recipient-carrer" name="carrer-update">
                     <option selected>Selecciona</option>
                     <option>Ingeniería En Sistemas</option>
                     <option>Ingeniería Industrial</option>
@@ -133,7 +133,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cerrar</button>
-        <button type="button" class="btn btn-secondary">Guardar Cambios</button>
+        <button type="submit" class="btn btn-secondary" name="submitUpdateCarrer" form="form-carrer">Guardar Cambios</button>
       </div>
     </div>
   </div>

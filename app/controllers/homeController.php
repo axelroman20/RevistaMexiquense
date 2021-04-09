@@ -16,5 +16,18 @@ class homeController extends Controller {
         ];
         View::render('main', $data);
     }
+
+    function home() {
+        Redirect::to('home');
+    }
+    function publications() {
+        Redirect::to('publications');
+    }
+    function myarticle() {
+        Redirect::to('myarticle');
+    }
+    function account() {
+        Redirect::to('account');
+    }
     
 }

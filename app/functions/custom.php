@@ -136,3 +136,84 @@
         } 
         return $users;
     }
+
+    function updateName($id) {
+        if(isset($_POST['submitUpdateName'])) {
+            try {
+                $users = new usersModel();
+                $users->name = $_POST['name-update'];
+                $users->lastname = $_POST['lastname-update'];
+                $users->id = $id;
+                $users->updateNames();
+                Redirect::to('account');
+            } catch (Exception $e) {
+                echo $e->getMessage();
+            } 
+        }
+    }
+
+    function updateUser($id) { 
+        if(isset($_POST['submitUpdateUser'])) {
+            try {
+                $users = new usersModel();
+                $users->user = $_POST['user-update'];
+                $users->id = $id;
+                $users->updateUsers();
+                Redirect::to('account');
+            } catch (Exception $e) {
+                echo $e->getMessage();
+            } 
+        }
+    }
+
+    function updatePass($id) {
+        if(isset($_POST['submitUpdatePass'])) {
+            try {
+                $users = new usersModel();
+                $users->pass = sha1($_POST['pass-update']);
+                $users->pass_noencrypt = $_POST['pass-update'];
+                $users->id = $id;
+                $users->searchPassword();
+                if($users->data) {
+                    if($_POST['passnew-update'] === $_POST['repitpassnew-update']) {
+                        $users->pass = sha1($_POST['passnew-update']);
+                        $users->pass_noencrypt = $_POST['passnew-update'];
+                        $users->updatePasswords();
+                        Redirect::to('account');
+                    }
+                } 
+            } catch (Exception $e) {
+                echo $e->getMessage();
+            } 
+        }
+    }
+
+    function updateEmail($id) {
+        if(isset($_POST['submitUpdateEmail'])) {
+            try {
+                $users = new usersModel();
+                $users->email = $_POST['email-update'];
+                $users->id = $id;
+                $users->updateEmails();
+                Redirect::to('account');
+            } catch (Exception $e) {
+                echo $e->getMessage();
+            } 
+        }
+    }
+
+    function updateCarrer($id) {
+        if(isset($_POST['submitUpdateCarrer'])) {
+            try {
+                $users = new usersModel();
+                $users->carrer = $_POST['carrer-update'];
+                $users->id = $id;
+                if($_POST['carrer-update'] != 'Selecciona') {
+                    $users->updateCarrers();
+                    Redirect::to('account');
+                }
+            } catch (Exception $e) {
+                echo $e->getMessage();
+            } 
+        }
+    }

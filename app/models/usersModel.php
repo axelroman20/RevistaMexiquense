@@ -85,7 +85,23 @@ class usersModel extends Model {
     }
 
     /**
-     * Metodo para buscar un usuario existente
+     * Metodo para buscar una contraseña existente
+     * @return void
+     */
+    public function searchPassword() {
+        $sql = 'SELECT * FROM users WHERE pass=:pass';
+        $params = [
+            'pass' => $this->pass,
+        ];
+        try {
+            return ($this->data = parent::query($sql, $params) ? true : false);
+        } catch (Exception $e) {
+            throw $e;
+        }
+    }
+
+    /**
+     * Metodo para datos un usuario existente
      * @return void
      */
     public function settings() {
@@ -99,6 +115,95 @@ class usersModel extends Model {
             throw $e;
         }
     }
+
+    /**
+     * Metodo para actualizar los nombre y apellido del usuario 
+     * @return void
+     */
+    public function updateNames() {
+        $sql = 'UPDATE users SET name = :name, lastname = :lastname WHERE id=:id';
+        $params = [
+            'name'     => $this->name,
+            'lastname' => $this->lastname,
+            'id'       => $this->id
+        ];
+        try {
+            return ($this->data = parent::query($sql, $params) ? true : false);
+        } catch (Exception $e) {
+            throw $e;
+        }
+    }
+    
+    /**
+     * Metodo para actualizar username del usuario 
+     * @return void
+     */
+    public function updateUsers() {
+        $sql = 'UPDATE users SET user = :user WHERE id=:id';
+        $params = [
+            'user' => $this->user,
+            'id'   => $this->id
+        ];
+        try {
+            return ($this->data = parent::query($sql, $params) ? true : false);
+        } catch (Exception $e) {
+            throw $e;
+        }
+    }
+
+    /**
+     * Metodo para actualizar la contraseña del usuario 
+     * @return void
+     */
+    public function updatePasswords() {
+        $sql = 'UPDATE users SET pass = :pass, pass_noencrypt = :pass_noencrypt WHERE id = :id';
+        $params = [
+            'pass'           => $this->pass,
+            'pass_noencrypt' => $this->pass_noencrypt,
+            'id'             => $this->id
+        ];
+        try {
+            return ($this->data = parent::query($sql, $params) ? true : false);
+        } catch (Exception $e) {
+            throw $e;
+        }
+    }
+
+    /**
+     * Metodo para actualizar el correo electronico del usuario 
+     * @return void
+     */
+    public function updateEmails() {
+        $sql = 'UPDATE users SET email = :email WHERE id=:id';
+        $params = [
+            'email' => $this->email,
+            'id'   => $this->id
+        ];
+        try {
+            return ($this->data = parent::query($sql, $params) ? true : false);
+        } catch (Exception $e) {
+            throw $e;
+        }
+    }
+
+    /**
+     * Metodo para actualizar la carrera del usuario 
+     * @return void
+     */
+    public function updateCarrers() {
+        $sql = 'UPDATE users SET carrer = :carrer WHERE id=:id';
+        $params = [
+            'carrer' => $this->carrer,
+            'id'   => $this->id
+        ];
+        try {
+            return ($this->data = parent::query($sql, $params) ? true : false);
+        } catch (Exception $e) {
+            throw $e;
+        }
+    }
+
+
     
 
 }

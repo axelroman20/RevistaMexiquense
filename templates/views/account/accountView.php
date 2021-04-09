@@ -36,7 +36,7 @@
                         <span class="input-group-text" id="basic-addon1">
                             <i class="fas fa-key"></i>
                         </span>
-                        <input disabled type="password" class="form-control" value="<?php echo $d->pass; ?>" aria-label="Password" aria-describedby="basic-addon1">
+                        <input disabled type="password" class="form-control" value="<?php echo $d->pass_noencrypt; ?>" aria-label="Password" aria-describedby="basic-addon1">
                         <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#pass" id="button-addon2">
                             <i class="fas fa-edit"></i>
                         </button>
