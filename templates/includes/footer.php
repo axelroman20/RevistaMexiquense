@@ -1,11 +1,7 @@
 <footer class="footer">
-        <div class="l-footer">
-            <h1>
-                <img src="<?php echo IMAGES.''; ?>" alt="">
-            </h1>
-        </div>
-        <ul class="r-footer">
-            <li>
+    <div class="container">
+        <div class="row row-cols-3 justify-content-md-center">
+            <div class="col-md-3">
                 <h2>Social</h2>
                 <ul class="box">
                     <li><a href= "https://www.facebook.com/GrupoColegioMexiquense">Facebook</a></li>
@@ -14,24 +10,27 @@
                     <li><a href="https://www.youtube.com/user/ColegioMexiquense92">Youtube</a></li>
                     <li><a href="https://www.grupocolegiomexiquense.edu.mx">Página Web</a></li>
                 </ul>
-            </li>
-            <li class="features">
+            </div>
+            <div class="col-md-3">
                 <h2>Información</h2>
                 <ul class="box h-box">
                     <li><a href="https://www.grupocolegiomexiquense.edu.mx/Colegio/Contacto">Servicio al cliente</a></li>
                 </ul>
-            </li>
-            <li>
+            </div>
+            <div class="col-md-3">
                 <h2>Legal</h2>
                 <ul class="box">
                     <li><a href="https://www.grupocolegiomexiquense.edu.mx/Colegio/AvisoPrivacidad">Politica de privacidad</a></li>
                 </ul>
-            </li>
-        </ul>
-        <div class="b-footer">
-            <p>Todo los derechos reservados son por ©Grupo Colegio Mexiquense </p>
+            </div>
         </div>
-    </footer> 
+        <div class="row">
+            <div class="b-footer">
+                <p>Todo los derechos reservados son por ©Grupo Colegio Mexiquense </p>
+            </div>
+        </div>
+    </div>
+</footer>
 <!-------------------------------------------------------------------------------------------------------->
     <!-- BUTTON BO UP -->    
     <a class="gotopbtn" href="#"><i class="fas fa-arrow-up"></i></a>
