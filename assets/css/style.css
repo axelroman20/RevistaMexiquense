@@ -30,17 +30,6 @@ a {
   text-decoration: none !important;
   color: #28afb0;
 }
-.container {
-  max-width: 1000px;
-  width: 90%;
-  margin: auto;
-}
-.left {
-  float: left;
-}
-.right {
-  float: right;
-}
 
 /*///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
 
@@ -72,6 +61,7 @@ header {
   position: absolute;
   top: 65px;
   left: 12%;
+  z-index: 210;
   transform: translate(-50%, -50%);
   background: #eee5e5;
   height: 45px;
@@ -116,8 +106,10 @@ header {
 /*-- MENU --*/
 header .menu {
   position: absolute;
-  top: 50px;
-  right: 12%;
+  top: 30px;
+  right: 10%;
+  background: transparent !important; 
+  z-index: 200;
 }
 header .menu ul {
   list-style: none;
@@ -126,7 +118,6 @@ header .menu ul li {
   display: inline-block;
 }
 header .menu ul li a {
-  color: #fff;
   text-shadow: 3px 3px 5px #000000;
   display: block;
   font-weight: 300;
@@ -152,6 +143,8 @@ header .textos-header {
   display: flex;
   height: 90%;
   width: 100%;
+  position: absolute;
+  top: 30%;
   text-align: center;
   font-family: "Lato", Sans-serif;
 }
@@ -173,7 +166,7 @@ header .textos-header h2:before {
   height: 100%;
   mix-blend-mode: screen;
   position: absolute;
-  top: 0;
+  top: 10;
   left: 0;
 }
 
@@ -187,134 +180,12 @@ header .textos-header h2:before {
 /*///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
 
 /*-----------------------------------------MAIN-------------------------------------------------------*/
-/*-- SLIDER --*/
-.slider {
-  width: 100%;
+/*-- CARD-SLIDER --*/
+.card-slider {
+  margin-bottom: 100px;
 }
 
-.slider .container {
-  margin: 80px auto;
-  width: 50%;
-  background: #f2f2f2;
-  padding: 10px;
 
-  border: 1px solid black;
-}
-
-.flexslider {
-  width: 100%;
-  position: relative;
-}
-
-.slides {
-  overflow: hidden;
-}
-
-.slides img {
-  width: 100%;
-}
-
-.slides,
-.flex-control-nav,
-.flex-direction-nav {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.flex-control-nav {
-  width: 100%;
-  text-align: center;
-  position: absolute;
-  bottom: 5%;
-  z-index: 999;
-}
-
-.flex-control-nav li {
-  display: inline-block;
-  margin: 0 6px;
-}
-
-.flex-control-nav li a {
-  display: block;
-  background: #777777;
-  width: 12px;
-  height: 12px;
-  border-radius: 12px;
-  text-indent: -9999px;
-}
-
-.flex-control-nav li a:hover {
-  background: #2e2e2e;
-}
-
-.flex-control-nav li a.flex-active {
-  background: #2e2e2e;
-}
-
-.flex-direction-nav a {
-  display: block;
-  text-decoration: none;
-  position: absolute;
-  top: 50%;
-  z-index: 999;
-  width: 40px;
-  height: 40px;
-  overflow: hidden;
-  opacity: 0;
-  -webkit-transition: all 0.3s ease-in-out;
-  -moz-transition: all 0.3s ease-in-out;
-  -ms-transition: all 0.3s ease-in-out;
-  -o-transition: all 0.3s ease-in-out;
-  transition: all 0.3s ease-in-out;
-}
-
-.flex-direction-nav .flex-prev {
-  left: 0;
-}
-
-.flex-direction-nav .flex-next {
-  right: 0;
-}
-
-.flex-direction-nav a:before {
-  font-size: 40px;
-  display: inline-block;
-  content: "\f001";
-  color: #fff;
-  text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.3);
-}
-.flex-direction-nav a.flex-next:before {
-  content: "\f002";
-}
-
-.flex-caption p {
-  position: absolute;
-  top: 50%;
-  text-align: center;
-  width: 100%;
-  font-size: 45px;
-  color: #fff;
-  font-weight: bold;
-}
-
-.flexslider:hover .flex-direction-nav .flex-prev {
-  opacity: 0.7;
-  left: 10px;
-}
-
-.flexslider:hover .flex-direction-nav .flex-prev:hover {
-  opacity: 1;
-}
-
-.flexslider:hover .flex-direction-nav .flex-next {
-  opacity: 0.7;
-  right: 10px;
-}
-
-.flexslider:hover .flex-direction-nav .flex-next:hover {
-  opacity: 1;
-}
 
 /*-- INFO --*/
 .info {
@@ -518,7 +389,7 @@ h2 {
 /*-------------------------------------------------BARRA-DE-REDES---------------------------------------------*/
 .social {
   position: fixed;
-  left: 0;
+  left: -35px;
   top: 300px;
   z-index: 2000;
 }
@@ -531,7 +402,7 @@ h2 {
   display: inline-block;
   color: #fff;
   background: #000;
-  padding: 10px 15px;
+  padding: 10px;
   text-decoration: none;
   -webkit-transition: all 500ms ease;
   -o-transition: all 500ms ease;

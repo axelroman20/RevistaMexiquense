@@ -1,32 +1,49 @@
-<nav class="menu">
-    <ul>
-        <?php if(CONTROLLER == 'home'): ?>
-            <li><a class="active" href="home">Inicio</a></li>
-        <?php else: ?>
-            <li><a href="home">Inicio</a></li>
-        <?php endif; ?>
-
-        <?php if(CONTROLLER == 'publications'): ?>
-            <li><a class="active" href="publications">Publicaciones</a></li>
-        <?php else: ?>
-            <li><a href="publications">Publicaciones</a></li>
-        <?php endif; ?>
-
+<nav class="menu navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav" >
+        <li class="nav-item">
+            <?php if(CONTROLLER == 'home'): ?>
+                <a class="nav-link active" href="home">Inicio</a>
+            <?php else: ?>
+                <a class="nav-link" href="home">Inicio</a>
+            <?php endif; ?>
+        </li>
+        <li class="nav-item">
+            <?php if(CONTROLLER == 'publications'): ?>
+                <a class="nav-link active" href="publications">Publicaciones</a>
+            <?php else: ?>
+                <a class="nav-link" href="publications">Publicaciones</a>
+            <?php endif; ?>
+        </li>
+        
         <?php if(isset($_SESSION['user'])): ?>
-            <?php if(CONTROLLER == 'myarticle'): ?>
-                <li><a class="active" href="myarticle">Mis Articulos</a></li>
-            <?php else: ?>
-                <li><a href="myarticle">Mis Articulos</a></li>
-            <?php endif; ?>
-
-            <?php if(CONTROLLER == 'account'): ?>
-                <li><a class="active" href="account">Mi Cuenta</a></li>
-            <?php else: ?>
-                <li><a href="account">Mi Cuenta</a></li>
-            <?php endif; ?>
-            <li><a href="close">Cerrar Sesion</a></li>
+            <li class="nav-item">
+                <?php if(CONTROLLER == 'myarticle'): ?>
+                    <a class="nav-link active" href="myarticle">Mis Articulos</a>
+                <?php else: ?>
+                    <a class="nav-link" href="myarticle">Mis Articulos</a>
+                <?php endif; ?>
+            </li>
+            <li class="nav-item">
+                <?php if(CONTROLLER == 'account'): ?>
+                    <a class="nav-link active" href="account">Mi Cuenta</a>
+                <?php else: ?>
+                    <a class="nav-link" href="account">Mi Cuenta</a>
+                <?php endif; ?>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="close">Cerrar Sesion</a>
+            </li>
         <?php else: ?>
-            <li><a href="#" id="login-btn-open-popup">Ingresar</a></li>
+            <li class="nav-item">
+                <a class="nav-link" href="#" id="login-btn-open-popup">Ingresar</a>
+            </li>
         <?php endif; ?>
-    </ul>
+        
+    </div>
+  </div>
 </nav>

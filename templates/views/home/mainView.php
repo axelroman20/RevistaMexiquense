@@ -2,49 +2,61 @@
 
 <!-------------------------------MAIN------------------------------------>
 <main>
-        <!-- SLIDER -->
-        <section class="slider">
-            <div class="container">
-                <div class="flexslider">
-                    <ul class="slides">
-                        <li>
-                            <img src="<?php echo IMAGES.'1.jpg'; ?>" alt="">
-                            <section class="flex-caption">
-                                <p>LOREM IPSUM 1</p>
-                            </section>
-                        </li>
-                        <li>
-                            <img src="<?php echo IMAGES.'2.jpg'; ?>" alt="">
-                            <section class="flex-caption">
-                                <p>LOREM IPSUM 2</p>
-                            </section>
-                        </li>
-                        <li>
-                            <img src="<?php echo IMAGES.'3.jpg'; ?>" alt="">
-                            <section class="flex-caption">
-                                <p>LOREM IPSUM 3</p>
-                            </section>
-                        </li>
-                    </ul>
+    <!-- CARD-SLIDER -->
+    <section class="card-slider">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+                        <div class="carousel-indicators">
+                            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                        </div>
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <?php require INCLUDES.'card.php'; ?>
+                        </div>
+                        <div class="carousel-item">
+                            <?php require INCLUDES.'card.php'; ?>
+                        </div>
+                        <div class="carousel-item">
+                            <?php require INCLUDES.'card.php'; ?>
+                        </div>
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                    </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
         <!-- INFO -->
         <section class="info">
             <div class="container">
-                <h2>Lorem ipsum</h2>
-                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. 
-                    Harum velit labore quae inventore corporis ex rem fuga dicta obcaecati, 
-                    voluptatem ipsa reprehenderit ullam, fugiat iure doloremque facilis quia 
-                    veritatis pariatur repellendus excepturi minus minima sunt reiciendis. 
-                    Culpa unde modi reiciendis iusto sed explicabo deserunt quisquam magnam 
-                    adipisci hic, eum animi laboriosam aliquam sit, doloremque voluptatibus 
-                    dolores aut sequi consequatur! Aliquam excepturi ut quod nam, sint quasi? 
-                    Suscipit nesciunt ut magni facilis hic iure ipsa ratione sunt distinctio 
-                    omnis, velit, quas vel. Quo blanditiis inventore sapiente! Autem natus 
-                    neque officiis ipsa at quia architecto nihil tempore molestiae aliquam, 
-                    facere nesciunt minima.</p>
+                <div class="row">
+                    <div class="col-md-12">
+                        <h2>Lorem ipsum</h2>
+                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. 
+                        Harum velit labore quae inventore corporis ex rem fuga dicta obcaecati, 
+                        voluptatem ipsa reprehenderit ullam, fugiat iure doloremque facilis quia 
+                        veritatis pariatur repellendus excepturi minus minima sunt reiciendis. 
+                        Culpa unde modi reiciendis iusto sed explicabo deserunt quisquam magnam 
+                        adipisci hic, eum animi laboriosam aliquam sit, doloremque voluptatibus 
+                        dolores aut sequi consequatur! Aliquam excepturi ut quod nam, sint quasi? 
+                        Suscipit nesciunt ut magni facilis hic iure ipsa ratione sunt distinctio 
+                        omnis, velit, quas vel. Quo blanditiis inventore sapiente! Autem natus 
+                        neque officiis ipsa at quia architecto nihil tempore molestiae aliquam, 
+                        facere nesciunt minima.</p>
+                    </div>
+                </div>
             </div>
         </section>
         

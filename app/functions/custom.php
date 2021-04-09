@@ -130,7 +130,6 @@
             $users = new usersModel();
             $users->id = $_SESSION['id'];
             $users->settings();
-            print_r($users->data);
         } catch (Exception $e) {
             echo $e->getMessage();
         } 
