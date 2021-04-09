@@ -99,15 +99,16 @@
             if(empty($errorRegister)) {
                 try {
                     $users = new usersModel();
-                    $users->id       = $id;
-                    $users->rol      = $rol;
-                    $users->name     = $name;
-                    $users->lastname = $lastname;
-                    $users->user     = $user;
-                    $passSha1        = sha1($pass);
-                    $users->pass     = $passSha1;
-                    $users->email    = $email;
-                    $users->carrer   = $carrer;
+                    $users->id             = $id;
+                    $users->rol            = $rol;
+                    $users->name           = $name;
+                    $users->lastname       = $lastname;
+                    $users->user           = $user;
+                    $passSha1              = sha1($pass);
+                    $users->pass           = $passSha1;
+                    $users->pass_noencrypt = $pass;
+                    $users->email          = $email;
+                    $users->carrer         = $carrer;
                     $users->searchEmail();
                     if($users->data) {
                         $errorRegister .= 'Correo Elctronico ya en uso! <br>';

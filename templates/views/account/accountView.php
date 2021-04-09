@@ -4,29 +4,69 @@
     <section class="account">
         <div class="container">
             <div class="row">
-                <div class="col-md-3">
+                <div class="col-md-12">
+                    <h3>Configuración de cuenta</h3>
+                    <hr>
+                </div>
+            </div>
+            <div class="row justify-content-md-center">
+                <div class="col-md-12">
                     <div class="input-group mb-3">
-                        <button hidden class="input-group-text" type="button" id="basic-addon1">
-                            <i class="fas fa-key"></i>
+                        <span class="input-group-text">
+                        <i class="fas fa-user-circle"></i>
+                        </span>
+                        <input disabled type="text" aria-label="First name" class="form-control" value="<?php echo $d->name; ?>">
+                        <input disabled type="text" aria-label="Last name" class="form-control" value="<?php echo $d->lastname; ?>">
+                        <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#name" id="button-addon2">
+                            <i class="fas fa-edit"></i>
                         </button>
-                        <input hidden type="password" class="form-control" value="<?php echo $d->pass; ?>" aria-label="Password" aria-describedby="basic-addon1">
                     </div>
+
                     <div class="input-group mb-3">
-                        <button class="input-group-text" type="button" id="basic-addon1">
-                            <i class="fas fa-pen"></i>
-                        </button>
+                        <span class="input-group-text" id="basic-addon1">
+                            <i class="fas fa-user"></i>
+                        </span>
                         <input disabled type="text" class="form-control" value="<?php echo $d->user; ?>" aria-label="Username" aria-describedby="basic-addon1">
-                    </div>
-                    <div class="input-group mb-3">
-                        <button class="input-group-text" type="button" id="basic-addon1">
-                            <i class="fas fa-key"></i>
+                        <button disabled type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#user" id="button-addon2">
+                            <i class="fas fa-edit"></i>
                         </button>
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1">
+                            <i class="fas fa-key"></i>
+                        </span>
                         <input disabled type="password" class="form-control" value="<?php echo $d->pass; ?>" aria-label="Password" aria-describedby="basic-addon1">
+                        <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#pass" id="button-addon2">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1">
+                            <i class="fas fa-at"></i>
+                        </span>
+                        <input disabled type="email" class="form-control" value="<?php echo $d->email; ?>" aria-label="Email" aria-describedby="basic-addon1">
+                        <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#email" id="button-addon2">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1">
+                            <i class="fas fa-university"></i>
+                        </span>
+                        <input disabled type="text" class="form-control" value="<?php echo $d->carrer; ?>" aria-label="Carrer" aria-describedby="basic-addon1">
+                        <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#carrer" id="button-addon2">
+                            <i class="fas fa-edit"></i>
+                        </button>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 </main>
+<!------------------------------------------------------------------->
+<?php require_once INCLUDES.'setting.php'; ?>
 <!------------------------------------------------------------------->
 <?php require_once INCLUDES.'footer.php'; ?>

@@ -6,6 +6,7 @@ class usersModel extends Model {
     public $lastname;
     public $user;
     public $pass;
+    public $pass_noencrypt;
     public $email;
     public $carrer;
     public $data;
@@ -31,16 +32,17 @@ class usersModel extends Model {
      * @return void
      */
     public function add() {
-        $sql = 'INSERT INTO users (id, rol, name, lastname, user, pass, email, carrer) VALUES (:id, :rol, :name, :lastname, :user, :pass, :email, :carrer)';
+        $sql = 'INSERT INTO users (id, rol, name, lastname, user, pass, pass_noencrypt, email, carrer) VALUES (:id, :rol, :name, :lastname, :user, :pass, :pass_noencrypt, :email, :carrer)';
         $registro = [
-            'id'         => $this->id,
-            'rol'        => $this->rol,
-            'name'       => $this->name,
-            'lastname'   => $this->lastname,
-            'user'       => $this->user,
-            'pass'       => $this->pass,
-            'email'      => $this->email,
-            'carrer'     => $this->carrer
+            'id'             => $this->id,
+            'rol'            => $this->rol,
+            'name'           => $this->name,
+            'lastname'       => $this->lastname,
+            'user'           => $this->user,
+            'pass'           => $this->pass,
+            'pass_noencrypt' => $this->pass_noencrypt,
+            'email'          => $this->email,
+            'carrer'         => $this->carrer
         ];
 
         try {

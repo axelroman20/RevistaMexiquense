@@ -24,7 +24,6 @@ h4,
 h5,
 h6 {
   font-family: "Lato", Sans-serif;
-  color: #fff;
 }
 a {
   text-decoration: none !important;
@@ -826,6 +825,10 @@ h2 {
   margin-bottom: 100px;
 }
 
+.account .container .link {
+  color: #000;
+}
+
 /*///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
 
 /*//////////////////////////////////////  ERROR 404  //////////////////////////////////////////////////*/
@@ -846,7 +849,7 @@ h2 {
 
 .not-found .container h1 {
   font-size: 80px;
-  color: #f2f2f2;
+  color: #f2f2f2 !important;
   text-shadow: 3px 3px 5px #000000;
 }
 
@@ -854,14 +857,19 @@ h2 {
   width: 90%;
   margin: auto;
   font-size: 50px;
-  color: #f2f2f2;
+  color: #f2f2f2 !important;
   text-shadow: 3px 3px 5px #000000;
+}
+
+.not-found .container h3 {
+  color: #f2f2f2 !important;
 }
 
 .not-found .container a {
   text-decoration: none;
   font-size: 30px;
   color: #28afb0;
+  padding: 5px;
   transition: 0.3s ease all;
 }
 

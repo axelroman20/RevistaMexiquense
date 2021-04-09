@@ -20,9 +20,6 @@
                         <div class="carousel-item">
                             <?php require INCLUDES.'card.php'; ?>
                         </div>
-                        <div class="carousel-item">
-                            <?php require INCLUDES.'card.php'; ?>
-                        </div>
                     </div>
                     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
