@@ -66,11 +66,11 @@
             </div>
             <div class="mb-3">
                 <label for="recipient-passnew" class="col-form-label">Contraseña Nueva:</label>
-                <input  type="text" class="form-control" id="recipient-passnew" name="passnew-update">
+                <input required type="text" class="form-control" id="recipient-passnew" name="passnew-update">
             </div>
             <div class="mb-3">
                 <label for="recipient-repitpassnew" class="col-form-label">Repite Contraseña Nueva:</label>
-                <input  type="text" class="form-control" id="recipient-repitpassnew" name="repitpassnew-update">
+                <input required type="text" class="form-control" id="recipient-repitpassnew" name="repitpassnew-update">
             </div>
             <div class="mb-3">
                 <a href="account/recover-password" class="btn btn-link">¿Olvidaste tu contraseña?</a>
@@ -139,3 +139,25 @@
   </div>
 </div>
 
+<script>
+  // Example starter JavaScript for disabling form submissions if there are invalid fields
+(function () {
+  'use strict'
+
+  // Fetch all the forms we want to apply custom Bootstrap validation styles to
+  var forms = document.querySelectorAll('.needs-validation')
+
+  // Loop over them and prevent submission
+  Array.prototype.slice.call(forms)
+    .forEach(function (form) {
+      form.addEventListener('submit', function (event) {
+        if (!form.checkValidity()) {
+          event.preventDefault()
+          event.stopPropagation()
+        }
+
+        form.classList.add('was-validated')
+      }, false)
+    })
+})()
+</script>

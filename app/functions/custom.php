@@ -1,5 +1,5 @@
 <?php
-
+//--------------------------------------------------------------------------------------------------
     function login() {
         $errorLogin = "";
         if(isset($_POST['submitLogin'])) {
@@ -29,6 +29,7 @@
                         if($users->data) {
                             $_SESSION['user'] = $users->user;
                             $_SESSION['id']   = $users->data[0]['id'];
+                            Redirect::to(CONTROLLER);
                         }
                     } else {
                         $errorLogin .= 'Usuario o Contraseña Incorrecta <br>';
@@ -40,8 +41,7 @@
         }
         return $errorLogin;
     }
-
-
+//--------------------------------------------------------------------------------------------------
     function register() {
         $errorRegister = "";    
         if(isset($_POST['submitRegister'])) {
@@ -124,8 +124,7 @@
         }
         return $errorRegister;
     }
-
-
+//--------------------------------------------------------------------------------------------------
     function loadSetting() {
         try {
             $users = new usersModel();
@@ -136,7 +135,7 @@
         } 
         return $users;
     }
-
+//--------------------------------------------------------------------------------------------------
     function updateName($id) {
         if(isset($_POST['submitUpdateName'])) {
             try {
@@ -151,7 +150,7 @@
             } 
         }
     }
-
+//--------------------------------------------------------------------------------------------------
     function updateUser($id) { 
         if(isset($_POST['submitUpdateUser'])) {
             try {
@@ -165,7 +164,7 @@
             } 
         }
     }
-
+//--------------------------------------------------------------------------------------------------
     function updatePass($id) {
         if(isset($_POST['submitUpdatePass'])) {
             try {
@@ -187,7 +186,7 @@
             } 
         }
     }
-
+//--------------------------------------------------------------------------------------------------
     function updateEmail($id) {
         if(isset($_POST['submitUpdateEmail'])) {
             try {
@@ -201,7 +200,7 @@
             } 
         }
     }
-
+//--------------------------------------------------------------------------------------------------
     function updateCarrer($id) {
         if(isset($_POST['submitUpdateCarrer'])) {
             try {
@@ -211,6 +210,37 @@
                 if($_POST['carrer-update'] != 'Selecciona') {
                     $users->updateCarrers();
                     Redirect::to('account');
+                }
+            } catch (Exception $e) {
+                echo $e->getMessage();
+            } 
+        }
+    }
+//--------------------------------------------------------------------------------------------------
+    function recoverPassword($id) {
+        if(isset($_POST['submitRecover'])) {
+            try {
+                $users = new usersModel();
+                $users->email = $_POST['email'];
+                $users->searchEmail();
+                if($users->data) {
+                    echo $_POST['email'];
+                }
+            } catch (Exception $e) {
+                echo $e->getMessage();
+            } 
+        }
+    }
+//--------------------------------------------------------------------------------------------------
+    function restorePassword($id) {
+        if(isset($_POST['submitRestore'])) {
+            try {
+                $users = new usersModel();
+                $users->pass = sha1($_POST['restore-pass']);
+                $users->pass_noencrypt = $_POST['restore-pass'];
+                $users->id = $id;
+                if($_POST['restore-pass'] === $_POST['restore-repitpass']) {
+                    $users->updatePasswords();
                 }
             } catch (Exception $e) {
                 echo $e->getMessage();

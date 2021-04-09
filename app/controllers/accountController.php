@@ -4,7 +4,7 @@ class accountController{
     function __construct() {
 
     }
-
+//--------------------------------------------------------------------------------------------------
     function index() {
         if(!isset($_SESSION['user'])){
             Redirect::to('home');
@@ -28,19 +28,38 @@ class accountController{
         ];
         View::render('account', $data);
     }
-
+//--------------------------------------------------------------------------------------------------
     function recover_password() {
+        $errorLogin = login();
+        $errorRegister = register();
+        $data = [
+            'title'         => 'Recuperar Contraseña', 
+            'errorLogin'    => $errorLogin,
+            'errorRegister' => $errorRegister
+        ];
+        if(isset($_SESSION['user'])) {
+            $users = loadSetting();
+            $data = [
+                'title'           => 'Recuperar Contraseña',
+                'errorLogin'      => $errorLogin,
+                'errorRegister'   => $errorRegister,
+                'email'           => $users->data[0]['email'],
+            ];
+        }
+        recoverPassword(isset($users->data[0]['id']) ? $users->data[0]['id'] : 'void');
+        View::render('recoverPassword', $data);
+    }
+//--------------------------------------------------------------------------------------------------
+    function restore_password() {
         if(!isset($_SESSION['user'])){
             Redirect::to('home');
         }
         $users = loadSetting();
-        $data = [
-            'title'           => 'Recuperar Contraseña',
-            'email'           => $users->data[0]['email'],
-        ];
-        View::render('recoverPassword', $data);
+        $data = ['title' => 'Restablecer Contraseña'];
+        restorePassword($users->data[0]['id']);
+        View::render('restorePassword', $data);
     }
-
+//--------------------------------------------------------------------------------------------------
     function home() {
         Redirect::to('home');
     }
@@ -52,6 +71,9 @@ class accountController{
     }
     function account() {
         Redirect::to('account');
+    }
+    function close() {
+        close();
     }
     
     

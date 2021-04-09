@@ -4,7 +4,7 @@
             <a href="#" id="register-btn-close-popup" class="register-btn-close-popup"><i class="fa fa-times" aria-hidden="true"></i></a>
             <img src="<?php echo IMAGES.'icono.png';?>" class="register-avatar" alt="Avatar Image">
             <h1>Registro de usuario</h1>
-            <form action="<?php echo CONTROLLER; ?>" method="post">
+            <form method="post">
                 <!-- Nombre -->
                 <label class="labelname_register" for="name">Nombre</label>
                 <input class="inputname_register" type="text" name="name" placeholder="Ingresar Nombre">

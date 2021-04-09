@@ -68,3 +68,9 @@
 
     // Configuraciones del blog
     define('POST_PAGE', '4');
+
+    // Configuracion de metodos email
+    define('EMAIL_USER', 'soporte@revista-gcm.live');
+    define('EMAIL_PASS', 'Revista123');
+    define('EMAIL_SMTP', 'smtp.hostinger.mx');
+    define('EMAIL_PORT', '587');

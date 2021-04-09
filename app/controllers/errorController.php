@@ -31,4 +31,7 @@ class errorController extends Controller {
     function account() {
         Redirect::to('account');
     }
+    function close() {
+        close();
+    }
 }

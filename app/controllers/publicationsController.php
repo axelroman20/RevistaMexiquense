@@ -29,5 +29,8 @@ class publicationsController {
     function account() {
         Redirect::to('account');
     }
+    function close() {
+        close();
+    }
 
 }

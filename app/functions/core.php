@@ -11,3 +11,10 @@
     function now() {
         return date('Y-m-d H:i:s');
     }
+
+    function close() {
+        session_start();
+        session_destroy();
+        $_SESSION = array();
+        Redirect::to('home');
+    }

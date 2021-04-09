@@ -36,7 +36,11 @@
                 <?php endif; ?>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="close">Cerrar Sesion</a>
+                <?php if(METHOD == 'recover_password'): ?>
+                <?php elseif(METHOD == 'restore_password'): ?>
+                <?php else: ?>
+                    <a class="nav-link" href="<?php echo CONTROLLER.'/close'; ?>">Cerrar Sesion</a>
+                <?php endif; ?>
             </li>
         <?php else: ?>
             <li class="nav-item">

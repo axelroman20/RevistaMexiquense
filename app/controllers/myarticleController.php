@@ -26,4 +26,7 @@ class myarticleController {
     function account() {
         Redirect::to('account');
     }
+    function close() {
+        close();
+    }
 }
