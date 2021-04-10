@@ -13,7 +13,6 @@
     <?php require_once INCLUDES.'scripts.php'; ?>
 </head>
 <body>
-    
     <?php echo isset($d->toast) ? "<script> $d->toast </script>" : ''; ?>
     <!--------------------------------HEADER----------------------------------->
       

@@ -9,8 +9,12 @@ class myarticleController {
         if(!isset($_SESSION['user'])){
             Redirect::to('home');
         }
-
-        $data = ['title' => 'Panel de Control'];
+        $toasts = "";
+        $active = statusAccount();
+        $data = [
+            'title' => 'Panel de Control',
+            'active'          => $active
+        ];
         View::render('myarticle', $data);
     }
 
