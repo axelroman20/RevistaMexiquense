@@ -92,12 +92,7 @@ class accountController{
     }
 
     function resend() {
-        SendEmails::send(
-            $_GET['email'], 
-            $_GET['name'].' '.$_GET['lastname'], 
-            'Verifica tu Cuenta', 
-            'Hola <strong>'.$_GET['user'].'</strong> Gracias por Registrate! <br>'.
-            URL.'account/active?token='.$_GET['token']);
+        resendEmail($_GET['email'], $_GET['name'], $_GET['lastname'], $_GET['user'], $_GET['token']);
         Redirect::to('account');
     }
 //--------------------------------------------------------------------------------------------------

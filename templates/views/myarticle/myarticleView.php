@@ -13,50 +13,134 @@
                                     Para poder subir articulos en necesario que verifiques tu cuenta. <br>
                                     Presiona el boton para reenviar el correo de verificación de cuenta.
                                 </p>
-                                <a onclick="" href="<?php echo 'account/resend?email='.$d->email.'&name='.$d->name.'&lastname='.$d->lastname.'&user='.$d->user.'&token='.$d->token; ?>"
+                                <a onclick="toastArticle();" href="<?php echo 'myarticle/resend?email='.$d->email.'&name='.$d->name.'&lastname='.$d->lastname.'&user='.$d->user.'&token='.$d->token; ?>"
                                 class="btn btn-secondary">Enviar Correo</a>
                                 <script>
-                                    function toast() {
+                                    function toastArticle() {
                                         toastr.success('Revisa tu bandeja de entrada para verificar tu cuenta', 'Correo Enviado!');
                                     }
                                 </script>
                             </div>
                         </div>
                     </div>
-                </div> <br><br>
-            <?php else: ?>
+                </div> 
+            <?php else: ?> 
+                <div class="row row-cols-auto">
+                    <div class="col ">
+                        <h3>Panel de Control</h3>
+                    </div>
+                    <div class="col align-self-end">
+                        <button type="button" class="btn btn-success">Nuevo</button>
+                    </div>
+                </div>
                 <div class="row">
                     <div class="col-md-12">
-                        <ul class="nav nav-pills">
-                            <li class="nav-item">
-                                <h3>Panel de Control</h3>
-                            </li>
-                            <li class="nav-item">
-                                <h3>‎      ‏‏‎‎      ‏‏‎‎      ‏‏‎‎   </h3>
-                            </li>
-                            <li class="nav-item">
-                                <button type="button" class="btn btn-success">Nuevo</button>
-                            </li>
-                            <li class="nav-item">
-                                <h3>‎      ‏‏‎‎  </h3>
-                            </li>
-                            <li class="nav-item">
-                                <button type="button" class="btn btn-warning">Editar</button>
-                            </li>
-                            <li class="nav-item">
-                                <h3>‎      ‏‏‎‎  </h3>
-                            </li>
-                            <li class="nav-item">
-                                <button type="button" class="btn btn-danger">Eliminar</button>
-                            </li>
-                        </ul>
                         <hr>
                     </div>
                 </div>
+                
+                <div class="b-example-divider"><br></div>
+                <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 g-4 justify-content-center">
+                    <div class="col">
+                        <div class="card shadow">
+                            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false">
+                                <title>Placeholder</title>
+                                <rect width="100%" height="100%" fill="#55595c"/>
+                                <text x="38%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text>
+                            </svg>
+                            <div class="card-body">
+                                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-sm btn-outline-primary">View</button>
+                                    <button type="button" class="btn btn-sm btn-outline-dark">Edit</button>
+                                    <button type="button" class="btn btn-sm btn-outline-danger">Delete</button>
+                                </div>
+                                <small class="text-muted">9 mins</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card shadow">
+                            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false">
+                                <title>Placeholder</title>
+                                <rect width="100%" height="100%" fill="#55595c"/>
+                                <text x="38%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text>
+                            </svg>
+                            <div class="card-body">
+                                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-sm btn-outline-primary">View</button>
+                                    <button type="button" class="btn btn-sm btn-outline-dark">Edit</button>
+                                    <button type="button" class="btn btn-sm btn-outline-danger">Delete</button>
+                                </div>
+                                <small class="text-muted">9 mins</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card shadow">
+                            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false">
+                                <title>Placeholder</title>
+                                <rect width="100%" height="100%" fill="#55595c"/>
+                                <text x="38%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text>
+                            </svg>
+                            <div class="card-body">
+                                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-sm btn-outline-primary">View</button>
+                                    <button type="button" class="btn btn-sm btn-outline-dark">Edit</button>
+                                    <button type="button" class="btn btn-sm btn-outline-danger">Delete</button>
+                                </div>
+                                <small class="text-muted">9 mins</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card shadow">
+                            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false">
+                                <title>Placeholder</title>
+                                <rect width="100%" height="100%" fill="#55595c"/>
+                                <text x="38%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text>
+                            </svg>
+                            <div class="card-body">
+                                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-sm btn-outline-primary">View</button>
+                                    <button type="button" class="btn btn-sm btn-outline-dark">Edit</button>
+                                    <button type="button" class="btn btn-sm btn-outline-danger">Delete</button>
+                                </div>
+                                <small class="text-muted">9 mins</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div> 
 
+                <div class="b-example-divider"><br></div>
                 <div class="row">
-                    <div class="col-md-12">
-                        
+                    <div class="container">
+                        <div class="col">
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination justify-content-center">
+                                <li class="page-item disabled">
+                                <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+                                </li>
+                                <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                <li class="page-item">
+                                <a class="page-link" href="#">Next</a>
+                                </li>
+                            </ul>
+                        </nav>
+                        </div>
                     </div>
                 </div>
             <?php endif; ?>

@@ -252,6 +252,15 @@
         }
     }
 //--------------------------------------------------------------------------------------------------
+    function resendEmail($email, $name, $lastname, $user, $token) {
+        SendEmails::send(
+            $email, 
+            $email.' '.$lastname, 
+            'Verifica tu Cuenta', 
+            'Hola <strong>'.$user.'</strong> Gracias por Registrate! <br>'.
+            URL.'account/active?token='.$token);
+    }
+
     function recoverPassword($id) {
         if(isset($_POST['submitRecover'])) {
             try {
