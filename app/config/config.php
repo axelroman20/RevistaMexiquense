@@ -74,3 +74,4 @@
     define('EMAIL_PASS', 'Revista123');
     define('EMAIL_SMTP', 'smtp.hostinger.mx');
     define('EMAIL_PORT', '587');
+    define('EMAIL_NAME', 'RevistaGCM');

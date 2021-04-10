@@ -100,6 +100,7 @@
                 <input required type="email" class="form-control" id="recipient-email" name="email-update">
             </div>
         </form>
+        <?php echo Flasher::flash();?>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cerrar</button>

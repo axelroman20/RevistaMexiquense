@@ -9,6 +9,9 @@ class usersModel extends Model {
     public $pass_noencrypt;
     public $email;
     public $carrer;
+    public $token;
+    public $token_pass;
+    public $active;
     public $data;
     
     /**
@@ -32,7 +35,7 @@ class usersModel extends Model {
      * @return void
      */
     public function add() {
-        $sql = 'INSERT INTO users (id, rol, name, lastname, user, pass, pass_noencrypt, email, carrer) VALUES (:id, :rol, :name, :lastname, :user, :pass, :pass_noencrypt, :email, :carrer)';
+        $sql = 'INSERT INTO users (id, rol, name, lastname, user, pass, pass_noencrypt, email, carrer, token) VALUES (:id, :rol, :name, :lastname, :user, :pass, :pass_noencrypt, :email, :carrer, :token)';
         $registro = [
             'id'             => $this->id,
             'rol'            => $this->rol,
@@ -42,7 +45,8 @@ class usersModel extends Model {
             'pass'           => $this->pass,
             'pass_noencrypt' => $this->pass_noencrypt,
             'email'          => $this->email,
-            'carrer'         => $this->carrer
+            'carrer'         => $this->carrer,
+            'token'          => $this->token
         ];
 
         try {
@@ -78,7 +82,7 @@ class usersModel extends Model {
             'email' => $this->email,
         ];
         try {
-            return ($this->data = parent::query($sql, $params) ? true : false);
+            return ($this->data = parent::query($sql, $params));
         } catch (Exception $e) {
             throw $e;
         }

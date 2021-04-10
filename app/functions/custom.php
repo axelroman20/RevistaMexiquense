@@ -3,8 +3,8 @@
     function login() {
         $errorLogin = "";
         if(isset($_POST['submitLogin'])) {
-            $user = $_POST['user'];
-            $pass = $_POST['pass'];
+            $user = filter($_POST['user']);
+            $pass = filter($_POST['pass']);
             if(empty($user)) {
                 $errorLogin .= "
                     <script>
@@ -47,12 +47,13 @@
         if(isset($_POST['submitRegister'])) {
             $id       = ''.dechex(rand(0x000000, 0xFFFFFF));
             $rol      = 0;
-            $name     = $_POST['name'];
-            $lastname = $_POST['lastname'];
-            $email    = $_POST['email'];
-            $user     = $_POST['user'];
-            $pass     = $_POST['pass'];
-            $carrer   = $_POST['carrer'];
+            $name     = filter($_POST['name']);
+            $lastname = filter($_POST['lastname']);
+            $email    = filter($_POST['email']);
+            $user     = filter($_POST['user']);
+            $pass     = filter($_POST['pass']);
+            $carrer   = filter($_POST['carrer']);
+            $token    = sha1(rand(0,1000));
 
             if(empty($name)) {
                 $errorRegister .= "
@@ -109,6 +110,7 @@
                     $users->pass_noencrypt = $pass;
                     $users->email          = $email;
                     $users->carrer         = $carrer;
+                    $users->token          = $token;
                     $users->searchEmail();
                     if($users->data) {
                         $errorRegister .= 'Correo Elctronico ya en uso! <br>';
@@ -140,8 +142,8 @@
         if(isset($_POST['submitUpdateName'])) {
             try {
                 $users = new usersModel();
-                $users->name = $_POST['name-update'];
-                $users->lastname = $_POST['lastname-update'];
+                $users->name = filter($_POST['name-update']);
+                $users->lastname = filter($_POST['lastname-update']);
                 $users->id = $id;
                 $users->updateNames();
                 Redirect::to('account');
@@ -155,7 +157,7 @@
         if(isset($_POST['submitUpdateUser'])) {
             try {
                 $users = new usersModel();
-                $users->user = $_POST['user-update'];
+                $users->user = filter($_POST['user-update']);
                 $users->id = $id;
                 $users->updateUsers();
                 Redirect::to('account');
@@ -169,8 +171,8 @@
         if(isset($_POST['submitUpdatePass'])) {
             try {
                 $users = new usersModel();
-                $users->pass = sha1($_POST['pass-update']);
-                $users->pass_noencrypt = $_POST['pass-update'];
+                $users->pass = sha1(filter($_POST['pass-update']));
+                $users->pass_noencrypt = filter($_POST['pass-update']);
                 $users->id = $id;
                 $users->searchPassword();
                 if($users->data) {
@@ -191,10 +193,15 @@
         if(isset($_POST['submitUpdateEmail'])) {
             try {
                 $users = new usersModel();
-                $users->email = $_POST['email-update'];
+                $users->email = filter($_POST['email-update']);
                 $users->id = $id;
-                $users->updateEmails();
-                Redirect::to('account');
+                $users->searchEmail();
+                    if($users->data) {
+                        flasher::new('Correo Electronico ya en Uso!!!'  , 'danger');
+                    } else {
+                        $users->updateEmails();
+                        Redirect::to('account');
+                    }
             } catch (Exception $e) {
                 echo $e->getMessage();
             } 
@@ -205,7 +212,7 @@
         if(isset($_POST['submitUpdateCarrer'])) {
             try {
                 $users = new usersModel();
-                $users->carrer = $_POST['carrer-update'];
+                $users->carrer = filter($_POST['carrer-update']);
                 $users->id = $id;
                 if($_POST['carrer-update'] != 'Selecciona') {
                     $users->updateCarrers();
@@ -221,10 +228,14 @@
         if(isset($_POST['submitRecover'])) {
             try {
                 $users = new usersModel();
-                $users->email = $_POST['email'];
+                $users->email = filter($_POST['email']);
                 $users->searchEmail();
                 if($users->data) {
-                    echo $_POST['email'];
+                    SendEmails::send(
+                        $users->data[0]['email'], 
+                        $users->data[0]['name'].' '.$users->data[0]['lastname'], 
+                        'Recuperación de Contraseña', 
+                        'Aqui estaria un link o la contraseña');
                 }
             } catch (Exception $e) {
                 echo $e->getMessage();
@@ -236,8 +247,8 @@
         if(isset($_POST['submitRestore'])) {
             try {
                 $users = new usersModel();
-                $users->pass = sha1($_POST['restore-pass']);
-                $users->pass_noencrypt = $_POST['restore-pass'];
+                $users->pass = sha1(filter($_POST['restore-pass']));
+                $users->pass_noencrypt = filter($_POST['restore-pass']);
                 $users->id = $id;
                 if($_POST['restore-pass'] === $_POST['restore-repitpass']) {
                     $users->updatePasswords();

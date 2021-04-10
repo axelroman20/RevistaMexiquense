@@ -12,6 +12,13 @@
         return date('Y-m-d H:i:s');
     }
 
+    function filter($data) {
+        $data = trim($data);
+        $data = stripslashes($data);
+        $data = htmlspecialchars($data);
+        return $data;
+    }
+
     function close() {
         session_start();
         session_destroy();

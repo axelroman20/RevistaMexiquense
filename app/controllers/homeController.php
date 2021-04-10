@@ -8,7 +8,6 @@ class homeController extends Controller {
     function index() {
         $errorLogin = login();
         $errorRegister = register();
-
         $data = [
             'title' => 'Bienvenido', 
             'errorLogin' => $errorLogin,
