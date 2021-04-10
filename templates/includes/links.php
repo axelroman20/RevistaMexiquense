@@ -1,3 +1,4 @@
+<link rel="shortcut icon" type="image/jpg" href="<?php echo IMAGES.'icono.png'?>"/>
 <!-- Main -->
 <link rel="stylesheet" href="<?php echo CSS.'style.css'?>">
 <!-- Bootstrap -->
