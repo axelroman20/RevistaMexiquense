@@ -16,7 +16,7 @@
 
     // Puerto y URL del sitio
     define('PORT'       , '80');
-    define('URL'        , IS_LOCAL ? 'http://127.0.0.1:'.PORT.BASEPATH : 'http://192.168.88.222:'.BASEPATH);
+    define('URL'        , IS_LOCAL ? 'http://127.0.0.1:'.PORT.BASEPATH : 'http://192.168.88.222'.BASEPATH);
 
     // Las rutas de directorios y archivos
     define('DS'         , DIRECTORY_SEPARATOR);

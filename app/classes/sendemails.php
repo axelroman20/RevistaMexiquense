@@ -19,7 +19,7 @@ class SendEmails {
 
         try {
             //Server settings
-            $mail->SMTPDebug = 2;                                              //Enable verbose debug output
+            $mail->SMTPDebug = 0;                                              //Enable verbose debug output
             $mail->isSMTP();                                                   //Send using SMTP
             $mail->CharSet    = "UTF-8";
             $mail->Host       = $email_smtp;                                    //Set the SMTP server to send through

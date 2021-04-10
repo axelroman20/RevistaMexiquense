@@ -1,3 +1,6 @@
+//$('body').waitMe({ effect : 'ios' });
+
+
 if(document.querySelector('#login-btn-open-popup')){
   var btnOpenPopupLogin = document.querySelector('#login-btn-open-popup'),
   overlayLogin = document.querySelector('#login-overlay'),

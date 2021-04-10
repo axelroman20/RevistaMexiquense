@@ -30,6 +30,7 @@
                             $_SESSION['user'] = $users->user;
                             $_SESSION['id']   = $users->data[0]['id'];
                             Redirect::to(CONTROLLER);
+                            
                         }
                     } else {
                         $errorLogin .= 'Usuario o Contraseña Incorrecta <br>';
@@ -154,13 +155,17 @@
                 $users->lastname = filter($_POST['lastname-update']);
                 $users->id = $id;
                 $users->updateNames();
-                Redirect::to('account');
+                if($users->data) {
+                    return "toastr.success('Nombre y Apellido Actualizado', 'Datos Guardados!');";
+                    Redirect::to('account');
+                }
+                
             } catch (Exception $e) {
                 echo $e->getMessage();
             } 
         }
     }
-//--------------------------------------------------------------------------------------------------
+
     function updateUser($id) { 
         if(isset($_POST['submitUpdateUser'])) {
             try {
@@ -168,14 +173,18 @@
                 $users->user = filter($_POST['user-update']);
                 $users->id = $id;
                 $users->updateUsers();
-                Redirect::to('account');
+                if($users->data) {
+                    return "toastr.success('Usuario Actualizado', 'Datos Guardados!');";
+                    Redirect::to('account');
+                }
             } catch (Exception $e) {
                 echo $e->getMessage();
             } 
         }
     }
-//--------------------------------------------------------------------------------------------------
+
     function updatePass($id) {
+        $toasts = '';
         if(isset($_POST['submitUpdatePass'])) {
             try {
                 $users = new usersModel();
@@ -188,16 +197,22 @@
                         $users->pass = sha1($_POST['passnew-update']);
                         $users->pass_noencrypt = $_POST['passnew-update'];
                         $users->updatePasswords();
+                        return "toastr.success('Contraseña Actualizado', 'Datos Guardados!');";
                         Redirect::to('account');
+                    } else {
+                        return "toastr.error('', 'Contraseñas no coinciden!');";
                     }
-                } 
+                } else {
+                    return "toastr.error('', 'Contraseña Actual Incorrecta');";
+                }
             } catch (Exception $e) {
                 echo $e->getMessage();
             } 
         }
     }
-//--------------------------------------------------------------------------------------------------
+
     function updateEmail($id) {
+        $toasts = '';
         if(isset($_POST['submitUpdateEmail'])) {
             try {
                 $users = new usersModel();
@@ -205,9 +220,10 @@
                 $users->id = $id;
                 $users->searchEmail();
                     if($users->data) {
-                        flasher::new('Correo Electronico ya en Uso!!!'  , 'danger');
+                        return "toastr.error('', 'Correo Electronico Ya Existente!');";
                     } else {
                         $users->updateEmails();
+                        return "toastr.success('Correo Electronico Actualizado', 'Datos Guardados!');";
                         Redirect::to('account');
                     }
             } catch (Exception $e) {
@@ -215,16 +231,20 @@
             } 
         }
     }
-//--------------------------------------------------------------------------------------------------
+
     function updateCarrer($id) {
+        $toasts = '';
         if(isset($_POST['submitUpdateCarrer'])) {
             try {
                 $users = new usersModel();
-                $users->carrer = filter($_POST['carrer-update']);
+                $users->carrer = $_POST['carrer-update'];
                 $users->id = $id;
                 if($_POST['carrer-update'] != 'Selecciona') {
                     $users->updateCarrers();
+                    return "toastr.success('Carrera Actualizada', 'Datos Guardados!');";
                     Redirect::to('account');
+                } else {
+                    return "toastr.error('', 'Carrera Error!');";
                 }
             } catch (Exception $e) {
                 echo $e->getMessage();
@@ -236,37 +256,67 @@
         if(isset($_POST['submitRecover'])) {
             try {
                 $users = new usersModel();
-                $users->email = filter($_POST['email']);
+                $users->email = $_POST['email'];
                 $users->searchEmail();
                 if($users->data) {
                     SendEmails::send(
                         $users->data[0]['email'], 
                         $users->data[0]['name'].' '.$users->data[0]['lastname'], 
                         'Recuperación de Contraseña', 
-                        'Aqui estaria un link o la contraseña');
+                        'Hola <strong>'.$users->data[0]['user'].'</strong> Has Solcitado una Recuperacion de Contraseña <br>
+                        Porfavor Haz Click en el Link para Recuperar tu Contraseña: <br>'.
+                        URL.'account/restore_password?token='.$users->data[0]['token'].'&email='.$users->data[0]['email']);
+                    restoreRequestPassword($users->data[0]['id'], 1);
+                    return "toastr.success('Revisa tu bandeja de entrada para verificar tu cuenta', 'Correo Enviado!');";
+                } else {
+                    return "toastr.error('', 'Correo no Encontrado');";
                 }
             } catch (Exception $e) {
                 echo $e->getMessage();
             } 
         }
     }
-//--------------------------------------------------------------------------------------------------
-    function restorePassword($id) {
+
+    function restorePassword($email) {
         if(isset($_POST['submitRestore'])) {
             try {
+                $users = new usersModel();
+                $users->email = $email;
+                $users->searchEmail();
+                $id = $users->data[0]['id'];
                 $users = new usersModel();
                 $users->pass = sha1(filter($_POST['restore-pass']));
                 $users->pass_noencrypt = filter($_POST['restore-pass']);
                 $users->id = $id;
                 if($_POST['restore-pass'] === $_POST['restore-repitpass']) {
                     $users->updatePasswords();
+                    if($users->data) {
+                        restoreRequestPassword($id, 0);
+                        return "toastr.success('Contraseña Actualizada', 'Datos Guardados!');";
+                    } else {
+                        
+                    return "toastr.error('', 'Contraseña Error!');";
+                    }
+                } else {
+                    return "toastr.error('', 'Contraseñas no Coinciden!');";
                 }
             } catch (Exception $e) {
                 echo $e->getMessage();
             } 
         }
     }
-//--------------------------------------------------------------------------------------------------
+    
+    function restoreRequestPassword($id, $value) {
+        try {
+            $users = new usersModel();
+            $users->password_request = $value;
+            $users->id = $id;
+            $users->requestPassword();
+        } catch (Exception $e) {
+            echo $e->getMessage();
+        } 
+    }
+
     function statusAccount() {
         if(isset($_SESSION['user'])) {
             try {
@@ -289,10 +339,26 @@
                 $users->active = 1;
                 $users->id = $id;
                 $users->updateActive();
+            } catch (Exception $e) {
+                echo $e->getMessage();
+            } 
+        }
+    }
+
+    function statusRequestPassword() {
+        if(isset($_GET['token'])) {
+            try {
+                $users = new usersModel();
+                $users->email = $_GET['email'];
+                $users->searchEmail();
                 if($users->data) {
+                    return $users->data[0]['password_request']; 
                 }
             } catch (Exception $e) {
                 echo $e->getMessage();
             } 
         }
     }
+
+//--------------------------------------------------------------------------------------------------
+ 

@@ -4,7 +4,7 @@
             <a href="#" id="login-btn-close-popup" class="login-btn-close-popup"><i class="fa fa-times" aria-hidden="true"></i></a>
             <img src="<?php echo IMAGES.'icono.png';?>" class="login-avatar" alt="Avatar Image">
             <h1>Inicio de Sesión</h1>
-            <form method="post">
+            <form method="post" class="needs-validation" novalidate>
                 <!-- Usuario -->
                 <label class="labeluser_login" for="username" >Usuario</label>
                 <input class="inputuser_login" type="text" name="user" placeholder="Ingresar Usuario">

@@ -2,18 +2,19 @@
 
 class accountController{
     function __construct() {
-
+        
     }
 //--------------------------------------------------------------------------------------------------
     function index() {
         if(!isset($_SESSION['user'])){
             Redirect::to('home');
         }
+         $toasts = "";
         $users = loadSetting();
-        updateName($users->data[0]['id']);
-        updatePass($users->data[0]['id']);
-        updateEmail($users->data[0]['id']);
-        updateCarrer($users->data[0]['id']);
+         $toasts .= updateName($users->data[0]['id']);
+         $toasts .= updatePass($users->data[0]['id']);
+         $toasts .= updateEmail($users->data[0]['id']);
+         $toasts .= updateCarrer($users->data[0]['id']);
         $active = statusAccount();
         $data = [
             'title'           => 'Mi Cuenta',
@@ -27,7 +28,8 @@ class accountController{
             'email'           => $users->data[0]['email'],
             'carrer'          => $users->data[0]['carrer'],
             'token'           => $users->data[0]['token'],
-            'active'          => $active
+            'active'          => $active,
+            'toast'           => $toasts
         ];
         View::render('account', $data);
     }
@@ -35,11 +37,7 @@ class accountController{
     function recover_password() {
         $errorLogin = login();
         $errorRegister = register();
-        $data = [
-            'title'         => 'Recuperar Contraseña', 
-            'errorLogin'    => $errorLogin,
-            'errorRegister' => $errorRegister
-        ];
+        $toasts = "";
         if(isset($_SESSION['user'])) {
             $users = loadSetting();
             $data = [
@@ -47,19 +45,33 @@ class accountController{
                 'errorLogin'      => $errorLogin,
                 'errorRegister'   => $errorRegister,
                 'email'           => $users->data[0]['email'],
+                'toast'           => $toasts
             ];
         }
-        recoverPassword(isset($users->data[0]['id']) ? $users->data[0]['id'] : 'void');
+        $toasts = recoverPassword(isset($users->data[0]['id']) ? $users->data[0]['id'] : 'void');
+        $data = [
+            'title'         => 'Recuperar Contraseña', 
+            'errorLogin'    => $errorLogin,
+            'errorRegister' => $errorRegister,
+            'toast'         => $toasts
+        ];
         View::render('recoverPassword', $data);
     }
 //--------------------------------------------------------------------------------------------------
     function restore_password() {
-        if(!isset($_SESSION['user'])){
+        $request = statusRequestPassword();
+        if($request == 0) {
             Redirect::to('home');
         }
-        $users = loadSetting();
-        $data = ['title' => 'Restablecer Contraseña'];
-        restorePassword($users->data[0]['id']);
+        $toasts = '';
+        if(isset($_SESSION['user'])){
+            $users = loadSetting();
+        }
+        $toasts = restorePassword(isset($_SESSION['user'])? $users->data[0]['email'] : $_GET['email']);
+        $data = [
+            'title' => 'Restablecer Contraseña',
+            'toast' => $toasts
+        ];
         View::render('restorePassword', $data);
     }
 //--------------------------------------------------------------------------------------------------
@@ -107,6 +119,9 @@ class accountController{
     function close() {
         close();
     }
-    
+//--------------------------------------------------------------------------------------------------
+    function test() {
+        View::render('test');
+    }
     
 }

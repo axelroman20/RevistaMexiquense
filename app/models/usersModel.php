@@ -10,7 +10,7 @@ class usersModel extends Model {
     public $email;
     public $carrer;
     public $token;
-    public $token_pass;
+    public $requestPassword;
     public $active;
     public $data;
     
@@ -197,7 +197,7 @@ class usersModel extends Model {
      * @return void
      */
     public function updateCarrers() {
-        $sql = 'UPDATE users SET active = :active WHERE id=:id';
+        $sql = 'UPDATE users SET carrer = :carrer WHERE id=:id';
         $params = [
             'carrer' => $this->carrer,
             'id'   => $this->id
@@ -217,6 +217,23 @@ class usersModel extends Model {
         $sql = 'UPDATE users SET active = :active WHERE id = :id';
         $params = [
             'active' => $this->active,
+            'id'   => $this->id
+        ];
+        try {
+            return ($this->data = parent::query($sql, $params));
+        } catch (Exception $e) {
+            throw $e;
+        }
+    }
+
+    /**
+     * Metodo para actualizar el password_request de cuenta 
+     * @return void
+     */
+    public function requestPassword() {
+        $sql = 'UPDATE users SET password_request = :password_request WHERE id = :id';
+        $params = [
+            'password_request' => $this->password_request,
             'id'   => $this->id
         ];
         try {

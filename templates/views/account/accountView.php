@@ -10,8 +10,13 @@
                         <div class="card-body">
                             <h5 class="card-title">Cuenta no verificada!</h5>
                             <p class="card-text">Presiona el boton para reenviar el correo de verificacion de cuenta.</p>
-                            <a href="<?php echo 'account/resend?email='.$d->email.'&name='.$d->name.'&lastname='.$d->lastname.'&user='.$d->user.'&token='.$d->token; ?>" class="btn btn-secondary">Enviar Correo</a>
-                            
+                            <a onclick="" href="<?php echo 'account/resend?email='.$d->email.'&name='.$d->name.'&lastname='.$d->lastname.'&user='.$d->user.'&token='.$d->token; ?>"
+                             class="btn btn-secondary">Enviar Correo</a>
+                             <script>
+                                 function toast() {
+                                    toastr.success('Revisa tu bandeja de entrada para verificar tu cuenta', 'Correo Enviado!');
+                                 }
+                             </script>
                         </div>
                     </div>
                 </div>
