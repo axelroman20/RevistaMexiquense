@@ -100,24 +100,32 @@
             if(empty($errorRegister)) {
                 try {
                     $users = new usersModel();
-                    $users->id             = $id;
-                    $users->rol            = $rol;
-                    $users->name           = $name;
-                    $users->lastname       = $lastname;
-                    $users->user           = $user;
-                    $passSha1              = sha1($pass);
-                    $users->pass           = $passSha1;
-                    $users->pass_noencrypt = $pass;
-                    $users->email          = $email;
-                    $users->carrer         = $carrer;
-                    $users->token          = $token;
+                    $users->email = $email;
                     $users->searchEmail();
                     if($users->data) {
                         $errorRegister .= 'Correo Elctronico ya en uso! <br>';
                     } else {
+                        $users->id             = $id;
+                        $users->rol            = $rol;
+                        $users->name           = $name;
+                        $users->lastname       = $lastname;
+                        $users->user           = $user;
+                        $passSha1              = sha1($pass);
+                        $users->pass           = $passSha1;
+                        $users->pass_noencrypt = $pass;
+                        $users->email          = $email;
+                        $users->carrer         = $carrer;
+                        $users->token          = $token;
                         $users->add();
                         $_SESSION['user'] = $users->user;
                         $_SESSION['id'] = $users->id;
+                        SendEmails::send(
+                            $email, 
+                            $name.' '.$lastname, 
+                            'Verifica tu Cuenta', 
+                            'Hola <strong>'.$user.'</strong> Gracias por Registrate! <br>'.
+                            URL.'account/active?token='.$token);
+  
                     }
                 } catch (Exception $e) {
                     echo $e->getMessage();
@@ -252,6 +260,36 @@
                 $users->id = $id;
                 if($_POST['restore-pass'] === $_POST['restore-repitpass']) {
                     $users->updatePasswords();
+                }
+            } catch (Exception $e) {
+                echo $e->getMessage();
+            } 
+        }
+    }
+//--------------------------------------------------------------------------------------------------
+    function statusAccount() {
+        if(isset($_SESSION['user'])) {
+            try {
+                $users = new usersModel();
+                $users->user = $_SESSION['user'];
+                $users->searchUser();
+                if($users->data) {
+                    return $users->data[0]['active']; 
+                }
+            } catch (Exception $e) {
+                echo $e->getMessage();
+            } 
+        }
+    }
+
+    function activeAccount($id) {
+        if(isset($_SESSION['user'])) {
+            try {
+                $users = new usersModel();
+                $users->active = 1;
+                $users->id = $id;
+                $users->updateActive();
+                if($users->data) {
                 }
             } catch (Exception $e) {
                 echo $e->getMessage();

@@ -35,7 +35,8 @@ class usersModel extends Model {
      * @return void
      */
     public function add() {
-        $sql = 'INSERT INTO users (id, rol, name, lastname, user, pass, pass_noencrypt, email, carrer, token) VALUES (:id, :rol, :name, :lastname, :user, :pass, :pass_noencrypt, :email, :carrer, :token)';
+        $sql = 'INSERT INTO users (id, rol, name, lastname, user, pass, pass_noencrypt, email, carrer, token, active) 
+                VALUES (:id, :rol, :name, :lastname, :user, :pass, :pass_noencrypt, :email, :carrer, :token, :active)';
         $registro = [
             'id'             => $this->id,
             'rol'            => $this->rol,
@@ -46,7 +47,8 @@ class usersModel extends Model {
             'pass_noencrypt' => $this->pass_noencrypt,
             'email'          => $this->email,
             'carrer'         => $this->carrer,
-            'token'          => $this->token
+            'token'          => $this->token,
+            'active'         => 0
         ];
 
         try {
@@ -195,13 +197,30 @@ class usersModel extends Model {
      * @return void
      */
     public function updateCarrers() {
-        $sql = 'UPDATE users SET carrer = :carrer WHERE id=:id';
+        $sql = 'UPDATE users SET active = :active WHERE id=:id';
         $params = [
             'carrer' => $this->carrer,
             'id'   => $this->id
         ];
         try {
             return ($this->data = parent::query($sql, $params) ? true : false);
+        } catch (Exception $e) {
+            throw $e;
+        }
+    }
+
+     /**
+     * Metodo para actualizar el estado de cuenta 
+     * @return void
+     */
+    public function updateActive() {
+        $sql = 'UPDATE users SET active = :active WHERE id = :id';
+        $params = [
+            'active' => $this->active,
+            'id'   => $this->id
+        ];
+        try {
+            return ($this->data = parent::query($sql, $params));
         } catch (Exception $e) {
             throw $e;
         }

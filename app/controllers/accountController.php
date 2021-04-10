@@ -14,6 +14,7 @@ class accountController{
         updatePass($users->data[0]['id']);
         updateEmail($users->data[0]['id']);
         updateCarrer($users->data[0]['id']);
+        $active = statusAccount();
         $data = [
             'title'           => 'Mi Cuenta',
             'id'              => $users->data[0]['id'],
@@ -24,7 +25,9 @@ class accountController{
             'pass'            => $users->data[0]['pass'],
             'pass_noencrypt'  => $users->data[0]['pass_noencrypt'],
             'email'           => $users->data[0]['email'],
-            'carrer'          => $users->data[0]['carrer']
+            'carrer'          => $users->data[0]['carrer'],
+            'token'           => $users->data[0]['token'],
+            'active'          => $active
         ];
         View::render('account', $data);
     }
@@ -60,6 +63,35 @@ class accountController{
         View::render('restorePassword', $data);
     }
 //--------------------------------------------------------------------------------------------------
+    function active() {
+        if(!isset($_SESSION['user'])){
+            Redirect::to('home');
+        }
+        $active = statusAccount();
+        $data = [
+            'title'  => 'Restablecer Contraseña',
+            'token'  => $_GET['token'],
+            'active' => $active
+        ];
+        if($active == 0) {
+            activeAccount($_SESSION['id']);
+        }
+        View::render('active', $data);
+    }
+
+    function resend() {
+        SendEmails::send(
+            $_GET['email'], 
+            $_GET['name'].' '.$_GET['lastname'], 
+            'Verifica tu Cuenta', 
+            'Hola <strong>'.$_GET['user'].'</strong> Gracias por Registrate! <br>'.
+            URL.'account/active?token='.$_GET['token']);
+        Redirect::to('account');
+    }
+//--------------------------------------------------------------------------------------------------
+    function back() {
+        Redirect::to('account');
+    }
     function home() {
         Redirect::to('home');
     }
