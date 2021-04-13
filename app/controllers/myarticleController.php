@@ -10,9 +10,9 @@ class myarticleController {
             Redirect::to('home');
         }
         $toasts = "";
-        $users = loadSetting();
-
+        $users  = loadSetting();
         $active = statusAccount();
+        $posts  = getPost(4);
         $data = [
             'title'           => 'Mi Cuenta',
             'id'              => $users->data[0]['id'],
@@ -25,6 +25,7 @@ class myarticleController {
             'email'           => $users->data[0]['email'],
             'carrer'          => $users->data[0]['carrer'],
             'token'           => $users->data[0]['token'],
+            'posts'           => $posts,
             'active'          => $active,
             'toast'           => $toasts
         ];

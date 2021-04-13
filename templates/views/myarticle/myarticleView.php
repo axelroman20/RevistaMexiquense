@@ -30,7 +30,7 @@
                         <h3>Panel de Control</h3>
                     </div>
                     <div class="col align-self-end">
-                        <button type="button" class="btn btn-success">Nuevo</button>
+                        <button type="button" class="btn btn-success"><i class="fas fa-plus"></i>&nbsp;&nbsp;Nuevo Articulo</button>
                     </div>
                 </div>
                 <div class="row">
@@ -40,109 +40,39 @@
                 </div>
                 
                 <div class="b-example-divider"><br></div>
-                <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 g-4 justify-content-center">
-                    <div class="col">
+                <div class="row justify-content-center">
+                <?php foreach ($d->posts as $post) : ?>
+                    <div class="col-md-6 col-lg-4 col-xl-3 g-4">
                         <div class="card shadow">
-                            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false">
-                                <title>Placeholder</title>
-                                <rect width="100%" height="100%" fill="#55595c"/>
-                                <text x="38%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text>
-                            </svg>
+                            <img src="<?php echo IMAGES. $post->thumb; ?>" class="card-img-top" alt="..." width="100%" height="225">
                             <div class="card-body">
-                                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                                <div class="d-flex justify-content-between align-items-center">
-                                <div class="btn-group">
-                                    <button type="button" class="btn btn-sm btn-outline-primary">View</button>
-                                    <button type="button" class="btn btn-sm btn-outline-dark">Edit</button>
-                                    <button type="button" class="btn btn-sm btn-outline-danger">Delete</button>
+                                <h5 class="card-title"><?php echo $post->title; ?> </h5>
+                                <p class="card-text"><?php echo $post->description; ?></p>
+                                <?php if($d->rol == 1): ?>
+                                    <p class="card-text d-flex justify-content-end">
+                                    <small class="text-muted">
+                                        <span class="badge bg-dark"><?php echo $post->user; ?></span> &nbsp
+                                        <span class="badge bg-secondary"><?php echo $post->carrer; ?></span> &nbsp
+                                    </small>
+                                </p>
+                                <?php endif; ?>
+                                <div class="justify-content-end">
+                                    <div class="btn-group">
+                                        <a href="single?id=<?php echo $post->id; ?>" class="btn btn-sm btn-outline-primary"><i class="fas fa-eye"></i> View </a>
+                                        <a href="single?id=<?php echo $post->id; ?>" class="btn btn-sm btn-outline-dark"><i class="fas fa-edit"></i> Edit </a>
+                                        <a href="single?id=<?php echo $post->id; ?>" class="btn btn-sm btn-outline-danger"><i class="fas fa-trash-alt"></i> Delete </a>
+                                    </div>
                                 </div>
-                                <small class="text-muted">9 mins</small>
-                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <p class="card-text"><small class="text-muted"><?php echo getDateFilter($post->created_at); ?></small></p>
                             </div>
                         </div>
                     </div>
-                    <div class="col">
-                        <div class="card shadow">
-                            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false">
-                                <title>Placeholder</title>
-                                <rect width="100%" height="100%" fill="#55595c"/>
-                                <text x="38%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text>
-                            </svg>
-                            <div class="card-body">
-                                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                                <div class="d-flex justify-content-between align-items-center">
-                                <div class="btn-group">
-                                    <button type="button" class="btn btn-sm btn-outline-primary">View</button>
-                                    <button type="button" class="btn btn-sm btn-outline-dark">Edit</button>
-                                    <button type="button" class="btn btn-sm btn-outline-danger">Delete</button>
-                                </div>
-                                <small class="text-muted">9 mins</small>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card shadow">
-                            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false">
-                                <title>Placeholder</title>
-                                <rect width="100%" height="100%" fill="#55595c"/>
-                                <text x="38%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text>
-                            </svg>
-                            <div class="card-body">
-                                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                                <div class="d-flex justify-content-between align-items-center">
-                                <div class="btn-group">
-                                    <button type="button" class="btn btn-sm btn-outline-primary">View</button>
-                                    <button type="button" class="btn btn-sm btn-outline-dark">Edit</button>
-                                    <button type="button" class="btn btn-sm btn-outline-danger">Delete</button>
-                                </div>
-                                <small class="text-muted">9 mins</small>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card shadow">
-                            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false">
-                                <title>Placeholder</title>
-                                <rect width="100%" height="100%" fill="#55595c"/>
-                                <text x="38%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text>
-                            </svg>
-                            <div class="card-body">
-                                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                                <div class="d-flex justify-content-between align-items-center">
-                                <div class="btn-group">
-                                    <button type="button" class="btn btn-sm btn-outline-primary">View</button>
-                                    <button type="button" class="btn btn-sm btn-outline-dark">Edit</button>
-                                    <button type="button" class="btn btn-sm btn-outline-danger">Delete</button>
-                                </div>
-                                <small class="text-muted">9 mins</small>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div> 
-
-                <div class="b-example-divider"><br></div>
-                <div class="row">
-                    <div class="container">
-                        <div class="col">
-                        <nav aria-label="Page navigation example">
-                            <ul class="pagination justify-content-center">
-                                <li class="page-item disabled">
-                                <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-                                </li>
-                                <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                <li class="page-item">
-                                <a class="page-link" href="#">Next</a>
-                                </li>
-                            </ul>
-                        </nav>
-                        </div>
-                    </div>
+                <?php endforeach; ?>
                 </div>
+
+                <?php require_once MODULES.'pagination.php'; ?>
             <?php endif; ?>
         </div>
     </section>

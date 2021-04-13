@@ -85,6 +85,6 @@
     </section>
 </main>
 <!------------------------------------------------------------------->
-<?php require_once INCLUDES.'setting.php'; ?>
+<?php require_once MODULES.'setting.php'; ?>
 <!------------------------------------------------------------------->
 <?php require_once INCLUDES.'footer.php'; ?>

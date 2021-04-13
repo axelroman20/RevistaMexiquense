@@ -6,12 +6,14 @@ class homeController  {
     }
     
     function index() {
-        $errorLogin = login();
+        $errorLogin    = login();
         $errorRegister = register();
+        $posts         = getPost(POST_PAGE);
         $data = [
-            'title' => 'Bienvenido', 
-            'errorLogin' => $errorLogin,
-            'errorRegister' => $errorRegister
+            'title'         => 'Bienvenido', 
+            'errorLogin'    => $errorLogin,
+            'errorRegister' => $errorRegister,
+            'posts'         => $posts
         ];
         View::render('main', $data);
     }

@@ -19,7 +19,7 @@ class usersModel extends Model {
      * @return bool
      */
     public function loginValidate() {
-        $sql = 'SELECT * FROM users WHERE user=:user';
+        $sql = 'SELECT * FROM users WHERE user = :user LIMIT 1';
         $params = [
             'user' => $this->user
         ];
@@ -63,7 +63,7 @@ class usersModel extends Model {
      * @return void
      */
     public function searchUser() {
-        $sql = 'SELECT * FROM users WHERE user=:user';
+        $sql = 'SELECT * FROM users WHERE user=:user LIMIT 1';
         $params = [
             'user' => $this->user,
         ];
@@ -79,7 +79,7 @@ class usersModel extends Model {
      * @return void
      */
     public function searchEmail() {
-        $sql = 'SELECT * FROM users WHERE email=:email';
+        $sql = 'SELECT * FROM users WHERE email=:email LIMIT 1';
         $params = [
             'email' => $this->email,
         ];
@@ -95,7 +95,7 @@ class usersModel extends Model {
      * @return void
      */
     public function searchPassword() {
-        $sql = 'SELECT * FROM users WHERE pass=:pass';
+        $sql = 'SELECT * FROM users WHERE pass=:pass LIMIT 1';
         $params = [
             'pass' => $this->pass,
         ];
@@ -111,7 +111,7 @@ class usersModel extends Model {
      * @return void
      */
     public function settings() {
-        $sql = 'SELECT * FROM users WHERE id=:id';
+        $sql = 'SELECT * FROM users WHERE id=:id LIMIT 1';
         $params = [
             'id' => $this->id,
         ];

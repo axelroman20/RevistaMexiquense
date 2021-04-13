@@ -370,4 +370,53 @@
     }
 
 //--------------------------------------------------------------------------------------------------
- 
+ function pageNow() {
+    return isset($_GET['p']) ? (int) $_GET['p'] : 1;
+ }
+
+ function getPost($post_page) {
+    $start = (pageNow() > 1) ? pageNow() * $post_page - $post_page : 0;
+    try {
+        $article = new articleModel();
+        $article->post_page  = $post_page;
+        $article->post_start = $start;
+        $article->getPosts();
+    } catch (Exception $e) {
+        echo $e->getMessage();
+    }
+    return $article->data;
+ }
+
+ function getPostId($id, $conexion) {
+    $resultado = $conexion->query("SELECT * FROM articulos WHERE id = $id LIMIT 1");
+    $resultado = $resultado->fetchAll();
+    return ($resultado) ? $resultado : false;
+}
+
+ function idArticle($id) {
+    return (int) filter($id);
+}
+
+function pagination($post_page) {
+    try { 
+        $article = new articleModel();
+        $article->getNumPages();
+        $data = $article->data[0][0];
+
+        $numPage = ceil($data / $post_page);
+    } catch (Exception $e) {
+        echo $e->getMessage();
+    }
+    return $numPage;
+}
+
+function getDateFilter($date) {
+    $timestamp = strtotime($date);
+    $months = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+    $day = date('d', $timestamp);
+    $month = date('m', $timestamp)-1;
+    $year = date('Y', $timestamp);
+    $date = "$day de $months[$month] del $year";
+    return $date;
+}
+

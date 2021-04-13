@@ -68,7 +68,7 @@ define('DEFAULT_ERROR_CONTROLLER', 'error');
 define('DEFAULT_METHOD'          , 'index');
 
 // Configuraciones del blog
-define('POST_PAGE', '4');
+define('POST_PAGE', '6');
 
 // Configuracion de metodos email
 define('EMAIL_USER', 'soporte@revista-gcm.live');

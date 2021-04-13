@@ -14,10 +14,10 @@
                         </div>
                     <div class="carousel-inner">
                         <div class="carousel-item active">
-                            <?php require INCLUDES.'card.php'; ?>
+                            <?php require MODULES.'card.php'; ?>
                         </div>
                         <div class="carousel-item">
-                            <?php require INCLUDES.'card.php'; ?>
+                            <?php require MODULES.'card.php'; ?>
                         </div>
                     </div>
                     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
@@ -152,8 +152,8 @@
     </main>
 <!------------------------------------------------------------------->
 <?php if(!isset($_SESSION['user'])): ?>
-    <?php require_once INCLUDES.'login.php'; ?>
-    <?php require_once INCLUDES.'register.php'; ?>
+    <?php require_once MODULES.'login.php'; ?>
+    <?php require_once MODULES.'register.php'; ?>
 <?php endif; ?>
 <!------------------------------------------------------------------->
 <?php require_once INCLUDES.'footer.php'; ?>

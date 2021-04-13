@@ -25,12 +25,6 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cerrar</button>
         <button type="submit" class="btn btn-secondary" name="submitUpdateName" form="form-name">Guardar Cambios</button>
-        <button type="submit" class="btn btn-secondary" onclick="toast();"> a</button>
-        <script>
-            function toast() {
-              toastr.success('', 'Datos Guardados!')
-            }
-        </script>
       </div>
     </div>
   </div>

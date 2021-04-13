@@ -1,19 +1,32 @@
 <?php
 
 class publicationsController {
+
     function __construct() {
         
     }
 
     function index() {
-        $errorLogin = login();
-        $errorRegister = register();
+
+        if(!isset($_SESSION['user'])) {
+            $errorLogin    = login();
+            $errorRegister = register();
+        } else {
+            $errorLogin    = '';
+            $errorRegister = '';
+        }
         
+        $posts = getPost(POST_PAGE);
+        $numPages = pagination(POST_PAGE);
+
         $data = [
-            'title' => 'Publicaciones', 
-            'errorLogin' => $errorLogin,
-            'errorRegister' => $errorRegister
+            'title'         => 'Publicaciones', 
+            'errorLogin'    => $errorLogin,
+            'errorRegister' => $errorRegister,
+            'posts'         => $posts,
+            'numPage'       => $numPages
         ];
+
         View::render('publications', $data);
     }
 

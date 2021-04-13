@@ -22,6 +22,107 @@ a {
   color: #28afb0;
 }
 
+
+
+.btn-primary {
+  background: #1f92c4 !important;
+}
+.btn-secondary {
+  background: #757575 !important;
+}
+.btn-success {
+  background: #1da74b !important;
+}
+.btn-danger {
+  background: #bf2020 !important;
+}
+.btn-warning {
+  background: #d8bc1c !important;
+  border: 1px solid #d8bc1c !important;
+  color: #fff !important;
+}
+.btn-info {
+  background: #01baef !important;
+  color: #fff !important;
+}
+.btn-light {
+  background: #f2f2f2 !important;
+}
+.btn-dark {
+  background: #000 !important;
+}
+
+
+
+.btn-outline-primary {
+  border: 1px solid #1f92c4 !important;
+  color: #1f92c4 !important;
+}
+.btn-outline-secondary {
+  border: 1px solid #757575 !important;
+  color: #757575 !important;
+}
+.btn-outline-success {
+  border: 1px solid #1da74b !important;
+  color: #1da74b !important;
+}
+.btn-outline-danger {
+  border: 1px solid #bf2020 !important;
+  color: #bf2020 !important;
+}
+.btn-warning {
+  border: 1px solid #d8bc1c !important;
+  color: #d8bc1c !important;
+}
+.btn-outline-info {
+  border: 1px solid #01baef !important;
+  color: #01baef !important;
+}
+.btn-outline-light {
+  border: 1px solid #f2f2f2 !important;
+  color: #f2f2f2 !important;
+}
+.btn-outline-dark {
+  border: 1px solid #000 !important;
+  color: #000 !important;
+}
+
+
+.btn-outline-primary:hover {
+  background: #1f92c4 !important;
+  color: #fff !important;
+}
+.btn-outline-secondary:hover {
+  background: #757575 !important;
+  color: #fff !important;
+}
+.btn-outline-success:hover {
+  background: #1da74b !important;
+  color: #fff !important;
+}
+.btn-outline-danger:hover {
+  background: #bf2020 !important;
+  color: #fff !important;
+}
+.btn-warning:hover {
+  background: #d8bc1c !important;
+  color: #f2f2f2 !important;
+}
+.btn-outline-info:hover {
+  background: #01baef !important;
+  color: #fff !important;
+}
+.btn-outline-light:hover {
+  background: #f2f2f2 !important;
+  color: #fff !important;
+}
+.btn-outline-dark:hover {
+  background: #000 !important;
+  color: #fff !important;
+}
+
+
+
 /*///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
 
 /*-----------------------------------------HEADER-------------------------------------------------------*/
@@ -63,7 +164,7 @@ header {
 .search-btn {
   color: #248caf !important;
   text-align: center;
-  float: right;
+  float: left;
   width: 40px;
   height: 40px;
   padding: 5px;
@@ -91,7 +192,7 @@ header {
 }
 .search-box:hover > .search-btn {
   background: transparent;
-  color: #248caf;
+  color: #35b6e0;
 }
 
 /*-- MENU --*/
