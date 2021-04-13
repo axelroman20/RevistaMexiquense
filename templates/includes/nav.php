@@ -38,6 +38,8 @@
             <li class="nav-item">
                 <?php if(METHOD == 'recover_password'): ?>
                 <?php elseif(METHOD == 'restore_password'): ?>
+                <?php elseif(METHOD == 'new'): ?>
+                <?php elseif(METHOD == 'edit'): ?>
                 <?php else: ?>
                     <a class="nav-link" href="<?php echo CONTROLLER.'/close'; ?>">Cerrar Sesion</a>
                 <?php endif; ?>

@@ -11,7 +11,11 @@
                     </li>
                 <?php else: ?>
                     <li class="page-item">
-                        <a class="page-link" href="publications?p=<?php echo pageNow() - 1; ?>">Previous</a>
+                        <?php if(CONTROLLER == 'publications'): ?>
+                            <a class="page-link" href="publications?p=<?php echo pageNow() - 1; ?>">Previous</a>
+                        <?php elseif(CONTROLLER == 'myarticle'): ?>
+                            <a class="page-link" href="myarticle?p=<?php echo pageNow() - 1; ?>">Previous</a>
+                        <?php endif; ?>
                     </li>
                 <?php endif; ?>
 
@@ -22,7 +26,12 @@
                         </li>
                     <?php else: ?>
                         <li class="page-item">
-                            <a class="page-link" href="publications?p=<?php echo $i; ?>"><?php echo $i; ?></a>
+                            <?php if(CONTROLLER == 'publications'): ?>
+                                <a class="page-link" href="publications?p=<?php echo $i; ?>"><?php echo $i; ?></a>
+                            <?php elseif(CONTROLLER == 'myarticle'): ?>
+                                <a class="page-link" href="myarticle?p=<?php echo $i; ?>"><?php echo $i; ?></a>
+                            <?php endif; ?>
+                            
                         </li>
                     <?php endif; ?>
                 <?php endfor; ?>
@@ -33,7 +42,11 @@
                     </li>
                 <?php else: ?>
                     <li class="page-item">
-                        <a class="page-link" href="publications?p=<?php echo pageNow() + 1;?>">Next</a>
+                        <?php if(CONTROLLER == 'publications'): ?>
+                            <a class="page-link" href="publications?p=<?php echo pageNow() + 1;?>">Next</a>
+                        <?php elseif(CONTROLLER == 'myarticle'): ?>
+                            <a class="page-link" href="myarticle?p=<?php echo pageNow() + 1;?>">Next</a>
+                        <?php endif; ?>
                     </li>
                 <?php endif; ?>
 

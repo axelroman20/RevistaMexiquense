@@ -96,9 +96,6 @@ class accountController{
         Redirect::to('account');
     }
 //--------------------------------------------------------------------------------------------------
-    function back() {
-        Redirect::to('account');
-    }
     function home() {
         Redirect::to('home');
     }
@@ -113,6 +110,9 @@ class accountController{
     }
     function close() {
         close();
+    }
+    function back() {
+        Redirect::to('account');
     }
 //--------------------------------------------------------------------------------------------------
     

@@ -2,7 +2,7 @@
 <!-------------------------------MAIN------------------------------------>
 <main>
     <section class="account">
-        <div class="container">
+        <div class="container ">
         <?php if($d->active == 0): ?>
             <div class="row">
                 <div class="col-md-12">
@@ -27,7 +27,7 @@
                     <hr>
                 </div>
             </div>
-            <div class="row justify-content-md-center">
+            <div class="row justify-content-md-center ">
                 <div class="col-md-12">
                     <div class="input-group mb-3">
                         <span class="input-group-text">

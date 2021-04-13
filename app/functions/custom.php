@@ -29,6 +29,8 @@
                         if($users->data) {
                             $_SESSION['user'] = $users->user;
                             $_SESSION['id']   = $users->data[0]['id'];
+                            $_SESSION['carrer']   = $users->data[0]['carrer'];
+                            $_GET['id'] = '';
                             Redirect::to(CONTROLLER);
                             
                         }
@@ -98,36 +100,47 @@
                         $('.inputcarrer_register').addClass('errorInput');
                     </script>";
             } 
+
+            try {
+                $users = new usersModel();
+                $users->email = $email;
+                $users->searchEmail();
+                if($users->data) {
+                    $errorRegister .= 'Correo Elctronico ya en uso! <br>';
+                }
+            } catch (Exception $e) {
+                echo $e->getMessage();
+            } 
+
+            try {
+                $users = new usersModel();
+                $users->user = $user;
+                $users->searchUser();
+                if($users->data) {
+                    $errorRegister .= 'Usuario ya en uso! <br>';
+                }
+            } catch (Exception $e) {
+                echo $e->getMessage();
+            } 
+
             if(empty($errorRegister)) {
                 try {
-                    $users = new usersModel();
-                    $users->email = $email;
-                    $users->searchEmail();
-                    if($users->data) {
-                        $errorRegister .= 'Correo Elctronico ya en uso! <br>';
-                    } else {
-                        $users->id             = $id;
-                        $users->rol            = $rol;
-                        $users->name           = $name;
-                        $users->lastname       = $lastname;
-                        $users->user           = $user;
-                        $passSha1              = sha1($pass);
-                        $users->pass           = $passSha1;
-                        $users->pass_noencrypt = $pass;
-                        $users->email          = $email;
-                        $users->carrer         = $carrer;
-                        $users->token          = $token;
-                        $users->add();
-                        $_SESSION['user'] = $users->user;
-                        $_SESSION['id'] = $users->id;
-                        SendEmails::send(
-                            $email, 
-                            $name.' '.$lastname, 
-                            'Verifica tu Cuenta', 
-                            'Hola <strong>'.$user.'</strong> Gracias por Registrate! <br>'.
-                            URL.'account/active?token='.$token);
-  
-                    }
+                    $users->id             = $id;
+                    $users->rol            = $rol;
+                    $users->name           = $name;
+                    $users->lastname       = $lastname;
+                    $users->user           = $user;
+                    $passSha1              = sha1($pass);
+                    $users->pass           = $passSha1;
+                    $users->pass_noencrypt = $pass;
+                    $users->email          = $email;
+                    $users->carrer         = $carrer;
+                    $users->token          = $token;
+                    $users->add();
+                    $_SESSION['user'] = $users->user;
+                    $_SESSION['id'] = $users->id;
+                    $_SESSION['carrer'] = $carrer;
+                    
                 } catch (Exception $e) {
                     echo $e->getMessage();
                 } 
@@ -387,10 +400,26 @@
     return $article->data;
  }
 
- function getPostId($id, $conexion) {
-    $resultado = $conexion->query("SELECT * FROM articulos WHERE id = $id LIMIT 1");
-    $resultado = $resultado->fetchAll();
-    return ($resultado) ? $resultado : false;
+ function getPostId($id) {
+    try {
+        $article = new articleModel();
+        $article->id = $id;
+        $article->getPosts();
+    } catch (Exception $e) {
+        echo $e->getMessage();
+    }
+    return ($article->data) ? $article->data : false;
+}
+
+function getPostUser($user) {
+    try {
+        $article = new articleModel();
+        $article->user = $user;
+        $article->getPostsUser();
+    } catch (Exception $e) {
+        echo $e->getMessage();
+    }
+    return $article->data;
 }
 
  function idArticle($id) {
@@ -418,5 +447,207 @@ function getDateFilter($date) {
     $year = date('Y', $timestamp);
     $date = "$day de $months[$month] del $year";
     return $date;
+}
+
+//--------------------------------------------------------------------------------------------------
+
+function loadArticle($id) {
+    try {
+       $article = new articleModel();
+       $article->id = $id;
+       $article->getPostsId();
+   } catch (Exception $e) {
+       echo $e->getMessage();
+   }
+   return $article;
+}
+
+function addArticle(){
+    if(isset($_POST['submitArticleNew'])) {
+        $id          = ''.dechex(rand(0x000000, 0xFFFFFF));
+        $user        = $_SESSION['user'];
+        $carrer      = $_SESSION['carrer'];
+        $title       = filter($_POST['title']);
+        $description = filter($_POST['description']);
+
+        if($_FILES['thumb']['error'] == 0) {
+            $sizeThumb = 62500; // kb
+            $extListThumb = array('png', 'jpg', 'jpeg');
+            $extFileThumb = explode(".", $_FILES['thumb']['name']);
+            $extThumb = strtolower(end($extFileThumb));
+            iF(in_array($extThumb, $extListThumb)){
+                if($_FILES['thumb']['size']<($sizeThumb * 1024)){
+                } else {
+                    return "toastr.error('Tamaño máximo permitido 64MB', 'Demaciado Grande!');";
+                }
+            } else {
+                return "toastr.error('Imagenes permitidas .png .jpg. jpeg', 'Tipo no Aceptado!');";
+            }
+        } else {
+            return "toastr.error('Porfavor agregar una imagen previa', 'Vacio?');";
+        }
+
+        if($_FILES['file']['error'] == 0){
+            $size = 62500; // kb
+            $extList = 'pdf';
+            $extFile = explode(".", $_FILES['file']['name']);
+            $ext = strtolower(end($extFile));
+            iF($ext == $extList){
+                if($_FILES['file']['size']<($size * 1024)){
+                } else {
+                    return "toastr.error('Archivo excede el tamaño permitido', 'Demaciado Grande!');";
+                }
+            } else {
+                return "toastr.error('Archivos permitidos .pdf', 'Tipo no Aceptado!');";
+            }
+        } else {
+            return "toastr.error('Porfavor agregar un archivo', 'Vacio?');";
+        }
+        
+        $dirDoc = "./assets/uploads/$user/";
+        $urlDoc = $dirDoc.$id.'_doc_'.$_FILES['file']['name'];
+        $dirThumb = "./assets/uploads/$user/";
+        $urlThumb = $dirThumb.$id.'_thumb_'.$_FILES['thumb']['name'];
+        if(!file_exists(($dirDoc))){
+            mkdir($dirDoc, 0777);
+        } 
+        if(move_uploaded_file($_FILES['file']['tmp_name'], $urlDoc)){
+            //return "toastr.success('El archivo se cargo correctamente', 'Archivo Subido!');";
+        } else {
+            return "toastr.error('', 'Error al cargar archivo!');";
+        }
+        if(!file_exists(($dirThumb))){
+            mkdir($dirThumb, 0777);
+        }
+        if(move_uploaded_file($_FILES['thumb']['tmp_name'], $urlThumb)){
+            //return "toastr.success('El archivo se cargo correctamente', 'Archivo Subido!');";
+        } else {
+            return "toastr.error('', 'Error al cargar archivo!');";
+        }
+        
+        try { 
+            $article = new articleModel();
+            $article->id          = $id;
+            $article->user        = $user;
+            $article->carrer      = $carrer;
+            $article->title       = $title;
+            $article->description = $description;
+            $article->thumb       = $id.'_thumb_'.$_FILES['thumb']['name'];
+            $article->file        = $id.'_doc_'.$_FILES['file']['name'];
+            $article->add();
+            if(!$article->data) {
+                return "toastr.success('Se a subido tu articulo Correctamente!', 'Articulo Subido!');";
+            } else {
+                return "toastr.error('No se pudo subir el articulo', 'Error del Articulo!');";
+            }
+        } catch (Exception $e) {
+            echo $e->getMessage();
+            return "toastr.error('".$e->getMessage()."', 'Error Excepcion!');";
+        }
+    }
+}
+
+
+
+function editArticle($d) {
+    if(isset($_POST['submitArticleEdit'])) {
+        $id = $d->data[0]['id'];
+        $title       = filter($_POST['title']);
+        $description = filter($_POST['description']);
+        $thumb = '';
+        $file = '';
+
+        if($_FILES['thumb']['error'] == 0) {
+            $sizeThumb = 62500; // kb
+            $extListThumb = array('png', 'jpg', 'jpeg');
+            $extFileThumb = explode(".", $_FILES['thumb']['name']);
+            $extThumb = strtolower(end($extFileThumb));
+            iF(in_array($extThumb, $extListThumb)){
+                if($_FILES['thumb']['size']<($sizeThumb * 1024)){
+                    unlink('./assets/uploads/'.$d->data[0]['user'].'/'.$d->data[0]['thumb']);
+                    $thumb = $d->id.'_thumb_'.$_FILES['thumb']['name'];
+                    $dirThumb = "./assets/uploads/".$_SESSION['user']."/";
+                    $urlThumb = $dirThumb.$id.'_thumb_'.$_FILES['thumb']['name'];
+                    if(!file_exists(($dirThumb))){
+                        mkdir($dirThumb, 0777);
+                    }
+                    if(move_uploaded_file($_FILES['thumb']['tmp_name'], $urlThumb)){
+                        //return "toastr.success('El archivo se cargo correctamente', 'Archivo Subido!');";
+                    } else {
+                        return "toastr.error('', 'Error al cargar archivo!');";
+                    }
+                } else {
+                    return "toastr.error('Tamaño máximo permitido 64MB', 'Demaciado Grande!');";
+                }
+            } else {
+                return "toastr.error('Imagenes permitidas .png .jpg. jpeg', 'Tipo no Aceptado!');";
+            }
+        } else {
+            $thumb = $d->data[0]['thumb'];
+        }
+        
+        if($_FILES['file']['error'] == 0){
+            $size = 62500; // kb
+            $extList = 'pdf';
+            $extFile = explode(".", $_FILES['file']['name']);
+            $ext = strtolower(end($extFile));
+            iF($ext == $extList){
+                if($_FILES['file']['size']<($size * 1024)){
+                    unlink('./assets/uploads/'.$d->data[0]['user'].'/'.$d->data[0]['file']);
+                    $file = $d->id.'_doc_'.$_FILES['file']['name'];
+                    $dirDoc = "./assets/uploads/".$_SESSION['user']."/";
+                    $urlDoc = $dirDoc.$id.'_doc_'.$_FILES['file']['name'];
+                    if(!file_exists(($dirDoc))){
+                        mkdir($dirDoc, 0777);
+                    } 
+                    if(move_uploaded_file($_FILES['file']['tmp_name'], $urlDoc)){
+                        //return "toastr.success('El archivo se cargo correctamente', 'Archivo Subido!');";
+                    } else {
+                        return "toastr.error('', 'Error al cargar archivo!');";
+                    }
+                } else {
+                    return "toastr.error('Archivo excede el tamaño permitido', 'Demaciado Grande!');";
+                }
+            } else {
+                return "toastr.error('Archivos permitidos .pdf', 'Tipo no Aceptado!');";
+            }
+        } else {
+            $file = $d->data[0]['file'];
+        }
+
+        try {
+            $article = new articleModel();
+            $article->title = $title ;
+            $article->description = $description;
+            $article->thumb = $thumb;
+            $article->file = $file;
+            $article->id = $_GET['article'];
+            $article->edit();
+            if($article->data) {
+                return "toastr.success('Se modifico el articulo correctamente!', 'Articulo Modificado!');";
+            } else {
+                return "toastr.error('No se pudo modificar el articulo', 'Error del Articulo!');";
+            }
+        } catch (Exception $e) {
+            echo $e->getMessage();
+        } 
+    }
+}
+
+function deleteArticle($d) {
+    try {
+        unlink('./assets/uploads/'.$d->data[0]['user'].'/'.$d->data[0]['thumb']);
+        unlink('./assets/uploads/'.$d->data[0]['user'].'/'.$d->data[0]['file']);
+        $article = new articleModel();
+        $article->id = filter($_GET['article']);
+        $article->delete();
+        if($article->data) {
+            return "toastr.success('Se elimino el articulo correctamente!', 'Articulo Modificado!');";
+        } else {
+            return "toastr.error('No se pudo eliminar el articulo', 'Error del Articulo!');";
+        }
+    } catch (Exception $e) {
+        echo $e->getMessage();
+    } 
 }
 

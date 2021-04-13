@@ -12,7 +12,8 @@ class myarticleController {
         $toasts = "";
         $users  = loadSetting();
         $active = statusAccount();
-        $posts  = getPost(4);
+        $posts  = getPostUser($_SESSION['user']);
+        $numPages = pagination(POST_PAGE);
         $data = [
             'title'           => 'Mi Cuenta',
             'id'              => $users->data[0]['id'],
@@ -26,11 +27,62 @@ class myarticleController {
             'carrer'          => $users->data[0]['carrer'],
             'token'           => $users->data[0]['token'],
             'posts'           => $posts,
+            'numPage'         => $numPages,
             'active'          => $active,
             'toast'           => $toasts
         ];
         View::render('myarticle', $data);
     }
+//--------------------------------------------------------------------------------------------------
+    function new() {
+        if(!isset($_SESSION['user'])){
+            Redirect::to('home');
+        }
+        $toasts = "";
+        $toasts .= addArticle();
+        $data = [
+            'title'           => 'Editar Articulo',
+            'toast'           => $toasts
+        ];
+        View::render('new', $data);
+    }
+
+    function edit() {
+        if(!isset($_SESSION['user'])){
+            Redirect::to('home');
+        }
+        if(!isset($_GET['article'])){
+            Redirect::to('home');
+        }
+        $toasts = "";
+        $article = loadArticle($_GET['article']);
+        $toasts .= editArticle($article);
+        
+        $data = [
+            'title'        => 'Editar Articulo',
+            'user'         => $article->data[0]['user'],
+            'titlee'       => $article->data[0]['title'],
+            'description'  => $article->data[0]['description'],
+            'thumb'        => $article->data[0]['thumb'],
+            'file'         => $article->data[0]['file'],
+            'toast'        => $toasts
+        ];
+        View::render('edit', $data);
+    }
+
+    function delete() {
+        if(!isset($_SESSION['user'])){
+            Redirect::to('home');
+        }
+        if(!isset($_GET['article'])){
+            Redirect::to('home');
+        }
+        $article = loadArticle($_GET['article']);
+        deleteArticle($article);
+        Redirect::to('myarticle');
+    }
+
+    
 //--------------------------------------------------------------------------------------------------
     function resend() {
         resendEmail($_GET['email'], $_GET['name'], $_GET['lastname'], $_GET['user'], $_GET['token']);
@@ -51,5 +103,8 @@ class myarticleController {
     }
     function close() {
         close();
+    }
+    function back() {
+        Redirect::to('myarticle');
     }
 }

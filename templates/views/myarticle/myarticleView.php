@@ -30,7 +30,7 @@
                         <h3>Panel de Control</h3>
                     </div>
                     <div class="col align-self-end">
-                        <button type="button" class="btn btn-success"><i class="fas fa-plus"></i>&nbsp;&nbsp;Nuevo Articulo</button>
+                        <button onclick="window.location='myarticle/new'" type="button" class="btn btn-success"><i class="fas fa-plus"></i>&nbsp;&nbsp;Nuevo Articulo</button>
                     </div>
                 </div>
                 <div class="row">
@@ -38,41 +38,59 @@
                         <hr>
                     </div>
                 </div>
-                
-                <div class="b-example-divider"><br></div>
-                <div class="row justify-content-center">
-                <?php foreach ($d->posts as $post) : ?>
-                    <div class="col-md-6 col-lg-4 col-xl-3 g-4">
-                        <div class="card shadow">
-                            <img src="<?php echo IMAGES. $post->thumb; ?>" class="card-img-top" alt="..." width="100%" height="225">
-                            <div class="card-body">
-                                <h5 class="card-title"><?php echo $post->title; ?> </h5>
-                                <p class="card-text"><?php echo $post->description; ?></p>
-                                <?php if($d->rol == 1): ?>
-                                    <p class="card-text d-flex justify-content-end">
-                                    <small class="text-muted">
-                                        <span class="badge bg-dark"><?php echo $post->user; ?></span> &nbsp
-                                        <span class="badge bg-secondary"><?php echo $post->carrer; ?></span> &nbsp
-                                    </small>
-                                </p>
-                                <?php endif; ?>
-                                <div class="justify-content-end">
-                                    <div class="btn-group">
-                                        <a href="single?id=<?php echo $post->id; ?>" class="btn btn-sm btn-outline-primary"><i class="fas fa-eye"></i> View </a>
-                                        <a href="single?id=<?php echo $post->id; ?>" class="btn btn-sm btn-outline-dark"><i class="fas fa-edit"></i> Edit </a>
-                                        <a href="single?id=<?php echo $post->id; ?>" class="btn btn-sm btn-outline-danger"><i class="fas fa-trash-alt"></i> Delete </a>
+                <?php if($d->posts): ?>
+                    <div class="b-example-divider"><br></div>
+                    <div class="row justify-content-center">
+                    <?php foreach ($d->posts as $post) : ?>
+                    
+                        <div class="col-md-6 col-lg-4 col-xl-4 g-4">
+                            <div class="card shadow">
+                                <img src="<?php echo UPLOADS.$post->user.'/'.$post->thumb; ?>" 
+                                class="card-img-top" alt="..." width="100%"  height="300">
+                                
+                                <div class="card-body">
+                                    <h5 class="card-title"><?php echo $post->title; ?> </h5>
+                                    <p class="card-text"><?php echo $post->description; ?></p>
+                                    <?php if($d->rol == 1): ?>
+                                        <p class="card-text d-flex justify-content-end">
+                                        <small class="text-muted">
+                                            <span class="badge bg-dark"><?php echo $post->user; ?></span> &nbsp
+                                            <span class="badge bg-secondary"><?php echo $post->carrer; ?></span> &nbsp
+                                        </small>
+                                    </p>
+                                    <?php endif; ?>
+                                    <div class="justify-content-end">
+                                        <div class="btn-group">
+                                            <button onclick="window.location='publications/single?article=<?php echo $post->id; ?>'" class="btn btn-sm btn-outline-primary"><i class="fas fa-eye"></i> View </button>
+                                            <button onclick="window.location='myarticle/edit?article=<?php echo $post->id; ?>'" class="btn btn-sm btn-outline-dark"><i class="fas fa-edit"></i> Edit </button>
+                                            <button onclick="window.location='myarticle/delete?article=<?php echo $post->id; ?>'" class="btn btn-sm btn-outline-danger"><i class="fas fa-trash-alt"></i> Delete </button>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="card-footer">
-                                <p class="card-text"><small class="text-muted"><?php echo getDateFilter($post->created_at); ?></small></p>
+                                <div class="card-footer">
+                                    <p class="card-text"><small class="text-muted"><?php echo getDateFilter($post->created_at); ?></small></p>
+                                </div>
                             </div>
                         </div>
+                    <?php endforeach; ?>
                     </div>
-                <?php endforeach; ?>
-                </div>
+                    <?php require_once MODULES.'pagination.php'; ?>
+                
+                <?php else: ?>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card text-center">
+                                <div class="card-body">
+                                    <h5 class="card-title">No hay nada aqui!</h5>
+                                    <p class="card-text">
+                                        Puedes empezar a escribir tus articulos presionando el boton verde. 
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div> 
+                <?php endif; ?>
 
-                <?php require_once MODULES.'pagination.php'; ?>
             <?php endif; ?>
         </div>
     </section>

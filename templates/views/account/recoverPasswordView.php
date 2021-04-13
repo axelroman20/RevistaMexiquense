@@ -4,7 +4,7 @@
 
 <main>
     <section class="account">
-        <div class="container" style="margin-bottom: 280px;">
+        <div class="container " style="margin-bottom: 280px;">
             <div class="row justify-content-md-center">
                 <div class="col-md-6">
                     <h3>Recuperación de contraseña</h3>

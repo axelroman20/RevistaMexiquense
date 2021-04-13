@@ -15,10 +15,6 @@ class errorController extends Controller {
         View::render('404', $data);
     }
 
-    function back() {
-        Redirect::to('home');
-    }
-
     function home() {
         Redirect::to('home');
     }
@@ -33,5 +29,8 @@ class errorController extends Controller {
     }
     function close() {
         close();
+    }
+    function back() {
+        Redirect::to('home');
     }
 }

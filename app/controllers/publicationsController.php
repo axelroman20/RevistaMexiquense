@@ -45,5 +45,8 @@ class publicationsController {
     function close() {
         close();
     }
+    function back() {
+        Redirect::to('publications');
+    }
 
 }
