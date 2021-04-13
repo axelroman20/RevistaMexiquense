@@ -30,6 +30,29 @@ class publicationsController {
         View::render('publications', $data);
     }
 
+    function single() {
+        if(!isset($_GET['user']) && !isset($_GET['file'])) {
+            Redirect::to('error');
+        }
+
+        if(!isset($_SESSION['user'])) {
+            $errorLogin    = login();
+            $errorRegister = register();
+        } else {
+            $errorLogin    = '';
+            $errorRegister = '';
+        }
+
+        $data = [
+            'title'         => 'Publicaciones', 
+            'errorLogin'    => $errorLogin,
+            'errorRegister' => $errorRegister
+        ];
+
+        View::render('single', $data);
+    }
+
+//--------------------------------------------------------------------------------------------------
     function home() {
         Redirect::to('home');
     }

@@ -469,7 +469,8 @@ function addArticle(){
         $carrer      = $_SESSION['carrer'];
         $title       = filter($_POST['title']);
         $description = filter($_POST['description']);
-
+        $thumb = '';
+        $filr = '';
         if($_FILES['thumb']['error'] == 0) {
             $sizeThumb = 62500; // kb
             $extListThumb = array('png', 'jpg', 'jpeg');
@@ -477,6 +478,7 @@ function addArticle(){
             $extThumb = strtolower(end($extFileThumb));
             iF(in_array($extThumb, $extListThumb)){
                 if($_FILES['thumb']['size']<($sizeThumb * 1024)){
+                    $thumb = $id.'_thumb.'.$extThumb;
                 } else {
                     return "toastr.error('Tamaño máximo permitido 64MB', 'Demaciado Grande!');";
                 }
@@ -494,6 +496,7 @@ function addArticle(){
             $ext = strtolower(end($extFile));
             iF($ext == $extList){
                 if($_FILES['file']['size']<($size * 1024)){
+                    $file = $id.'_doc.'.'pdf';
                 } else {
                     return "toastr.error('Archivo excede el tamaño permitido', 'Demaciado Grande!');";
                 }
@@ -504,10 +507,11 @@ function addArticle(){
             return "toastr.error('Porfavor agregar un archivo', 'Vacio?');";
         }
         
+        
         $dirDoc = "./assets/uploads/$user/";
-        $urlDoc = $dirDoc.$id.'_doc_'.$_FILES['file']['name'];
+        $urlDoc = $dirDoc.$file;
         $dirThumb = "./assets/uploads/$user/";
-        $urlThumb = $dirThumb.$id.'_thumb_'.$_FILES['thumb']['name'];
+        $urlThumb = $dirThumb.$thumb;
         if(!file_exists(($dirDoc))){
             mkdir($dirDoc, 0777);
         } 
@@ -532,8 +536,8 @@ function addArticle(){
             $article->carrer      = $carrer;
             $article->title       = $title;
             $article->description = $description;
-            $article->thumb       = $id.'_thumb_'.$_FILES['thumb']['name'];
-            $article->file        = $id.'_doc_'.$_FILES['file']['name'];
+            $article->thumb       = $thumb;
+            $article->file        = $file;
             $article->add();
             if(!$article->data) {
                 return "toastr.success('Se a subido tu articulo Correctamente!', 'Articulo Subido!');";
@@ -565,9 +569,9 @@ function editArticle($d) {
             iF(in_array($extThumb, $extListThumb)){
                 if($_FILES['thumb']['size']<($sizeThumb * 1024)){
                     unlink('./assets/uploads/'.$d->data[0]['user'].'/'.$d->data[0]['thumb']);
-                    $thumb = $d->id.'_thumb_'.$_FILES['thumb']['name'];
+                    $thumb = $d->id.'_thumb.'.$extThumb;
                     $dirThumb = "./assets/uploads/".$_SESSION['user']."/";
-                    $urlThumb = $dirThumb.$id.'_thumb_'.$_FILES['thumb']['name'];
+                    $urlThumb = $dirThumb.$thumb;
                     if(!file_exists(($dirThumb))){
                         mkdir($dirThumb, 0777);
                     }
@@ -594,9 +598,9 @@ function editArticle($d) {
             iF($ext == $extList){
                 if($_FILES['file']['size']<($size * 1024)){
                     unlink('./assets/uploads/'.$d->data[0]['user'].'/'.$d->data[0]['file']);
-                    $file = $d->id.'_doc_'.$_FILES['file']['name'];
+                    $file = $d->id.'_doc.'.'pdf';
                     $dirDoc = "./assets/uploads/".$_SESSION['user']."/";
-                    $urlDoc = $dirDoc.$id.'_doc_'.$_FILES['file']['name'];
+                    $urlDoc = $dirDoc.$file;
                     if(!file_exists(($dirDoc))){
                         mkdir($dirDoc, 0777);
                     } 

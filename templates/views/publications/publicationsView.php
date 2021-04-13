@@ -15,13 +15,13 @@
             <?php foreach ($d->posts as $post) : ?>
                     <div class="col-md-6 col-lg-4 col-xl-4 g-4">
                         <div class="card mb-3 shadow">
-                            <a href="single?id=<?php echo  $post->id; ?>">
+                            <a href="publications/single?user=<?php echo $post->user; ?>&file=<?php echo $post->file; ?>">
                                 <img src="<?php echo UPLOADS.$post->user.'/'.$post->thumb; ?>" class="card-img-top" alt="..." width="100%"  height="300">
                             </a>
                             <div class="card-body">
                                 <h5 class="card-title"><?php echo $post->title; ?> </h5>
                                 <p class="card-text"><?php echo $post->description; ?></p>
-                                <a href="single?id=<?php echo $post->id; ?>">Continuar Leyendo</a>
+                                <a href="publications/single?user=<?php echo $post->user; ?>&file=<?php echo $post->file; ?>">Continuar Leyendo</a>
                             <br><br>
                                 <p class="card-text d-flex justify-content-end">
                                     <small class="text-muted">

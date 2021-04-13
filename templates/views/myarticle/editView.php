@@ -46,9 +46,6 @@
                                 <div class="d-flex justify-content-center">
                                     <div class="card bg-light text-dark mb-3  col-md-12 col-lg-9" id="preview">
                                         <img class="card-img preview" id="img" height="400" src="<?php echo UPLOADS.$d->user.'/'.$d->thumb; ?>"/>
-                                        <div class="card-img-overlay d-flex justify-content-center" >
-                                            <h5 class="card-title align-self-center" id="text">Imagen Previa</h5>
-                                        </div>
                                     </div>
                                 </div>
 

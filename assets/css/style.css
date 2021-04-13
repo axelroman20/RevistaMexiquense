@@ -913,6 +913,39 @@ h2 {
 
 /*//////////////////////////////////////  MYARTICLE  //////////////////////////////////////////////////*/
 
+.publications .container {
+  width: 100%;
+  margin-bottom: 100px;
+}
+.publications {
+  width: 100%;
+  margin-bottom: 100px;
+}
+
+.publications .container {
+  width: 80%;
+  margin: auto;
+}
+
+.book {
+  background: #f2f2f2;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  margin: auto;
+}
+
+.container {
+  width: auto;
+  z-index: 1;
+}
+
+.top-bar {
+  z-index: 2;
+}
+
+/*///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+
+/*//////////////////////////////////////  MYARTICLE  //////////////////////////////////////////////////*/
+
 .myarticle .container {
   width: 100%;
   margin-bottom: 100px;

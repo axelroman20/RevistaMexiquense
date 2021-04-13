@@ -45,9 +45,10 @@
                     
                         <div class="col-md-6 col-lg-4 col-xl-4 g-4">
                             <div class="card shadow">
-                                <img src="<?php echo UPLOADS.$post->user.'/'.$post->thumb; ?>" 
-                                class="card-img-top" alt="..." width="100%"  height="300">
-                                
+                                <a href="publications/single?user=<?php echo $post->user; ?>&file=<?php echo $post->file; ?>">
+                                    <img src="<?php echo UPLOADS.$post->user.'/'.$post->thumb; ?>" 
+                                    class="card-img-top" alt="..." width="100%"  height="300">
+                                </a>
                                 <div class="card-body">
                                     <h5 class="card-title"><?php echo $post->title; ?> </h5>
                                     <p class="card-text"><?php echo $post->description; ?></p>
@@ -61,9 +62,12 @@
                                     <?php endif; ?>
                                     <div class="justify-content-end">
                                         <div class="btn-group">
-                                            <button onclick="window.location='publications/single?article=<?php echo $post->id; ?>'" class="btn btn-sm btn-outline-primary"><i class="fas fa-eye"></i> View </button>
-                                            <button onclick="window.location='myarticle/edit?article=<?php echo $post->id; ?>'" class="btn btn-sm btn-outline-dark"><i class="fas fa-edit"></i> Edit </button>
-                                            <button onclick="window.location='myarticle/delete?article=<?php echo $post->id; ?>'" class="btn btn-sm btn-outline-danger"><i class="fas fa-trash-alt"></i> Delete </button>
+                                            <button onclick="window.location='publications/single?article=<?php echo $post->id; ?>&user=<?php echo $post->user; ?>&file=<?php echo $post->file; ?>'" 
+                                                class="btn btn-sm btn-outline-primary"><i class="fas fa-eye"></i> View </button>
+                                            <button onclick="window.location='myarticle/edit?article=<?php echo $post->id; ?>'" 
+                                                class="btn btn-sm btn-outline-dark"><i class="fas fa-edit"></i> Edit </button>
+                                            <button onclick="window.location='myarticle/delete?article=<?php echo $post->id; ?>'" 
+                                                class="btn btn-sm btn-outline-danger"><i class="fas fa-trash-alt"></i> Delete </button>
                                         </div>
                                     </div>
                                 </div>

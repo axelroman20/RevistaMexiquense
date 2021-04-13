@@ -54,8 +54,9 @@
     <?php endif; ?>
         
 <!-------------------------------------------------------------------------------------------------------->
+
+<script src="<?php echo JS.'main.js'; ?>"></script>
     
-    <script src="<?php echo JS.'main.js'; ?>"></script>
 
 </body>
 </html>
