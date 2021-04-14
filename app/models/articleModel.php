@@ -12,6 +12,7 @@ class articleModel extends Model {
     public $likes;
     public $post_page;
     public $post_start;
+    public $search;
     public $data;
 
 
@@ -63,6 +64,37 @@ class articleModel extends Model {
         }
     }
 
+    /**
+     * Metodo para buscar todos los post article por likes
+     * @return bool
+     */
+    public function getPostsLikes() {
+        $sql = "SELECT SQL_CALC_FOUND_ROWS * FROM article ORDER BY likes DESC LIMIT ".$this->post_start.", ".$this->post_page."";
+        $params = [
+            ':data' => $this->data,
+        ];
+        try {
+            return ($this->data = parent::query($sql, $params));
+        } catch (Exception $e) {
+            throw $e;
+        }
+    }
+
+    /**
+     * Metodo para buscar todos los post article por views
+     * @return bool
+     */
+    public function getPostsViews() {
+        $sql = "SELECT SQL_CALC_FOUND_ROWS * FROM article ORDER BY views DESC LIMIT ".$this->post_start.", ".$this->post_page."";
+        $params = [
+            ':data' => $this->data,
+        ];
+        try {
+            return ($this->data = parent::query($sql, $params));
+        } catch (Exception $e) {
+            throw $e;
+        }
+    }
 
     /**
      * Metodo para buscar el numero de pagina
@@ -137,6 +169,23 @@ class articleModel extends Model {
 
         try {
             return ($this->data = parent::query($sql, $params) ? true : false);
+        } catch (Exception $e) {
+            throw $e;
+        }
+    }
+
+    /**
+     * Metodo para buscar un aritculo
+     * @return bool
+     */
+    public function search() {
+        $sql = 'SELECT * FROM article WHERE title LIKE :search or description LIKE :search';
+        $params = [
+            'search' => $this->search
+        ];
+
+        try {
+            return ($this->data = parent::query($sql, $params));
         } catch (Exception $e) {
             throw $e;
         }

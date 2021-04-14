@@ -3,7 +3,7 @@
 <!-------------------------------MAIN------------------------------------>
 <main>
     <section class="publications">
-        <div class="container">
+        <div class="container-fluid container-xl">
             <div class="row">
                 <div class="col-md-12">
                     <h3>Articulos</h3>
@@ -40,7 +40,7 @@
             <?php endforeach; ?>
             </div>
             <?php require MODULES.'pagination.php'; ?> 
-
+        </div>
     </section>
 </main>
 <!------------------------------------------------------------------->

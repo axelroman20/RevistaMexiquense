@@ -30,6 +30,7 @@
                             $_SESSION['user'] = $users->user;
                             $_SESSION['id']   = $users->data[0]['id'];
                             $_SESSION['carrer']   = $users->data[0]['carrer'];
+                            $_SESSION['search'] = '';
                             $_GET['id'] = '';
                             Redirect::to(CONTROLLER);
                             
@@ -140,7 +141,7 @@
                     $_SESSION['user'] = $users->user;
                     $_SESSION['id'] = $users->id;
                     $_SESSION['carrer'] = $carrer;
-                    
+                    $_SESSION['search'] = '';
                 } catch (Exception $e) {
                     echo $e->getMessage();
                 } 
@@ -422,6 +423,32 @@ function getPostUser($user) {
     return $article->data;
 }
 
+function getPostLikes($post_page) {
+    $start = (pageNow() > 1) ? pageNow() * $post_page - $post_page : 0;
+    try {
+        $article = new articleModel();
+        $article->post_page  = $post_page;
+        $article->post_start = $start;
+        $article->getPostsLikes();
+    } catch (Exception $e) {
+        echo $e->getMessage();
+    }
+    return $article->data;
+ }
+
+ function getPostViews($post_page) {
+    $start = (pageNow() > 1) ? pageNow() * $post_page - $post_page : 0;
+    try {
+        $article = new articleModel();
+        $article->post_page  = $post_page;
+        $article->post_start = $start;
+        $article->getPostsViews();
+    } catch (Exception $e) {
+        echo $e->getMessage();
+    }
+    return $article->data;
+ }
+
  function idArticle($id) {
     return (int) filter($id);
 }
@@ -655,3 +682,37 @@ function deleteArticle($d) {
     } 
 }
 
+//--------------------------------------------------------------------------------------------------
+
+function search() {
+    if(isset($_POST['submitSearch'])) {
+        $search = filter($_POST['search']);
+        Redirect::to('publications/search?s='.$search);
+    }
+}
+
+function searchPost() {
+    if($_SERVER['REQUEST_METHOD'] == 'GET' && !empty($_GET['s'])) {
+        $search = filter($_GET['s']);
+        try {
+            $article = new articleModel();
+            $article->search = "%$search%";
+            $article->search();
+        } catch (Exception $e) {
+            echo $e->getMessage();
+        } 
+        return $article->data;
+        /*
+        $statement = $conexion->prepare('SELECT * FROM articulos WHERE titulo LIKE :busqueda or texto LIKE :busqueda');
+        $statement->execute(array(':busqueda' => "%$busqueda%"));
+        $resultados = $statement->fetchAll();
+        if(empty($resultados)) {
+            $titulo = 'No se encontrraron articulos con el resultaodo: '.$busqueda;
+        } else {
+            $titulo = 'Resultados de la busqueda: '.$busqueda;
+        }
+        */
+    } else {
+        Redirect::to('error');
+    }
+}

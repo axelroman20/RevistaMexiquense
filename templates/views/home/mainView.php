@@ -1,24 +1,35 @@
 <?php require_once INCLUDES.'header.php'; ?>
-
 <!-------------------------------MAIN------------------------------------>
 <main>
     <!-- CARD-SLIDER -->
     <section class="card-slider">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
+        <div class="container-fluid">
+            <div class="row justify-content-center">
+                <div class="col-md-12 col-lg-11 col-xl-6">
                     <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
                         <div class="carousel-indicators">
                             <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
                             <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 2"></button>
+                            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3" aria-label="Slide 2"></button>
                         </div>
                     <div class="carousel-inner">
-                        <div class="carousel-item active">
-                            <?php require MODULES.'card.php'; ?>
-                        </div>
-                        <div class="carousel-item">
-                            <?php require MODULES.'card.php'; ?>
-                        </div>
+                            <div class="carousel-item active">
+                                <div class="row justify-content-center">
+                                    <div class="d-flex justify-content-center">
+                                    <div class="col">
+                                        <div class="card bg-dark text-white">
+                                            <img src="<?php echo IMAGES.'destacados.jpg'; ?>" class="card-img" width="auto" height="400">
+                                        </div>
+                                    </div>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php foreach ($d->postsLikes as $post) : ?>
+                            <div class="carousel-item">
+                                <?php require MODULES.'card.php'; ?>
+                            </div>
+                        <?php endforeach; ?>
                     </div>
                     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -36,21 +47,14 @@
 
         <!-- INFO -->
         <section class="info">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12">
-                        <h2>Lorem ipsum</h2>
-                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. 
-                        Harum velit labore quae inventore corporis ex rem fuga dicta obcaecati, 
-                        voluptatem ipsa reprehenderit ullam, fugiat iure doloremque facilis quia 
-                        veritatis pariatur repellendus excepturi minus minima sunt reiciendis. 
-                        Culpa unde modi reiciendis iusto sed explicabo deserunt quisquam magnam 
-                        adipisci hic, eum animi laboriosam aliquam sit, doloremque voluptatibus 
-                        dolores aut sequi consequatur! Aliquam excepturi ut quod nam, sint quasi? 
-                        Suscipit nesciunt ut magni facilis hic iure ipsa ratione sunt distinctio 
-                        omnis, velit, quas vel. Quo blanditiis inventore sapiente! Autem natus 
-                        neque officiis ipsa at quia architecto nihil tempore molestiae aliquam, 
-                        facere nesciunt minima.</p>
+            <div class="containerr container-fluid bg-secondary">
+                <div class="row justify-content-center">
+                    <div class="col align-self-center"><br><br><br>
+                        <h2>Objetivos Generales</h2>
+                        <p>El objetivo de esta plataforma de revista digital es el uso de tecnologias web durante su desarrollo,
+                            ademas de ser un medio de comunicacion para las diferentes carreras de licenciatura de la escuela
+                            Grupo Colegio Mexiquense donde se subiran documentos pdf con informacion referente a las carreras.
+                        </p>
                     </div>
                 </div>
             </div>
@@ -59,94 +63,27 @@
         <!-- HOVERS -->
         <section class="hovers">
             <div class="container">
-                <figure id="hover-robotica">
-                    <img src="<?php echo IMAGES.'1.jpg';?>" alt="Robotica">
-                    <div class="capa">
-                        <a href="#">
-                            <h3>Robotica</h3>
-                            <h4>Pedro Jose Sanz Valero</h4> 
-                            <p>Los robots ya están teniendo una incidencia significativa en los procesos de 
-                                fabricación de los sectores del automóvil y la electrónica.</p>
-                        </a>
+                <div class="row">
+                    <div class="col-12">
+                        <h3>Articulos más vistos</h3>
+                        <hr>
                     </div>
-                </figure>
-                <figure id="hover-">
-                    <img src="<?php echo IMAGES.'2.jpg';?>" alt="Robotica">
-                    <div class="capa">
-                        <a href="#">
-                            <h3>Titulo</h3>
-                            <h4>Autor/Usuario</h4> 
-                            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. 
-                            Ipsam asperiores rem ipsa. Velit dolor amet cum iste harum aliquam eos.</p>
-                        </a>
-                    </div>
-                </figure>
-                <figure id="hover-">
-                    <img src="<?php echo IMAGES.'3.jpg';?>" alt="Robotica">
-                    <div class="capa">
-                        <a href="#">
-                            <h3>Titulo</h3>
-                            <h4>Autor/Usuario</h4> 
-                            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. 
-                            Ipsam asperiores rem ipsa. Velit dolor amet cum iste harum aliquam eos.</p>
-                        </a>
-                    </div>
-                </figure>
-                <figure id="hover-">
-                    <img src="<?php echo IMAGES.'4.jpg';?>" alt="Robotica">
-                    <div class="capa">
-                        <a href="#">
-                            <h3>Titulo</h3>
-                            <h4>Autor/Usuario</h4> 
-                            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. 
-                            Ipsam asperiores rem ipsa. Velit dolor amet cum iste harum aliquam eos.</p>
-                        </a>
-                    </div>
-                </figure>
-                <figure id="hover-">
-                    <img src="<?php echo IMAGES.'5.jpg';?>" alt="Robotica">
-                    <div class="capa">
-                        <a href="#">
-                            <h3>Titulo</h3>
-                            <h4>Autor/Usuario</h4> 
-                            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. 
-                            Ipsam asperiores rem ipsa. Velit dolor amet cum iste harum aliquam eos.</p>
-                        </a>
-                    </div>
-                </figure>
-                <figure id="hover-">
-                    <img src="<?php echo IMAGES.'6.jpg';?>" alt="Robotica">
-                    <div class="capa">
-                        <a href="#">
-                            <h3>Titulo</h3>
-                            <h4>Autor/Usuario</h4> 
-                            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. 
-                            Ipsam asperiores rem ipsa. Velit dolor amet cum iste harum aliquam eos.</p>
-                        </a>
-                    </div>
-                </figure>
-                <figure id="hover-">
-                    <img src="<?php echo IMAGES.'7.jpg';?>" alt="Robotica">
-                    <div class="capa">
-                        <a href="#">
-                            <h3>Titulo</h3>
-                            <h4>Autor/Usuario</h4> 
-                            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. 
-                            Ipsam asperiores rem ipsa. Velit dolor amet cum iste harum aliquam eos.</p>
-                        </a>
-                    </div>
-                </figure>
-                <figure id="hover-">
-                    <img src="<?php echo IMAGES.'8.jpg';?>" alt="Robotica">
-                    <div class="capa">
-                        <a href="#">
-                            <h3>Titulo</h3>
-                            <h4>Autor/Usuario</h4> 
-                            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. 
-                            Ipsam asperiores rem ipsa. Velit dolor amet cum iste harum aliquam eos.</p>
-                        </a>
-                    </div>
-                </figure>
+                </div>
+                <div class="row">
+                    <?php foreach ($d->postsViews as $post) : ?>
+                        <div class="col">
+                        <figure id="hover-robotica">
+                            <img src="<?php echo UPLOADS.$post->user.'/'.$post->thumb; ?>">
+                            <div class="capa">
+                                <a href="publications/single?user=<?php echo $post->user; ?>&file=<?php echo $post->file; ?>" style="color: #fff;"> <br>
+                                    <h3><?php echo $post->title; ?></h3>
+                                    <h4><i class="fas fa-eye"></i> <?php echo $post->views; ?></h4> 
+                                </a>
+                            </div>
+                        </figure>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
             </div>
         </section>
     </main>

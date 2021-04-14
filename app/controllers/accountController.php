@@ -31,6 +31,7 @@ class accountController{
             'active'          => $active,
             'toast'           => $toasts
         ];
+        search();
         View::render('account', $data);
     }
 //--------------------------------------------------------------------------------------------------
@@ -55,6 +56,7 @@ class accountController{
             'errorRegister' => $errorRegister,
             'toast'         => $toasts
         ];
+        search();
         View::render('recoverPassword', $data);
     }
 //--------------------------------------------------------------------------------------------------
@@ -72,6 +74,7 @@ class accountController{
             'title' => 'Restablecer Contraseña',
             'toast' => $toasts
         ];
+        search();
         View::render('restorePassword', $data);
     }
 //--------------------------------------------------------------------------------------------------
@@ -88,6 +91,7 @@ class accountController{
         if($active == 0) {
             activeAccount($_SESSION['id']);
         }
+        search();
         View::render('active', $data);
     }
 

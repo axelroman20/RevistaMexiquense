@@ -31,6 +31,7 @@ class myarticleController {
             'active'          => $active,
             'toast'           => $toasts
         ];
+        search();
         View::render('myarticle', $data);
     }
 //--------------------------------------------------------------------------------------------------
@@ -44,6 +45,7 @@ class myarticleController {
             'title'           => 'Editar Articulo',
             'toast'           => $toasts
         ];
+        search();
         View::render('new', $data);
     }
 
@@ -67,6 +69,7 @@ class myarticleController {
             'file'         => $article->data[0]['file'],
             'toast'        => $toasts
         ];
+        search();
         View::render('edit', $data);
     }
 

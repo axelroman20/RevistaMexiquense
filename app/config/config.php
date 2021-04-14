@@ -11,6 +11,7 @@ define('LANG'       , 'es');
 
 // Ruta base de nuestro proyecto
 define('BASEPATH'   , IS_LOCAL ? '/proyectos/Revista/' : '');
+//define('BASEPATH'   , IS_LOCAL ? '/proyectos/Revista/' : '/proyectos/Revista/');
 
 // Sal del sistema
 define('AUTH_SALT'  , 'BeeFramework<3');
@@ -18,6 +19,7 @@ define('AUTH_SALT'  , 'BeeFramework<3');
 // Puerto y la URL del sitio
 define('PORT'       , '80');
 define('URL'        , IS_LOCAL ? 'http://127.0.0.1:'.PORT.'/proyectos/Revista/' : 'https://revista-gcm.live/');
+//define('URL'        , IS_LOCAL ? 'http://127.0.0.1:'.PORT.'/proyectos/Revista/' : 'http://192.168.88.222'.BASEPATH);
 
 // Las rutas de directorios y archivos
 define('DS'         , DIRECTORY_SEPARATOR);
@@ -57,6 +59,7 @@ define('LDB_CHARSET', 'utf8');
 // Set para conexión en producción o servidor real
 define('DB_ENGINE'  , 'mysql');
 define('DB_HOST'    , 'localhost');
+//define('DB_HOST'    , 'sql458.main-hosting.eu');
 define('DB_NAME'    , 'u730030579_revistagcm');
 define('DB_USER'    , 'u730030579_revistagcm');
 define('DB_PASS'    , 'Revista123');

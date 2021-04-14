@@ -46,18 +46,16 @@ if(document.querySelector('#register-btn-open-popup')){
   });
 }
 
+/*
 var search = document.querySelector('#search');
 search.addEventListener('click', function(){
+
 var searchValue = $('input:text[name=search]').val();
+
   if(!searchValue==''){
-    var url = searchValue;
-    $.ajax({
-      url: 'home',
-      type: 'post',
-      data: url,
-    })
-    .done(function(res){
-      window.location.replace(url);
-    })
+    window.location="publications/search?d=".searchValue;
   }
+
 });
+
+*/

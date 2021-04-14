@@ -7,7 +7,6 @@ class publicationsController {
     }
 
     function index() {
-
         if(!isset($_SESSION['user'])) {
             $errorLogin    = login();
             $errorRegister = register();
@@ -26,7 +25,7 @@ class publicationsController {
             'posts'         => $posts,
             'numPage'       => $numPages
         ];
-
+        search();
         View::render('publications', $data);
     }
 
@@ -48,8 +47,34 @@ class publicationsController {
             'errorLogin'    => $errorLogin,
             'errorRegister' => $errorRegister
         ];
-
+        search();
         View::render('single', $data);
+    }
+
+    function search() {
+        if(!isset($_SESSION['user'])) {
+            $errorLogin    = login();
+            $errorRegister = register();
+        } else {
+            $errorLogin    = '';
+            $errorRegister = '';
+        }
+
+        if(!isset($_GET['s'])) {
+            Redirect::to('error');
+        }
+        search();
+        $posts = searchPost();
+        $numPages = pagination(POST_PAGE);
+        $data = [
+            'title'         => 'Busqueda', 
+            'errorLogin'    => $errorLogin,
+            'errorRegister' => $errorRegister,
+            'posts'         => $posts,
+            'numPage'       => $numPages
+        ];
+        
+        View::render('search', $data);
     }
 
 //--------------------------------------------------------------------------------------------------

@@ -15,7 +15,7 @@
 <body>
     <?php echo isset($d->toast) ? "<script> $d->toast </script>" : ''; ?>
     <!--------------------------------HEADER----------------------------------->
-      
+
     <?php if(CONTROLLER == 'home'): ?>
     <header>
     <?php else: ?> 
@@ -25,13 +25,15 @@
             <?php require_once INCLUDES.'nav.php'; ?>
         </div>  
         <div class="search-box">
-            <input class="search-txt" type="text" name="search"  placeholder="Busqueda">
-            <a class="search-btn" id="search">
-                <box-icon name='search-alt'></box-icon>
-                <i class="fas fa-search"></i>
-            </a>
+            <form method="post">
+                <input class="search-txt" type="text" name="search" placeholder="Busqueda">
+                <button class="search-btn" type="submit" id="search" name="submitSearch">
+                    <box-icon name='search-alt'></box-icon>
+                    <i class="fas fa-search"></i>
+                </button>
+            </form>
         </div>
-
+        
         <div class="wave" style="height: 150px; overflow: hidden;" >
             <svg viewBox="0 0 500 150" preserveAspectRatio="none" style="height: 100%; width: 100%;">
                 <path d="M0.00,49.98 C262.97,126.80 130.92,54.77 500.00,49.98 L500.00,150.00 L0.00,150.00 Z" style="stroke: none; fill: #f2f2f2; "></path>

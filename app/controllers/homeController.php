@@ -8,13 +8,16 @@ class homeController  {
     function index() {
         $errorLogin    = login();
         $errorRegister = register();
-        $posts         = getPost(POST_PAGE);
+        $postsLikes    = getPostLikes(3);
+        $postsViews    = getPostViews(8);
         $data = [
             'title'         => 'Bienvenido', 
             'errorLogin'    => $errorLogin,
             'errorRegister' => $errorRegister,
-            'posts'         => $posts
+            'postsLikes'    => $postsLikes,
+            'postsViews'    => $postsViews
         ];
+        search();
         View::render('main', $data);
     }
 
