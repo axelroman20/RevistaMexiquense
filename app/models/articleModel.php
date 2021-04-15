@@ -18,7 +18,7 @@ class articleModel extends Model {
 
     /**
      * Metodo para buscar todos los post article
-     * @return bool
+     * @return array
      */
     public function getPosts() {
         $sql = "SELECT SQL_CALC_FOUND_ROWS * FROM article ORDER BY created_at DESC LIMIT ".$this->post_start.", ".$this->post_page."";
@@ -34,7 +34,7 @@ class articleModel extends Model {
 
     /**
      * Metodo para buscar todos los post article por id
-     * @return bool
+     * @return array
      */
     public function getPostsId() {
         $sql = 'SELECT * FROM article WHERE id = :id ORDER BY created_at DESC ';
@@ -49,8 +49,8 @@ class articleModel extends Model {
     }
 
      /**
-     * Metodo para buscar todos los post article por id
-     * @return bool
+     * Metodo para buscar todos los post article por usuario
+     * @return array
      */
     public function getPostsUser() {
         $sql = 'SELECT * FROM article WHERE user = :user ORDER BY created_at DESC ';
@@ -66,7 +66,7 @@ class articleModel extends Model {
 
     /**
      * Metodo para buscar todos los post article por likes
-     * @return bool
+     * @return array
      */
     public function getPostsLikes() {
         $sql = "SELECT SQL_CALC_FOUND_ROWS * FROM article ORDER BY likes DESC LIMIT ".$this->post_start.", ".$this->post_page."";
@@ -82,7 +82,7 @@ class articleModel extends Model {
 
     /**
      * Metodo para buscar todos los post article por views
-     * @return bool
+     * @return array
      */
     public function getPostsViews() {
         $sql = "SELECT SQL_CALC_FOUND_ROWS * FROM article ORDER BY views DESC LIMIT ".$this->post_start.", ".$this->post_page."";
@@ -98,7 +98,7 @@ class articleModel extends Model {
 
     /**
      * Metodo para buscar el numero de pagina
-     * @return bool
+     * @return array
      */
     public function getNumPages() {
         $sql = 'SELECT count(*) FROM article';
@@ -114,7 +114,7 @@ class articleModel extends Model {
 
     /**
      * Metodo para crear un nuevo aritculo
-     * @return bool
+     * @return array
      */
     public function add() {
         $sql = 'INSERT INTO article (id, user, carrer, title, description, thumb, file) 
@@ -176,7 +176,7 @@ class articleModel extends Model {
 
     /**
      * Metodo para buscar un aritculo
-     * @return bool
+     * @return array
      */
     public function search() {
         $sql = 'SELECT * FROM article WHERE title LIKE :search or description LIKE :search';
@@ -191,10 +191,24 @@ class articleModel extends Model {
         }
     }
 
+    /**
+     * Metodo para agregar views a un aritculo
+     * @return bool
+     */
+    public function setViews() {
+        $sql = "UPDATE article SET views = ".$this->views." WHERE id = '".$this->id."'";
+        $params = [
+            'data' => $this->data
+        ];
 
-
+        try {
+            return ($this->data = parent::query($sql, $params)? true : false);
+        } catch (Exception $e) {
+            throw $e;
+        }
+    }
     
 
     
     
- }
+ } 

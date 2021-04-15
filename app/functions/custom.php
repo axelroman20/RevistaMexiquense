@@ -1,5 +1,9 @@
 <?php
-//--------------------------------------------------------------------------------------------------
+
+    /**
+     * Metodo para inicio de sesion de usuario
+     * @return string
+     */
     function login() {
         $errorLogin = "";
         if(isset($_POST['submitLogin'])) {
@@ -36,7 +40,10 @@
                             
                         }
                     } else {
-                        $errorLogin .= 'Usuario o Contraseña Incorrecta <br>';
+                        $errorLogin .= "
+                            <script>
+                                toastr.error('Usuario o Contraseña Incorrecta', 'No se pudo iniciar session!');
+                            </script>";
                     }
                 } catch (Exception $e) {
                     echo $e->getMessage();
@@ -45,7 +52,11 @@
         }
         return $errorLogin;
     }
-//--------------------------------------------------------------------------------------------------
+
+    /**
+     * Metodo para registrar un usuario
+     * @return string
+     */
     function register() {
         $errorRegister = "";    
         if(isset($_POST['submitRegister'])) {
@@ -107,7 +118,10 @@
                 $users->email = $email;
                 $users->searchEmail();
                 if($users->data) {
-                    $errorRegister .= 'Correo Elctronico ya en uso! <br>';
+                    $errorRegister .= "
+                        <script>
+                            toastr.error('Elije otro correo electronico para poder registrarte', 'Correo Elctronico ya en uso!');
+                        </script>";
                 }
             } catch (Exception $e) {
                 echo $e->getMessage();
@@ -118,7 +132,10 @@
                 $users->user = $user;
                 $users->searchUser();
                 if($users->data) {
-                    $errorRegister .= 'Usuario ya en uso! <br>';
+                    $errorRegister .= "
+                        <script>
+                            toastr.error('Elije otro nombre de usuario para poder registrarte', 'Usuario ya en uso!');
+                        </script>";
                 }
             } catch (Exception $e) {
                 echo $e->getMessage();
@@ -137,11 +154,13 @@
                     $users->email          = $email;
                     $users->carrer         = $carrer;
                     $users->token          = $token;
-                    $users->add();
-                    $_SESSION['user'] = $users->user;
-                    $_SESSION['id'] = $users->id;
-                    $_SESSION['carrer'] = $carrer;
-                    $_SESSION['search'] = '';
+                    //$users->add();
+                    if($users->data) {
+                        $_SESSION['user'] = $users->user;
+                        $_SESSION['id'] = $users->id;
+                        $_SESSION['carrer'] = $carrer;
+                        $_SESSION['search'] = '';
+                    }
                 } catch (Exception $e) {
                     echo $e->getMessage();
                 } 
@@ -150,6 +169,10 @@
         return $errorRegister;
     }
 //--------------------------------------------------------------------------------------------------
+    /**
+     * Metodo para cargar datos de cuenta del usuario
+     * @return array
+     */
     function loadSetting() {
         try {
             $users = new usersModel();
@@ -161,6 +184,10 @@
         return $users;
     }
 //--------------------------------------------------------------------------------------------------
+    /**
+     * Metodo para actualizar el nombre del usuario
+     * @return string
+     */
     function updateName($id) {
         if(isset($_POST['submitUpdateName'])) {
             try {
@@ -170,16 +197,22 @@
                 $users->id = $id;
                 $users->updateNames();
                 if($users->data) {
-                    return "toastr.success('Nombre y Apellido Actualizado', 'Datos Guardados!');";
+                    return "
+                        <script>
+                            toastr.success('Nombre y Apellido Actualizado', 'Datos Guardados!');
+                        </script>";
                     Redirect::to('account');
                 }
-                
             } catch (Exception $e) {
                 echo $e->getMessage();
             } 
         }
     }
 
+    /**
+     * Metodo para actualizar el usuario del usuario
+     * @return string
+     */
     function updateUser($id) { 
         if(isset($_POST['submitUpdateUser'])) {
             try {
@@ -188,7 +221,10 @@
                 $users->id = $id;
                 $users->updateUsers();
                 if($users->data) {
-                    return "toastr.success('Usuario Actualizado', 'Datos Guardados!');";
+                    return "
+                        <script>
+                            toastr.success('Usuario Actualizado', 'Datos Guardados!');
+                        </script>";
                     Redirect::to('account');
                 }
             } catch (Exception $e) {
@@ -197,6 +233,10 @@
         }
     }
 
+    /**
+     * Metodo para actualizar la contraseña del usuario
+     * @return string
+     */
     function updatePass($id) {
         $toasts = '';
         if(isset($_POST['submitUpdatePass'])) {
@@ -211,13 +251,22 @@
                         $users->pass = sha1($_POST['passnew-update']);
                         $users->pass_noencrypt = $_POST['passnew-update'];
                         $users->updatePasswords();
-                        return "toastr.success('Contraseña Actualizado', 'Datos Guardados!');";
+                        return "
+                            <script>
+                                toastr.success('Contraseña Actualizado', 'Datos Guardados!');
+                            </script>";
                         Redirect::to('account');
                     } else {
-                        return "toastr.error('', 'Contraseñas no coinciden!');";
+                        return "
+                            <script>
+                                toastr.error('', 'Contraseñas no coinciden!');
+                            </script>";
                     }
                 } else {
-                    return "toastr.error('', 'Contraseña Actual Incorrecta');";
+                    return "
+                        <script>
+                            toastr.error('', 'Contraseña Actual Incorrecta');
+                        </script>";
                 }
             } catch (Exception $e) {
                 echo $e->getMessage();
@@ -225,6 +274,10 @@
         }
     }
 
+    /**
+     * Metodo para actualizar el correo del usuario
+     * @return string
+     */
     function updateEmail($id) {
         $toasts = '';
         if(isset($_POST['submitUpdateEmail'])) {
@@ -234,10 +287,17 @@
                 $users->id = $id;
                 $users->searchEmail();
                     if($users->data) {
-                        return "toastr.error('', 'Correo Electronico Ya Existente!');";
+                        return "
+                            <script>
+                                toastr.error('', 'Correo Electronico Ya Existente!');            
+                            </script>";
                     } else {
                         $users->updateEmails();
-                        return "toastr.success('Correo Electronico Actualizado', 'Datos Guardados!');";
+                        activeAccount($_SESSION['id'], 0);
+                        return "
+                            <script>
+                                toastr.success('Correo Electronico Actualizado', 'Datos Guardados!');
+                            </script>";
                         Redirect::to('account');
                     }
             } catch (Exception $e) {
@@ -246,6 +306,10 @@
         }
     }
 
+    /**
+     * Metodo para actualizar la carrera del usuario
+     * @return string
+     */
     function updateCarrer($id) {
         $toasts = '';
         if(isset($_POST['submitUpdateCarrer'])) {
@@ -255,10 +319,16 @@
                 $users->id = $id;
                 if($_POST['carrer-update'] != 'Selecciona') {
                     $users->updateCarrers();
-                    return "toastr.success('Carrera Actualizada', 'Datos Guardados!');";
+                    return "
+                        <script>
+                            toastr.success('Carrera Actualizada', 'Datos Guardados!');
+                        </script>";
                     Redirect::to('account');
                 } else {
-                    return "toastr.error('', 'Carrera Error!');";
+                    return "
+                        <script>
+                            toastr.error('', 'Carrera Error!'); 
+                        </script>";
                 }
             } catch (Exception $e) {
                 echo $e->getMessage();
@@ -266,6 +336,10 @@
         }
     }
 //--------------------------------------------------------------------------------------------------
+    /**
+     * Metodo para reenviar correo de activacion
+     * @return void
+     */
     function resendEmail($email, $name, $lastname, $user, $token) {
         SendEmails::send(
             $email, 
@@ -275,6 +349,10 @@
             URL.'account/active?token='.$token);
     }
 
+    /**
+     * Metodo para enviar correo de recuperacion de contraseña
+     * @return string
+     */
     function recoverPassword($id) {
         if(isset($_POST['submitRecover'])) {
             try {
@@ -290,9 +368,15 @@
                         Porfavor Haz Click en el Link para Recuperar tu Contraseña: <br>'.
                         URL.'account/restore_password?token='.$users->data[0]['token'].'&email='.$users->data[0]['email']);
                     restoreRequestPassword($users->data[0]['id'], 1);
-                    return "toastr.success('Revisa tu bandeja de entrada para verificar tu cuenta', 'Correo Enviado!');";
+                    return "
+                        <script>
+                            toastr.success('Revisa tu bandeja de entrada para verificar tu cuenta', 'Correo Enviado!');
+                        </script>";
                 } else {
-                    return "toastr.error('', 'Correo no Encontrado');";
+                    return "
+                        <script>
+                            toastr.error('', 'Correo no Encontrado');
+                        </script>";
                 }
             } catch (Exception $e) {
                 echo $e->getMessage();
@@ -300,6 +384,10 @@
         }
     }
 
+    /**
+     * Metodo para restablecer contraseña del usuario
+     * @return string
+     */
     function restorePassword($email) {
         if(isset($_POST['submitRestore'])) {
             try {
@@ -315,13 +403,22 @@
                     $users->updatePasswords();
                     if($users->data) {
                         restoreRequestPassword($id, 0);
-                        return "toastr.success('Contraseña Actualizada', 'Datos Guardados!');";
+                        return "
+                            <script>
+                                toastr.success('Contraseña Actualizada', 'Datos Guardados!');
+                            </script>";
                     } else {
                         
-                    return "toastr.error('', 'Contraseña Error!');";
+                    return "
+                        <script>
+                            toastr.error('', 'Contraseña Error!'); 
+                        </script>";
                     }
                 } else {
-                    return "toastr.error('', 'Contraseñas no Coinciden!');";
+                    return "
+                        <script>
+                            toastr.error('', 'Contraseñas no Coinciden!');
+                        </script>";
                 }
             } catch (Exception $e) {
                 echo $e->getMessage();
@@ -329,6 +426,10 @@
         }
     }
     
+    /**
+     * Metodo para activar la recuperacion de contraseña
+     * @return void
+     */
     function restoreRequestPassword($id, $value) {
         try {
             $users = new usersModel();
@@ -340,6 +441,10 @@
         } 
     }
 
+    /**
+     * Metodo para ver el estado de cuenta del usuario
+     * @return int
+     */
     function statusAccount() {
         if(isset($_SESSION['user'])) {
             try {
@@ -355,11 +460,15 @@
         }
     }
 
-    function activeAccount($id) {
+    /**
+     * Metodo para activar la cuenta del usuario
+     * @return void
+     */
+    function activeAccount($id, $status) {
         if(isset($_SESSION['user'])) {
             try {
                 $users = new usersModel();
-                $users->active = 1;
+                $users->active = $status;
                 $users->id = $id;
                 $users->updateActive();
             } catch (Exception $e) {
@@ -368,6 +477,10 @@
         }
     }
 
+    /**
+     * Metodo para ver el estado de peticion de restablecion de contraseña
+     * @return int
+     */
     function statusRequestPassword() {
         if(isset($_GET['token'])) {
             try {
@@ -384,335 +497,469 @@
     }
 
 //--------------------------------------------------------------------------------------------------
- function pageNow() {
-    return isset($_GET['p']) ? (int) $_GET['p'] : 1;
- }
-
- function getPost($post_page) {
-    $start = (pageNow() > 1) ? pageNow() * $post_page - $post_page : 0;
-    try {
-        $article = new articleModel();
-        $article->post_page  = $post_page;
-        $article->post_start = $start;
-        $article->getPosts();
-    } catch (Exception $e) {
-        echo $e->getMessage();
+    /**
+     * Metodo para saber en que numero de pagina se encuentra
+     * @return int
+     */
+    function pageNow() {
+        return isset($_GET['p']) ? (int) $_GET['p'] : 1;
     }
-    return $article->data;
- }
 
- function getPostId($id) {
-    try {
-        $article = new articleModel();
-        $article->id = $id;
-        $article->getPosts();
-    } catch (Exception $e) {
-        echo $e->getMessage();
-    }
-    return ($article->data) ? $article->data : false;
-}
-
-function getPostUser($user) {
-    try {
-        $article = new articleModel();
-        $article->user = $user;
-        $article->getPostsUser();
-    } catch (Exception $e) {
-        echo $e->getMessage();
-    }
-    return $article->data;
-}
-
-function getPostLikes($post_page) {
-    $start = (pageNow() > 1) ? pageNow() * $post_page - $post_page : 0;
-    try {
-        $article = new articleModel();
-        $article->post_page  = $post_page;
-        $article->post_start = $start;
-        $article->getPostsLikes();
-    } catch (Exception $e) {
-        echo $e->getMessage();
-    }
-    return $article->data;
- }
-
- function getPostViews($post_page) {
-    $start = (pageNow() > 1) ? pageNow() * $post_page - $post_page : 0;
-    try {
-        $article = new articleModel();
-        $article->post_page  = $post_page;
-        $article->post_start = $start;
-        $article->getPostsViews();
-    } catch (Exception $e) {
-        echo $e->getMessage();
-    }
-    return $article->data;
- }
-
- function idArticle($id) {
-    return (int) filter($id);
-}
-
-function pagination($post_page) {
-    try { 
-        $article = new articleModel();
-        $article->getNumPages();
-        $data = $article->data[0][0];
-
-        $numPage = ceil($data / $post_page);
-    } catch (Exception $e) {
-        echo $e->getMessage();
-    }
-    return $numPage;
-}
-
-function getDateFilter($date) {
-    $timestamp = strtotime($date);
-    $months = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
-    $day = date('d', $timestamp);
-    $month = date('m', $timestamp)-1;
-    $year = date('Y', $timestamp);
-    $date = "$day de $months[$month] del $year";
-    return $date;
-}
-
-//--------------------------------------------------------------------------------------------------
-
-function loadArticle($id) {
-    try {
-       $article = new articleModel();
-       $article->id = $id;
-       $article->getPostsId();
-   } catch (Exception $e) {
-       echo $e->getMessage();
-   }
-   return $article;
-}
-
-function addArticle(){
-    if(isset($_POST['submitArticleNew'])) {
-        $id          = ''.dechex(rand(0x000000, 0xFFFFFF));
-        $user        = $_SESSION['user'];
-        $carrer      = $_SESSION['carrer'];
-        $title       = filter($_POST['title']);
-        $description = filter($_POST['description']);
-        $thumb = '';
-        $filr = '';
-        if($_FILES['thumb']['error'] == 0) {
-            $sizeThumb = 62500; // kb
-            $extListThumb = array('png', 'jpg', 'jpeg');
-            $extFileThumb = explode(".", $_FILES['thumb']['name']);
-            $extThumb = strtolower(end($extFileThumb));
-            iF(in_array($extThumb, $extListThumb)){
-                if($_FILES['thumb']['size']<($sizeThumb * 1024)){
-                    $thumb = $id.'_thumb.'.$extThumb;
-                } else {
-                    return "toastr.error('Tamaño máximo permitido 64MB', 'Demaciado Grande!');";
-                }
-            } else {
-                return "toastr.error('Imagenes permitidas .png .jpg. jpeg', 'Tipo no Aceptado!');";
-            }
-        } else {
-            return "toastr.error('Porfavor agregar una imagen previa', 'Vacio?');";
+    /**
+     * Metodo para consegir todos los articulos creados
+     * @return array
+     */
+    function getPost($post_page) {
+        $start = (pageNow() > 1) ? pageNow() * $post_page - $post_page : 0;
+        try {
+            $article = new articleModel();
+            $article->post_page  = $post_page;
+            $article->post_start = $start;
+            $article->getPosts();
+        } catch (Exception $e) {
+            echo $e->getMessage();
         }
+        return $article->data;
+    }
 
-        if($_FILES['file']['error'] == 0){
-            $size = 62500; // kb
-            $extList = 'pdf';
-            $extFile = explode(".", $_FILES['file']['name']);
-            $ext = strtolower(end($extFile));
-            iF($ext == $extList){
-                if($_FILES['file']['size']<($size * 1024)){
-                    $file = $id.'_doc.'.'pdf';
-                } else {
-                    return "toastr.error('Archivo excede el tamaño permitido', 'Demaciado Grande!');";
-                }
-            } else {
-                return "toastr.error('Archivos permitidos .pdf', 'Tipo no Aceptado!');";
-            }
-        } else {
-            return "toastr.error('Porfavor agregar un archivo', 'Vacio?');";
+    /**
+     * Metodo para consegir todos los articulos creados
+     * por el id de articulo
+     * @return array
+     */
+    function getPostId($id) {
+        try {
+            $article = new articleModel();
+            $article->id = $id;
+            $article->getPostsId();
+        } catch (Exception $e) {
+            echo $e->getMessage();
         }
-        
-        
-        $dirDoc = "./assets/uploads/$user/";
-        $urlDoc = $dirDoc.$file;
-        $dirThumb = "./assets/uploads/$user/";
-        $urlThumb = $dirThumb.$thumb;
-        if(!file_exists(($dirDoc))){
-            mkdir($dirDoc, 0777);
-        } 
-        if(move_uploaded_file($_FILES['file']['tmp_name'], $urlDoc)){
-            //return "toastr.success('El archivo se cargo correctamente', 'Archivo Subido!');";
-        } else {
-            return "toastr.error('', 'Error al cargar archivo!');";
+        return $article->data;
+    }
+
+    /**
+     * Metodo para consegir todos los articulos creados
+     * que el usuario creo
+     * @return array
+     */
+    function getPostUser($user) {
+        try {
+            $article = new articleModel();
+            $article->user = $user;
+            $article->getPostsUser();
+        } catch (Exception $e) {
+            echo $e->getMessage();
         }
-        if(!file_exists(($dirThumb))){
-            mkdir($dirThumb, 0777);
+        return $article->data;
+    }
+
+    /**
+     * Metodo para traer los articulos
+     * por cantidad de likes
+     * @return array
+     */
+    function getPostLikes($post_page) {
+        $start = (pageNow() > 1) ? pageNow() * $post_page - $post_page : 0;
+        try {
+            $article = new articleModel();
+            $article->post_page  = $post_page;
+            $article->post_start = $start;
+            $article->getPostsLikes();
+        } catch (Exception $e) {
+            echo $e->getMessage();
         }
-        if(move_uploaded_file($_FILES['thumb']['tmp_name'], $urlThumb)){
-            //return "toastr.success('El archivo se cargo correctamente', 'Archivo Subido!');";
-        } else {
-            return "toastr.error('', 'Error al cargar archivo!');";
+        return $article->data;
+    }
+
+    /**
+     * Metodo para traer los articulos
+     * por cantidad views
+     * @return array
+     */
+    function getPostViews($post_page) {
+        $start = (pageNow() > 1) ? pageNow() * $post_page - $post_page : 0;
+        try {
+            $article = new articleModel();
+            $article->post_page  = $post_page;
+            $article->post_start = $start;
+            $article->getPostsViews();
+        } catch (Exception $e) {
+            echo $e->getMessage();
         }
-        
+        return $article->data;
+    }
+
+    /**
+     * Metodo para filtrar el id articulo
+     * @return int
+     */
+    function idArticle($id) {
+        return (int) filter($id);
+    }
+
+    /**
+     * Metodo para crear el numero
+     * de paginas que hay
+     * @return int
+     */
+    function pagination($post_page) {
         try { 
             $article = new articleModel();
-            $article->id          = $id;
-            $article->user        = $user;
-            $article->carrer      = $carrer;
-            $article->title       = $title;
-            $article->description = $description;
-            $article->thumb       = $thumb;
-            $article->file        = $file;
-            $article->add();
-            if(!$article->data) {
-                return "toastr.success('Se a subido tu articulo Correctamente!', 'Articulo Subido!');";
-            } else {
-                return "toastr.error('No se pudo subir el articulo', 'Error del Articulo!');";
-            }
+            $article->getNumPages();
+            $data = $article->data[0][0];
+
+            $numPage = ceil($data / $post_page);
         } catch (Exception $e) {
             echo $e->getMessage();
-            return "toastr.error('".$e->getMessage()."', 'Error Excepcion!');";
         }
+        return $numPage;
     }
-}
 
-
-
-function editArticle($d) {
-    if(isset($_POST['submitArticleEdit'])) {
-        $id = $d->data[0]['id'];
-        $title       = filter($_POST['title']);
-        $description = filter($_POST['description']);
-        $thumb = '';
-        $file = '';
-
-        if($_FILES['thumb']['error'] == 0) {
-            $sizeThumb = 62500; // kb
-            $extListThumb = array('png', 'jpg', 'jpeg');
-            $extFileThumb = explode(".", $_FILES['thumb']['name']);
-            $extThumb = strtolower(end($extFileThumb));
-            iF(in_array($extThumb, $extListThumb)){
-                if($_FILES['thumb']['size']<($sizeThumb * 1024)){
-                    unlink('./assets/uploads/'.$d->data[0]['user'].'/'.$d->data[0]['thumb']);
-                    $thumb = $d->id.'_thumb.'.$extThumb;
-                    $dirThumb = "./assets/uploads/".$_SESSION['user']."/";
-                    $urlThumb = $dirThumb.$thumb;
-                    if(!file_exists(($dirThumb))){
-                        mkdir($dirThumb, 0777);
-                    }
-                    if(move_uploaded_file($_FILES['thumb']['tmp_name'], $urlThumb)){
-                        //return "toastr.success('El archivo se cargo correctamente', 'Archivo Subido!');";
-                    } else {
-                        return "toastr.error('', 'Error al cargar archivo!');";
-                    }
-                } else {
-                    return "toastr.error('Tamaño máximo permitido 64MB', 'Demaciado Grande!');";
-                }
-            } else {
-                return "toastr.error('Imagenes permitidas .png .jpg. jpeg', 'Tipo no Aceptado!');";
-            }
-        } else {
-            $thumb = $d->data[0]['thumb'];
-        }
-        
-        if($_FILES['file']['error'] == 0){
-            $size = 62500; // kb
-            $extList = 'pdf';
-            $extFile = explode(".", $_FILES['file']['name']);
-            $ext = strtolower(end($extFile));
-            iF($ext == $extList){
-                if($_FILES['file']['size']<($size * 1024)){
-                    unlink('./assets/uploads/'.$d->data[0]['user'].'/'.$d->data[0]['file']);
-                    $file = $d->id.'_doc.'.'pdf';
-                    $dirDoc = "./assets/uploads/".$_SESSION['user']."/";
-                    $urlDoc = $dirDoc.$file;
-                    if(!file_exists(($dirDoc))){
-                        mkdir($dirDoc, 0777);
-                    } 
-                    if(move_uploaded_file($_FILES['file']['tmp_name'], $urlDoc)){
-                        //return "toastr.success('El archivo se cargo correctamente', 'Archivo Subido!');";
-                    } else {
-                        return "toastr.error('', 'Error al cargar archivo!');";
-                    }
-                } else {
-                    return "toastr.error('Archivo excede el tamaño permitido', 'Demaciado Grande!');";
-                }
-            } else {
-                return "toastr.error('Archivos permitidos .pdf', 'Tipo no Aceptado!');";
-            }
-        } else {
-            $file = $d->data[0]['file'];
-        }
-
-        try {
-            $article = new articleModel();
-            $article->title = $title ;
-            $article->description = $description;
-            $article->thumb = $thumb;
-            $article->file = $file;
-            $article->id = $_GET['article'];
-            $article->edit();
-            if($article->data) {
-                return "toastr.success('Se modifico el articulo correctamente!', 'Articulo Modificado!');";
-            } else {
-                return "toastr.error('No se pudo modificar el articulo', 'Error del Articulo!');";
-            }
-        } catch (Exception $e) {
-            echo $e->getMessage();
-        } 
+    /**
+     * Metodo para dale formato de fecha
+     * al timestamp de la base de datos
+     * @return string
+     */
+    function getDateFilter($date) {
+        $timestamp = strtotime($date);
+        $months = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+        $day = date('d', $timestamp);
+        $month = date('m', $timestamp)-1;
+        $year = date('Y', $timestamp);
+        $date = "$day de $months[$month] del $year";
+        return $date;
     }
-}
-
-function deleteArticle($d) {
-    try {
-        unlink('./assets/uploads/'.$d->data[0]['user'].'/'.$d->data[0]['thumb']);
-        unlink('./assets/uploads/'.$d->data[0]['user'].'/'.$d->data[0]['file']);
-        $article = new articleModel();
-        $article->id = filter($_GET['article']);
-        $article->delete();
-        if($article->data) {
-            return "toastr.success('Se elimino el articulo correctamente!', 'Articulo Modificado!');";
-        } else {
-            return "toastr.error('No se pudo eliminar el articulo', 'Error del Articulo!');";
-        }
-    } catch (Exception $e) {
-        echo $e->getMessage();
-    } 
-}
 
 //--------------------------------------------------------------------------------------------------
-
-function search() {
-    if(isset($_POST['submitSearch'])) {
-        $search = filter($_POST['search']);
-        Redirect::to('publications/search?s='.$search);
-    }
-}
-
-function searchPost() {
-    if($_SERVER['REQUEST_METHOD'] == 'GET' && !empty($_GET['s'])) {
-        $search = filter($_GET['s']);
+    /**
+     * Metodo para cargar el articulo
+     * @return array
+     */
+    function loadArticle($id) {
         try {
+        $article = new articleModel();
+        $article->id = $id;
+        $article->getPostsId();
+    } catch (Exception $e) {
+        echo $e->getMessage();
+    }
+        return $article;
+    }
+
+    /**
+     * Metodo para crear un articulo
+     * @return string
+     */
+    function addArticle(){
+        if(isset($_POST['submitArticleNew'])) {
+            $id          = ''.dechex(rand(0x000000, 0xFFFFFF));
+            $user        = $_SESSION['user'];
+            $carrer      = $_SESSION['carrer'];
+            $title       = filter($_POST['title']);
+            $description = filter($_POST['description']);
+            $thumb = '';
+            $filr = '';
+            if($_FILES['thumb']['error'] == 0) {
+                $sizeThumb = 62500; // kb
+                $extListThumb = array('png', 'jpg', 'jpeg');
+                $extFileThumb = explode(".", $_FILES['thumb']['name']);
+                $extThumb = strtolower(end($extFileThumb));
+                iF(in_array($extThumb, $extListThumb)){
+                    if($_FILES['thumb']['size']<($sizeThumb * 1024)){
+                        $thumb = $id.'_thumb.'.$extThumb;
+                    } else {
+                        return "
+                            <script>
+                                toastr.error('Tamaño máximo permitido 64MB', 'Demaciado Grande!');
+                            </script>";
+                    }
+                } else {
+                    return "
+                        <script>
+                            toastr.error('Imagenes permitidas .png .jpg. jpeg', 'Tipo no Aceptado!');
+                        </script>";
+                }
+            } else {
+                return "
+                    <script>
+                        toastr.error('Porfavor agregar una imagen previa', 'Vacio?');
+                    </script>";
+            }
+
+            if($_FILES['file']['error'] == 0){
+                $size = 62500; // kb
+                $extList = 'pdf';
+                $extFile = explode(".", $_FILES['file']['name']);
+                $ext = strtolower(end($extFile));
+                iF($ext == $extList){
+                    if($_FILES['file']['size']<($size * 1024)){
+                        $file = $id.'_doc.'.'pdf';
+                    } else {
+                        return "
+                            <script>
+                                toastr.error('Archivo excede el tamaño permitido', 'Demaciado Grande!');
+                            </script>";
+                    }
+                } else {
+                    return "
+                        <script>
+                            toastr.error('Archivos permitidos .pdf', 'Tipo no Aceptado!');
+                        </script>";
+                }
+            } else {
+                return "
+                    <script>
+                        toastr.error('Porfavor agregar un archivo', 'Vacio?');
+                    </script>";
+            }
+            
+            
+            $dirDoc = "./assets/uploads/$user/";
+            $urlDoc = $dirDoc.$file;
+            $dirThumb = "./assets/uploads/$user/";
+            $urlThumb = $dirThumb.$thumb;
+            if(!file_exists(($dirDoc))){
+                mkdir($dirDoc, 0777);
+            } 
+            if(move_uploaded_file($_FILES['file']['tmp_name'], $urlDoc)){
+                //return "toastr.success('El archivo se cargo correctamente', 'Archivo Subido!');";
+            } else {
+                return "
+                    <script>
+                        toastr.error('', 'Error al cargar archivo!');     
+                    </script>";
+            }
+            if(!file_exists(($dirThumb))){
+                mkdir($dirThumb, 0777);
+            }
+            if(move_uploaded_file($_FILES['thumb']['tmp_name'], $urlThumb)){
+                //return "toastr.success('El archivo se cargo correctamente', 'Archivo Subido!');";
+            } else {
+                return "
+                    <script>
+                        toastr.error('', 'Error al cargar archivo!');        
+                    </script>";
+            }
+            
+            try { 
+                $article = new articleModel();
+                $article->id          = $id;
+                $article->user        = $user;
+                $article->carrer      = $carrer;
+                $article->title       = $title;
+                $article->description = $description;
+                $article->thumb       = $thumb;
+                $article->file        = $file;
+                $article->add();
+                if(!$article->data) {
+                    return "
+                        <script>
+                            toastr.success('Se a subido tu articulo Correctamente!', 'Articulo Subido!');
+                        </script>";
+                } else {
+                    return "
+                        <script>
+                            toastr.error('No se pudo subir el articulo', 'Error del Articulo!');
+                        </script>";
+                }
+            } catch (Exception $e) {
+                echo $e->getMessage();
+                return "
+                    <script>
+                        toastr.error('".$e->getMessage()."', 'Error Excepcion!');
+                    </script>";
+            }
+        }
+    }
+
+    /**
+     * Metodo para editar un articulo
+     * @return string
+     */
+    function editArticle($d) {
+        if(isset($_POST['submitArticleEdit'])) {
+            $id = $d->data[0]['id'];
+            $title       = filter($_POST['title']);
+            $description = filter($_POST['description']);
+            $thumb = '';
+            $file = '';
+
+            if($_FILES['thumb']['error'] == 0) {
+                $sizeThumb = 62500; // kb
+                $extListThumb = array('png', 'jpg', 'jpeg');
+                $extFileThumb = explode(".", $_FILES['thumb']['name']);
+                $extThumb = strtolower(end($extFileThumb));
+                iF(in_array($extThumb, $extListThumb)){
+                    if($_FILES['thumb']['size']<($sizeThumb * 1024)){
+                        unlink('./assets/uploads/'.$d->data[0]['user'].'/'.$d->data[0]['thumb']);
+                        $thumb = $d->id.'_thumb.'.$extThumb;
+                        $dirThumb = "./assets/uploads/".$_SESSION['user']."/";
+                        $urlThumb = $dirThumb.$thumb;
+                        if(!file_exists(($dirThumb))){
+                            mkdir($dirThumb, 0777);
+                        }
+                        if(move_uploaded_file($_FILES['thumb']['tmp_name'], $urlThumb)){
+                            //return "toastr.success('El archivo se cargo correctamente', 'Archivo Subido!');";
+                        } else {
+                            return "
+                                <script>
+                                    toastr.error('', 'Error al cargar archivo!');
+                                </script>";
+                        }
+                    } else {
+                        return "
+                            <script>
+                                toastr.error('Tamaño máximo permitido 64MB', 'Demaciado Grande!');
+                            </script>";
+                    }
+                } else {
+                    return "
+                        <script>
+                            toastr.error('Imagenes permitidas .png .jpg. jpeg', 'Tipo no Aceptado!');  
+                        </script>";
+                }
+            } else {
+                $thumb = $d->data[0]['thumb'];
+            }
+            
+            if($_FILES['file']['error'] == 0){
+                $size = 62500; // kb
+                $extList = 'pdf';
+                $extFile = explode(".", $_FILES['file']['name']);
+                $ext = strtolower(end($extFile));
+                iF($ext == $extList){
+                    if($_FILES['file']['size']<($size * 1024)){
+                        unlink('./assets/uploads/'.$d->data[0]['user'].'/'.$d->data[0]['file']);
+                        $file = $d->id.'_doc.'.'pdf';
+                        $dirDoc = "./assets/uploads/".$_SESSION['user']."/";
+                        $urlDoc = $dirDoc.$file;
+                        if(!file_exists(($dirDoc))){
+                            mkdir($dirDoc, 0777);
+                        } 
+                        if(move_uploaded_file($_FILES['file']['tmp_name'], $urlDoc)){
+                            //return "toastr.success('El archivo se cargo correctamente', 'Archivo Subido!');";
+                        } else {
+                            return "
+                                <script>
+                                    toastr.error('', 'Error al cargar archivo!');
+                                </script>";
+                        }
+                    } else {
+                        return "
+                            <script>
+                                toastr.error('Archivo excede el tamaño permitido', 'Demaciado Grande!');
+                            </script>";
+                    }
+                } else {
+                    return "
+                        <script>
+                            toastr.error('Archivos permitidos .pdf', 'Tipo no Aceptado!');  
+                        </script>";
+                }
+            } else {
+                $file = $d->data[0]['file'];
+            }
+
+            try {
+                $article = new articleModel();
+                $article->title = $title ;
+                $article->description = $description;
+                $article->thumb = $thumb;
+                $article->file = $file;
+                $article->id = $_GET['article'];
+                $article->edit();
+                if($article->data) {
+                    return "
+                        <script>
+                            toastr.success('Se modifico el articulo correctamente!', 'Articulo Modificado!');    
+                        </script>";
+                } else {
+                    return "
+                        <script>
+                            toastr.error('No se pudo modificar el articulo', 'Error del Articulo!');
+                        </script>";
+                }
+            } catch (Exception $e) {
+                echo $e->getMessage();
+            } 
+        }
+    }
+
+    /**
+     * Metodo para eliminar un articulo
+     * @return string
+     */
+    function deleteArticle($d) {
+        try {
+            unlink('./assets/uploads/'.$d->data[0]['user'].'/'.$d->data[0]['thumb']);
+            unlink('./assets/uploads/'.$d->data[0]['user'].'/'.$d->data[0]['file']);
             $article = new articleModel();
-            $article->search = "%$search%";
-            $article->search();
+            $article->id = filter($_GET['article']);
+            $article->delete();
+            if($article->data) {
+                return "
+                    <script>
+                        toastr.success('Se elimino el articulo correctamente!', 'Articulo Modificado!');          
+                    </script>";
+            } else {
+                return "
+                    <script>
+                        toastr.error('No se pudo eliminar el articulo', 'Error del Articulo!');   
+                    </script>";
+            }
         } catch (Exception $e) {
             echo $e->getMessage();
         } 
-        return $article->data;
-        /*
-        $statement = $conexion->prepare('SELECT * FROM articulos WHERE titulo LIKE :busqueda or texto LIKE :busqueda');
-        $statement->execute(array(':busqueda' => "%$busqueda%"));
-        $resultados = $statement->fetchAll();
-        if(empty($resultados)) {
-            $titulo = 'No se encontrraron articulos con el resultaodo: '.$busqueda;
-        } else {
-            $titulo = 'Resultados de la busqueda: '.$busqueda;
-        }
-        */
-    } else {
-        Redirect::to('error');
     }
-}
+
+//--------------------------------------------------------------------------------------------------
+    /**
+     * Metodo para enviar datos de la busqueda y
+     * enviarlo a la pagina de busqueda
+     * @return void
+     */
+    function search() {
+        if(isset($_POST['submitSearch'])) {
+            $search = filter($_POST['search']);
+            Redirect::to('publications/search?s='.$search);
+        }
+    }
+
+    /**
+     * Metodo para traer articulos buscados por medio
+     * de la busqueda realizada
+     * @return array
+     */
+    function searchPost() {
+        if($_SERVER['REQUEST_METHOD'] == 'GET' && !empty($_GET['s'])) {
+            $search = filter($_GET['s']);
+            try {
+                $article = new articleModel();
+                $article->search = "%$search%";
+                $article->search();
+            } catch (Exception $e) {
+                echo $e->getMessage();
+            } 
+            return $article->data;
+        } else {
+            Redirect::to('error');
+        }
+    }
+
+//--------------------------------------------------------------------------------------------------
+    /**
+     * Metodo para incrementar views de un articulo
+     * @return void
+     */
+    function views($id, $views) {
+        try {
+            $article = new articleModel();
+            $article->views = $views+1;
+            $article->id = $id;
+            $article->setViews();
+        } catch (Exception $e) {
+            echo $e->getMessage();
+        } 
+        
+    }

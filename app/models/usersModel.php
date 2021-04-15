@@ -52,7 +52,7 @@ class usersModel extends Model {
         ];
 
         try {
-            return (parent::query($sql, $registro));
+            return ($this->data = parent::query($sql, $registro)? true : false);
         } catch (Exception $e) {
             throw $e;
         }

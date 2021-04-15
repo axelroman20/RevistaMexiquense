@@ -7,19 +7,19 @@
             <form method="post">
                 <!-- Nombre -->
                 <label class="labelname_register" for="name">Nombre</label>
-                <input class="inputname_register" type="text" name="name" placeholder="Ingresar Nombre">
+                <input class="inputname_register" type="text" name="name" placeholder="Ingresar Nombre" maxlength="50">
                 <!-- APELLIDO -->
                 <label class="labellastname_register" for="lastname">Apellido</label>
-                <input class="inputlastname_register" type="text" name="lastname" placeholder="Ingresar Apellido">
+                <input class="inputlastname_register" type="text" name="lastname" placeholder="Ingresar Apellido" maxlength="50">
                 <!-- CORREO -->
                 <label class="labelemail_register" for="email">Correo Electronico</label>
                 <input class="inputemail_register" type="email" name="email" placeholder="Ingresar Correo Electronico">
                 <!-- USUARIO -->
                 <label class="labeluser_register" for="user">Usuario</label>
-                <input class="inputuser_register"  type="text" name="user" placeholder="Ingresar Usuario">
+                <input class="inputuser_register"  type="text" name="user" placeholder="Ingresar Usuario" minlength="10" maxlength="50">
                 <!-- contraseña -->
                 <label class="labelpass_register" for="password">Contraseña</label>
-                <input class="inputpass_register" type="password" name="pass" placeholder="Ingresar Contraseña">
+                <input class="inputpass_register" type="password" name="pass" placeholder="Ingresar Contraseña" minlength="10" maxlength="50">
                 <label class="labelcarrer_register" for="carrer">Carrera</label>
                 <select class="inputcarrer_register" name="carrer" id="carrer">
                     <option selected>Selecciona Carrera</option>

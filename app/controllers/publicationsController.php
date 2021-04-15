@@ -30,7 +30,7 @@ class publicationsController {
     }
 
     function single() {
-        if(!isset($_GET['user']) && !isset($_GET['file'])) {
+        if(empty($_GET['article'])) {
             Redirect::to('error');
         }
 
@@ -41,11 +41,14 @@ class publicationsController {
             $errorLogin    = '';
             $errorRegister = '';
         }
-
+        
+        $article = getPostId($_GET['article']);
+        views($_GET['article'], $article[0]['views']);
         $data = [
-            'title'         => 'Publicaciones', 
+            'title'         => 'Articulo', 
             'errorLogin'    => $errorLogin,
-            'errorRegister' => $errorRegister
+            'errorRegister' => $errorRegister,
+            'article'       => $article
         ];
         search();
         View::render('single', $data);

@@ -82,6 +82,9 @@ class accountController{
         if(!isset($_SESSION['user'])){
             Redirect::to('home');
         }
+        if(!isset($_GET['token'])){
+            Redirect::to('account');
+        }
         $active = statusAccount();
         $data = [
             'title'  => 'Restablecer Contraseña',
@@ -89,7 +92,7 @@ class accountController{
             'active' => $active
         ];
         if($active == 0) {
-            activeAccount($_SESSION['id']);
+            activeAccount($_SESSION['id'], 1);
         }
         search();
         View::render('active', $data);

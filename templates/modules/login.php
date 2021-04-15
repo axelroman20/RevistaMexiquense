@@ -7,10 +7,10 @@
             <form method="post" class="needs-validation" novalidate>
                 <!-- Usuario -->
                 <label class="labeluser_login" for="username" >Usuario</label>
-                <input class="inputuser_login" type="text" name="user" placeholder="Ingresar Usuario">
+                <input class="inputuser_login" type="text" name="user" placeholder="Ingresar Usuario" maxlength="50">
                 <!-- contraseña -->
                 <label class="labelpass_login" for="password" >Contraseña</label>
-                <input class="inputpass_login" type="password" name="pass" placeholder="Ingresar Contraseña">
+                <input class="inputpass_login" type="password" name="pass" placeholder="Ingresar Contraseña" maxlength="50">
                 <input type="submit" name="submitLogin" value="Iniciar Sesión">
                 <a href="account/recover-password">¿Olvidaste tu contraseña?</a><br>
                 <a id="register-btn-open-popup">¿No tienes una cuenta?</a>

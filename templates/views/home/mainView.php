@@ -49,7 +49,7 @@
         <section class="info">
             <div class="containerr container-fluid bg-secondary">
                 <div class="row justify-content-center">
-                    <div class="col align-self-center"><br><br><br>
+                    <div class="col align-self-center"><br><br>
                         <h2>Objetivos Generales</h2>
                         <p>El objetivo de esta plataforma de revista digital es el uso de tecnologias web durante su desarrollo,
                             ademas de ser un medio de comunicacion para las diferentes carreras de licenciatura de la escuela
@@ -75,7 +75,7 @@
                         <figure id="hover-robotica">
                             <img src="<?php echo UPLOADS.$post->user.'/'.$post->thumb; ?>">
                             <div class="capa">
-                                <a href="publications/single?user=<?php echo $post->user; ?>&file=<?php echo $post->file; ?>" style="color: #fff;"> <br>
+                                <a href="publications/single?article=<?php echo $post->id; ?>" style="color: #fff;"> <br>
                                     <h3><?php echo $post->title; ?></h3>
                                     <h4><i class="fas fa-eye"></i> <?php echo $post->views; ?></h4> 
                                 </a>

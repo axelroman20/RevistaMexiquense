@@ -45,7 +45,7 @@
                     
                         <div class="col-md-6 col-lg-4 col-xl-4 g-4">
                             <div class="card shadow">
-                                <a href="publications/single?user=<?php echo $post->user; ?>&file=<?php echo $post->file; ?>">
+                                <a href="publications/single?article=<?php echo $post->id; ?>">
                                     <img src="<?php echo UPLOADS.$post->user.'/'.$post->thumb; ?>" 
                                     class="card-img-top" alt="..." width="100%"  height="300">
                                 </a>

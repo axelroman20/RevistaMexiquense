@@ -11,12 +11,12 @@
         <form method="post" id="form-name" class="needs-validation" novalidate>
             <div class="mb-3">
                 <label for="recipient-name" class="col-form-label">Nombre:</label>
-                <input required type="text" class="form-control" id="recipient-name" name="name-update">
+                <input required type="text" class="form-control" id="recipient-name" name="name-update" maxlength="50">
                 <div class="invalid-feedback"> Ingresa tu nombre </div>
             </div>
             <div class="mb-3">
                 <label for="recipient-lastname" class="col-form-label">Apellido:</label>
-                <input required type="text" class="form-control" id="recipient-lastname" name="lastname-update">
+                <input required type="text" class="form-control" id="recipient-lastname" name="lastname-update" maxlength="50">
                 <div class="invalid-feedback"> Ingresa tu apellido </div>
             </div>
         </form>
@@ -42,7 +42,7 @@
         <form method="post" id="form-user" class="needs-validation" novalidate>
             <div class="mb-3">
                 <label for="recipient-user" class="col-form-label">Usuario:</label>
-                <input required type="text" class="form-control" id="recipient-user" name="user-update">
+                <input required type="text" class="form-control" id="recipient-user" name="user-update" minlength="10" maxlength="50">
                 <div class="invalid-feedback"> Ingresa un usuario </div>
             </div>
         </form>
@@ -69,17 +69,17 @@
         <form method="post" id="form-pass" class="needs-validation" novalidate>
             <div class="mb-3">
                 <label for="recipient-pass" class="col-form-label">Contraseña Actual:</label>
-                <input required type="text" class="form-control" id="recipient-pass" name="pass-update">
+                <input required type="text" class="form-control" id="recipient-pass" name="pass-update" minlength="10" maxlength="50">
                 <div class="invalid-feedback"> Ingresa tu contraseña actual </div>
             </div>
             <div class="mb-3">
                 <label for="recipient-passnew" class="col-form-label">Contraseña Nueva:</label>
-                <input required type="text" class="form-control" id="recipient-passnew" name="passnew-update">
+                <input required type="text" class="form-control" id="recipient-passnew" name="passnew-update" minlength="10" maxlength="50">
                 <div class="invalid-feedback"> Ingresa la nueva contraseña </div>
             </div>
             <div class="mb-3">
                 <label for="recipient-repitpassnew" class="col-form-label">Repite Contraseña Nueva:</label>
-                <input required type="text" class="form-control" id="recipient-repitpassnew" name="repitpassnew-update">
+                <input required type="text" class="form-control" id="recipient-repitpassnew" name="repitpassnew-update" minlength="10" maxlength="50">
                 <div class="invalid-feedback"> Ingresa la contraseña nuevamente</div>
             </div>
             <div class="mb-3">
@@ -113,6 +113,7 @@
                 <div class="invalid-feedback"> Ingresa un correo electronico</div>
             </div>
         </form>
+        <p style="color: #db1f1f;">Si cambias tu correo electronico necesitaras verificarlo nuevamente!</p>
         <!--------------------------------------->
       </div>
       <div class="modal-footer">
@@ -173,7 +174,6 @@
             event.preventDefault()
             event.stopPropagation()
             }
-
             form.classList.add('was-validated')
         }, false)
         })

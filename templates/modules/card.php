@@ -2,7 +2,7 @@
 
     <div class="col">
       <div class="card bg-dark text-white">
-        <a href="publications/single?user=<?php echo $post->user; ?>&file=<?php echo $post->file; ?>" style="color: #fff;">
+        <a href="publications/single?article=<?php echo $post->id; ?>" style="color: #fff;">
           <div class="card-img-overlay" style="background: #00000080;">
             <h5 class="card-title"><?php echo $post->title; ?></h5>
             <p class="card-text"><?php echo $post->description; ?></p>

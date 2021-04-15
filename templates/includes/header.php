@@ -13,7 +13,7 @@
     <?php require_once INCLUDES.'scripts.php'; ?>
 </head>
 <body>
-    <?php echo isset($d->toast) ? "<script> $d->toast </script>" : ''; ?>
+    <?php echo isset($d->toast) ? "$d->toast" : ''; ?>
     <!--------------------------------HEADER----------------------------------->
 
     <?php if(CONTROLLER == 'home'): ?>
@@ -24,8 +24,8 @@
         <div class="container">
             <?php require_once INCLUDES.'nav.php'; ?>
         </div>  
-        <div class="search-box">
-            <form method="post">
+        <div >
+            <form method="post" class="search-box">
                 <input class="search-txt" type="text" name="search" placeholder="Busqueda">
                 <button class="search-btn" type="submit" id="search" name="submitSearch">
                     <box-icon name='search-alt'></box-icon>

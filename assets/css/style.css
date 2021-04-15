@@ -181,7 +181,7 @@ header {
   color: #464646 !important;
   font-size: 1.3em;
   transition: 0.5s;
-  width: 230px;
+  width: 0px;
 }
 .search-box:hover > .search-txt {
   width: 230px;
@@ -1033,6 +1033,10 @@ h2 {
     right: 10%;
   }
 
+  .info .containerr  {
+    width: 90%;
+  }
+
 }
 
 @media (max-width: 768px) {
@@ -1045,6 +1049,10 @@ h2 {
   
   .search-box {
     left: 25%;
+  }
+
+  .info .containerr  {
+    width: 90%;
   }
 }
 
@@ -1059,6 +1067,7 @@ h2 {
 
   .search-box {
     left: 20%;
+    display: none;
   }
 
   .search-box:hover {
@@ -1069,5 +1078,11 @@ h2 {
   .search-txt {
     width: 0px;
   }
-
+  .social {
+    display: none;
+  }
+  
+  .info .containerr  {
+    width: 100%;
+  }
 }

@@ -41,7 +41,6 @@
                     </div>
                 <?php endforeach; ?>
                 </div>
-                <?php require_once MODULES.'pagination.php'; ?>
             <?php else: ?>
                 <div class="row">
                     <div class="col-md-12">
