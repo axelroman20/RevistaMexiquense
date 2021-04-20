@@ -74,7 +74,7 @@
                         <span class="input-group-text" id="basic-addon1">
                             <i class="fas fa-university"></i>
                         </span>
-                        <input disabled type="text" class="form-control" value="<?php echo $d->carrer; ?>" aria-label="Carrer" aria-describedby="basic-addon1">
+                        <input disabled type="text" class="form-control" value="<?php echo getCarrerFilter($d->carrer); ?>" aria-label="Carrer" aria-describedby="basic-addon1">
                         <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#carrer" id="button-addon2">
                             <i class="fas fa-edit"></i>
                         </button>

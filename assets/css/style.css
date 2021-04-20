@@ -121,7 +121,17 @@ a {
   color: #fff !important;
 }
 
+.hidden {
+  display: none;
+}
 
+.disabled {
+  background:  gray;
+}
+
+.disabled:hover {
+  background:  gray !important;
+}
 
 /*///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
 
@@ -783,7 +793,7 @@ h2 {
 /* ------------------------- */
 .register-box {
   width: 360px;
-  height: 750px;
+  height: 500px;
   background: linear-gradient(to bottom, #37392e, #1a1b16);
   color: #f2f2f2;
   top: 50%;
@@ -810,6 +820,14 @@ h2 {
   text-align: center;
   font-size: 1.5em;
   font-weight: 300;
+}
+
+.register-box h4 {
+  margin: 0;
+  padding: 0 0 20px;
+  text-align: center;
+  font-size: 1em;
+  font-weight: 400;
 }
 
 .register-box label {
@@ -848,7 +866,8 @@ h2 {
   color: #6d6d6d;
 }
 
-.register-box input[type="submit"] {
+.register-box input[type="submit"],
+.register-box button {
   border: none;
   outline: none;
   height: 40px;
@@ -858,10 +877,15 @@ h2 {
   border-radius: 20px;
 }
 
-.register-box input[type="submit"]:hover {
+.register-box .disabled {
+  background: #868686;
+}
+
+.register-box input[type="submit"]:hover,
+.register-box button:hover {
   cursor: pointer;
   background: #28afb0;
-  color: #000;
+  color: #fff;
 }
 
 .register-box a {

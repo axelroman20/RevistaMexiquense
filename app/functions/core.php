@@ -25,3 +25,7 @@
         $_SESSION = array();
         Redirect::to('home');
     }
+
+    function searchEmail() {
+        Database::query();
+    }

@@ -21,13 +21,24 @@
         </li>
         
         <?php if(isset($_SESSION['user'])): ?>
-            <li class="nav-item">
-                <?php if(CONTROLLER == 'myarticle'): ?>
-                    <a class="nav-link active" href="myarticle">Mis Articulos</a>
-                <?php else: ?>
-                    <a class="nav-link" href="myarticle">Mis Articulos</a>
-                <?php endif; ?>
-            </li>
+            <?php if($_SESSION['rol'] == 1): ?>
+                <li class="nav-item">
+                    <?php if(CONTROLLER == 'myarticle'): ?>
+                        <a class="nav-link active" href="myarticle">Mis Articulos</a>
+                    <?php else: ?>
+                        <a class="nav-link" href="myarticle">Mis Articulos</a>
+                    <?php endif; ?>
+                </li>
+            <?php endif; ?>
+            <?php if($_SESSION['rol'] == 3): ?>
+                <li class="nav-item">
+                    <?php if(CONTROLLER == 'cpanel'): ?>
+                        <a class="nav-link active" href="cpanel">Panel de Control</a>
+                    <?php else: ?>
+                        <a class="nav-link" href="cpanel">Panel de Control</a>
+                    <?php endif; ?>
+                </li>
+            <?php endif; ?>
             <li class="nav-item">
                 <?php if(CONTROLLER == 'account'): ?>
                     <a class="nav-link active" href="account">Mi Cuenta</a>

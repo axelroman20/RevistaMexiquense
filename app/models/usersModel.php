@@ -35,24 +35,25 @@ class usersModel extends Model {
      * @return void
      */
     public function add() {
-        $sql = 'INSERT INTO users (id, rol, name, lastname, user, pass, pass_noencrypt, email, carrer, token, active) 
-                VALUES (:id, :rol, :name, :lastname, :user, :pass, :pass_noencrypt, :email, :carrer, :token, :active)';
+        $sql = 'INSERT INTO users (id, rol, name, lastname, user, pass, pass_noencrypt, email, carrer, token, password_request, active) 
+                VALUES (:id, :rol, :name, :lastname, :user, :pass, :pass_noencrypt, :email, :carrer, :token, :password_request, :active)';
         $registro = [
-            'id'             => $this->id,
-            'rol'            => $this->rol,
-            'name'           => $this->name,
-            'lastname'       => $this->lastname,
-            'user'           => $this->user,
-            'pass'           => $this->pass,
-            'pass_noencrypt' => $this->pass_noencrypt,
-            'email'          => $this->email,
-            'carrer'         => $this->carrer,
-            'token'          => $this->token,
-            'active'         => 0
+            'id'               => $this->id,
+            'rol'              => $this->rol,
+            'name'             => $this->name,
+            'lastname'         => $this->lastname,
+            'user'             => $this->user,
+            'pass'             => $this->pass,
+            'pass_noencrypt'   => $this->pass_noencrypt,
+            'email'            => $this->email,
+            'carrer'           => $this->carrer,
+            'token'            => $this->token,
+            'password_request' => $this->requestPassword,
+            'active'           => 0
         ];
 
         try {
-            return ($this->data = parent::query($sql, $registro)? true : false);
+            return ($this->data = parent::query($sql, $registro)? false : true);
         } catch (Exception $e) {
             throw $e;
         }
@@ -84,7 +85,7 @@ class usersModel extends Model {
             'email' => $this->email,
         ];
         try {
-            return ($this->data = parent::query($sql, $params));
+            return ($this->data = parent::query($sql, $params)? true : false);
         } catch (Exception $e) {
             throw $e;
         }

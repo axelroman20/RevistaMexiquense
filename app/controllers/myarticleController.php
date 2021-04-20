@@ -6,7 +6,12 @@ class myarticleController {
     }
 //--------------------------------------------------------------------------------------------------
     function index() {
-        if(!isset($_SESSION['user'])){
+        if( !isset($_SESSION['user']) || 
+            !isset($_SESSION['rol'])  ||
+            !isset($_SESSION['id'])) {
+            Redirect::to('home');
+        }
+        if($_SESSION['rol'] != 1) {
             Redirect::to('home');
         }
         $toasts = "";

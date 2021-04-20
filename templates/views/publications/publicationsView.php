@@ -28,7 +28,7 @@
                                         <i class="fas fa-eye"></i> <?php echo $post->views; ?> &nbsp
                                         <i class="fas fa-heart"></i>  <?php echo $post->likes; ?> &nbsp
                                         <span class="badge bg-dark"><?php echo $post->user; ?></span> &nbsp
-                                        <span class="badge bg-secondary"><?php echo $post->carrer; ?></span> &nbsp
+                                        <span class="badge bg-secondary"><?php echo getCarrerFilter($post->carrer); ?></span> &nbsp
                                     </small>
                                 </p>
                             </div>

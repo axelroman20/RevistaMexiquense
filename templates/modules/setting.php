@@ -139,10 +139,19 @@
                 <label for="recipient-carrer" class="col-form-label">Carrera:</label>
                 <select required class="form-select" id="recipient-carrer" name="carrer-update">
                     <option selected disabled value="">Selecciona</option>
-                    <option>Ingeniería En Sistemas</option>
-                    <option>Ingeniería Industrial</option>
-                    <option>Psicología</option>
-                    <option>Derecho</option>
+                    <option value="1">Ingeniería En Sistemas</option>
+                    <option value="2">Ingenieria Industrial</option>
+                    <option value="3">Psicologia</option>
+                    <option value="4">Derecho</option>
+                    <option value="5">Arquitectura</option>
+                    <option value="6">Ciencias de la Educación</option>
+                    <option value="7">Contaduria</option>
+                    <option value="8">Diseño Digital</option>
+                    <option value="9">Enfermeria</option>
+                    <option value="10">Informática Administrativa</option>
+                    <option value="11">Mercadotecnia</option>
+                    <option value="12">Negocios Internacionales</option>
+                    <option value="13">Pedagogía</option>
                 </select>
                 <div class="invalid-feedback"> Selecciona tu carrera</div>
             </div>

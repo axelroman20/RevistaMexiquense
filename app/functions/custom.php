@@ -31,13 +31,13 @@
                     $users->loginValidate();
                     if(sha1($pass) == $users->data[0]['pass']) {
                         if($users->data) {
-                            $_SESSION['user'] = $users->user;
-                            $_SESSION['id']   = $users->data[0]['id'];
-                            $_SESSION['carrer']   = $users->data[0]['carrer'];
+                            $_SESSION['user']   = $users->user;
+                            $_SESSION['id']     = $users->data[0]['id'];
+                            $_SESSION['rol']    = $users->data[0]['rol'];
+                            $_SESSION['carrer'] = $users->data[0]['carrer'];
                             $_SESSION['search'] = '';
                             $_GET['id'] = '';
                             Redirect::to(CONTROLLER);
-                            
                         }
                     } else {
                         $errorLogin .= "
@@ -61,13 +61,14 @@
         $errorRegister = "";    
         if(isset($_POST['submitRegister'])) {
             $id       = ''.dechex(rand(0x000000, 0xFFFFFF));
-            $rol      = 0;
+            $rol      = filter($_POST['rol']);
             $name     = filter($_POST['name']);
             $lastname = filter($_POST['lastname']);
             $email    = filter($_POST['email']);
             $user     = filter($_POST['user']);
             $pass     = filter($_POST['pass']);
             $carrer   = filter($_POST['carrer']);
+            $request  = 0;
             $token    = sha1(rand(0,1000));
 
             if(empty($name)) {
@@ -105,14 +106,21 @@
                         $('.inputpass_register').addClass('errorInput');
                     </script>";
             }
-            if($carrer == 'Selecciona Carrera') {
+            if(empty($rol)) {
+                $errorRegister .= "
+                    <script>
+                        $('.labelrol_register').addClass('errorLabel');
+                        $('.inputrol_register').addClass('errorInput');
+                    </script>";
+            } 
+            if(empty($carrer)) {
                 $errorRegister .= "
                     <script>
                         $('.labelcarrer_register').addClass('errorLabel');
                         $('.inputcarrer_register').addClass('errorInput');
                     </script>";
             } 
-
+            /*
             try {
                 $users = new usersModel();
                 $users->email = $email;
@@ -140,26 +148,35 @@
             } catch (Exception $e) {
                 echo $e->getMessage();
             } 
+            */
 
             if(empty($errorRegister)) {
                 try {
-                    $users->id             = $id;
-                    $users->rol            = $rol;
-                    $users->name           = $name;
-                    $users->lastname       = $lastname;
-                    $users->user           = $user;
-                    $passSha1              = sha1($pass);
-                    $users->pass           = $passSha1;
-                    $users->pass_noencrypt = $pass;
-                    $users->email          = $email;
-                    $users->carrer         = $carrer;
-                    $users->token          = $token;
+                    $users->id               = $id;
+                    $users->rol              = $rol;
+                    $users->name             = $name;
+                    $users->lastname         = $lastname;
+                    $users->user             = $user;
+                    $passSha1                = sha1($pass);
+                    $users->pass             = $passSha1;
+                    $users->pass_noencrypt   = $pass;
+                    $users->email            = $email;
+                    $users->carrer           = $carrer;
+                    $users->token            = $token;
+                    $users->requestPassword  = $request;
                     //$users->add();
                     if($users->data) {
-                        $_SESSION['user'] = $users->user;
-                        $_SESSION['id'] = $users->id;
+                        $_SESSION['user']   = $users->user;
+                        $_SESSION['id']     = $users->id;
+                        $_SESSION['rol']    = $users->rol;
                         $_SESSION['carrer'] = $carrer;
                         $_SESSION['search'] = '';
+                        
+                    } else {
+                        $errorRegister .= "
+                            <script>
+                                toastr.error('Revisa tu información algo puede estar mal.', 'Registro no realizado!');
+                            </script>";
                     }
                 } catch (Exception $e) {
                     echo $e->getMessage();
@@ -168,6 +185,10 @@
         }
         return $errorRegister;
     }
+//--------------------------------------------------------------------------------------------------
+
+    
+
 //--------------------------------------------------------------------------------------------------
     /**
      * Metodo para cargar datos de cuenta del usuario
@@ -631,6 +652,30 @@
         return $date;
     }
 
+    /**
+     * Metodo para dale formato a la carrera
+     * @return string
+     */
+    function getCarrerFilter($carrer) {
+        $carrers = [
+            'Visitante',
+            'Ingeniería En Sistemas',
+            'Ingenieria Industrial',
+            'Psicologia', 
+            'Derecho', 
+            'Arquitectura', 
+            'Ciencias de la Educación', 
+            'Contaduria', 
+            'Diseño Digital', 
+            'Enfermeria', 
+            'Informática Administrativa', 
+            'Mercadotecnia',
+            'Negocios Internacionales',
+            'Pedagogía'
+        ];
+        return $carrers[$carrer];
+    }
+
 //--------------------------------------------------------------------------------------------------
     /**
      * Metodo para cargar el articulo
@@ -912,7 +957,7 @@
             echo $e->getMessage();
         } 
     }
-
+    
 //--------------------------------------------------------------------------------------------------
     /**
      * Metodo para enviar datos de la busqueda y
