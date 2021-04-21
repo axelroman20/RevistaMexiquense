@@ -45,9 +45,12 @@
                             <i class="fas fa-user"></i>
                         </span>
                         <input disabled type="text" class="form-control" value="<?php echo $d->user; ?>" aria-label="Username" aria-describedby="basic-addon1">
-                        <button disabled type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#user" id="button-addon2">
-                            <i class="fas fa-edit"></i>
-                        </button>
+                        <!--
+                            <button disabled type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#user" id="button-addon2">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                        -->
+
                     </div>
 
                     <div class="input-group mb-3">
@@ -70,15 +73,19 @@
                         </button>
                     </div>
 
+                    
                     <div class="input-group mb-3">
                         <span class="input-group-text" id="basic-addon1">
                             <i class="fas fa-university"></i>
                         </span>
                         <input disabled type="text" class="form-control" value="<?php echo getCarrerFilter($d->carrer); ?>" aria-label="Carrer" aria-describedby="basic-addon1">
-                        <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#carrer" id="button-addon2">
-                            <i class="fas fa-edit"></i>
-                        </button>
+                        <?php if($_SESSION['rol'] == 1): ?>
+                            <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#carrer" id="button-addon2">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                        <?php endif;?>
                     </div>
+                    
                 </div>
             </div>
         </div>

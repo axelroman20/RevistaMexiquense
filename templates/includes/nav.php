@@ -30,7 +30,7 @@
                     <?php endif; ?>
                 </li>
             <?php endif; ?>
-            <?php if($_SESSION['rol'] == 3): ?>
+            <?php if(($_SESSION['rol'] == 3) || ($_SESSION['rol'] == 2)): ?>
                 <li class="nav-item">
                     <?php if(CONTROLLER == 'cpanel'): ?>
                         <a class="nav-link active" href="cpanel">Panel de Control</a>

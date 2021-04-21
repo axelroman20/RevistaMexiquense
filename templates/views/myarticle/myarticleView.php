@@ -55,8 +55,8 @@
                                     <?php if($d->rol == 1): ?>
                                         <p class="card-text d-flex justify-content-end">
                                         <small class="text-muted">
-                                            <span class="badge bg-dark"><?php echo $post->user; ?></span> &nbsp
-                                            <span class="badge bg-secondary"><?php echo $post->carrer; ?></span> &nbsp
+                                            <i class="fas fa-eye"></i> <?php echo $post->views; ?> &nbsp
+                                            <i class="fas fa-heart"></i>  <?php echo $post->likes; ?> &nbsp
                                         </small>
                                     </p>
                                     <?php endif; ?>

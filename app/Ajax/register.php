@@ -78,12 +78,15 @@ $data['status'] = "true";
             $request  = 0;
             $active   = 0;
 
+            
             $sql = "INSERT INTO users (id, rol, name, lastname, user, pass, pass_noencrypt, email, carrer, token, password_request, active) 
             VALUES ('$id', '$rol','$name', '$lastname', '$user', '$passSha1', '$pass', '$email', '', '$token', '$request', '$active')";
             $request = $db_handle->query($sql);
             if($request) {
+                folder($user);
                 $data['status'] = "true";
             }
+            
         }
         if($data['rol'] == "1") {
             $id       = ''.dechex(rand(0x000000, 0xFFFFFF)); 
@@ -103,16 +106,17 @@ $data['status'] = "true";
             VALUES ('$id', '$rol','$name', '$lastname', '$user', '$passSha1', '$pass', '$email', '$carrer', '$token', '$request', '$active')";
             $request = $db_handle->query($sql);
             if($request) {
+                folder($user);
                 $data['status'] = "true";
             }
         }
         if($data['rol'] == "2") {
             $typepass = $data['rolpass'];
-            $query = "SELECT * FROM rol WHERE typepass='$typepass'";
+            $query = "SELECT * FROM rol WHERE id=2 AND typepass='$typepass'";
             $user_count = $db_handle->numRows($query);
             if($user_count=="1") {
                 $id       = ''.dechex(rand(0x000000, 0xFFFFFF)); 
-                $rol      = 3;
+                $rol      = 2;
                 $name     = filter($data['name']);
                 $lastname = filter($data['lastname']);
                 $email    = filter($data['email']);
@@ -127,6 +131,7 @@ $data['status'] = "true";
                 VALUES ('$id', '$rol','$name', '$lastname', '$user', '$passSha1', '$pass', '$email', '', '$token', '$request', '$active')";
                 $request = $db_handle->query($sql);
                 if($request) {
+                    folder($user);
                     $data['status'] = "true";
                 }
             } 
@@ -141,6 +146,13 @@ $data['status'] = "true";
         $data = stripslashes($data);
         $data = htmlspecialchars($data);
         return $data;
+    }
+
+    function folder($user){
+        $dirDoc = $_SERVER['DOCUMENT_ROOT']."/revista/assets/uploads/$user/";
+        if(!file_exists(($dirDoc))){
+            mkdir($dirDoc, 0777);
+        } 
     }
     
     echo json_encode($data);

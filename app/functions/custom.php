@@ -120,35 +120,6 @@
                         $('.inputcarrer_register').addClass('errorInput');
                     </script>";
             } 
-            /*
-            try {
-                $users = new usersModel();
-                $users->email = $email;
-                $users->searchEmail();
-                if($users->data) {
-                    $errorRegister .= "
-                        <script>
-                            toastr.error('Elije otro correo electronico para poder registrarte', 'Correo Elctronico ya en uso!');
-                        </script>";
-                }
-            } catch (Exception $e) {
-                echo $e->getMessage();
-            } 
-
-            try {
-                $users = new usersModel();
-                $users->user = $user;
-                $users->searchUser();
-                if($users->data) {
-                    $errorRegister .= "
-                        <script>
-                            toastr.error('Elije otro nombre de usuario para poder registrarte', 'Usuario ya en uso!');
-                        </script>";
-                }
-            } catch (Exception $e) {
-                echo $e->getMessage();
-            } 
-            */
 
             if(empty($errorRegister)) {
                 try {
@@ -658,7 +629,7 @@
      */
     function getCarrerFilter($carrer) {
         $carrers = [
-            'Visitante',
+            'Ninguno',
             'Ingeniería En Sistemas',
             'Ingenieria Industrial',
             'Psicologia', 
@@ -674,6 +645,20 @@
             'Pedagogía'
         ];
         return $carrers[$carrer];
+    }
+
+    /**
+     * Metodo para dale formato al rol
+     * @return string
+     */
+    function getRolFilter($rol) {
+        $rols = [
+            'Visitante',
+            'Estudiante',
+            'Maestro',
+            'Administrador'
+        ];
+        return $rols[$rol];
     }
 
 //--------------------------------------------------------------------------------------------------
@@ -1007,4 +992,165 @@
             echo $e->getMessage();
         } 
         
+    }
+
+//--------------------------------------------------------------------------------------------------
+
+    function getLinkUser() {
+        try {
+            $users = new cpanelModel();
+            $users->teacher = $_SESSION['user'];
+            $users->getlinksUsers();
+            return $users->data;
+        } catch (Exception $e) {
+            echo $e->getMessage();
+        } 
+    }
+
+    function getAllUser() {
+        try {
+            $users = new cpanelModel();
+            $users->getUsers();
+            return $users->data;
+        } catch (Exception $e) {
+            echo $e->getMessage();
+        } 
+    }
+
+//--------------------------------------------------------------------------------------------------
+    function getAllUserId($id) {
+        try {
+            $cpanel = new cpanelModel();
+            $cpanel->id = $id;
+            $cpanel->getUserId();
+            return $cpanel->data;
+        } catch (Exception $e) {
+            echo $e->getMessage();
+        } 
+    }
+
+    function addUserAdmin() {
+        $error = '';
+        if(isset($_POST['addUsers'])){
+            $id       = ''.dechex(rand(0x000000, 0xFFFFFF));
+            $rol      = filter($_POST['rol']);
+            $name     = filter($_POST['name']);
+            $lastname = filter($_POST['lastname']);
+            $user     = filter($_POST['user']);
+            $pass     = filter($_POST['pass']);
+            $email    = filter($_POST['email']);
+            $carrer   = filter($_POST['carrer']);
+            $token    = sha1(rand(0,1000));
+            $active   = filter($_POST['active']);
+            $request  = 0;
+            try {
+                $cpanel = new cpanelModel();
+                $cpanel->user = $user;
+                $cpanel->searchUser();
+                if($cpanel->data){
+                    return "
+                        <script>
+                            toastr.error('', 'Usuario Ya Existente!');            
+                        </script>";
+                }
+
+                $cpanel->email = $email;
+                $cpanel->searchEmail();
+                if($cpanel->data){
+                    return "
+                        <script>
+                            toastr.error('', 'Correo Electronico Ya Existente!');            
+                        </script>";
+                }
+
+                if(empty($carrer)) {
+                    $carrer = 0;
+                }
+
+                if($active=="true") {
+                    $active = 1;
+                }
+                if($active=="false") {
+                    $active = 0;
+                }
+
+                if(empty($error)) {
+                    try {
+                        $cpanel->id               = $id;
+                        $cpanel->rol              = $rol;
+                        $cpanel->name             = $name;
+                        $cpanel->lastname         = $lastname;
+                        $cpanel->user             = $user;
+                        $passSha1                 = sha1($pass);
+                        $cpanel->pass             = $passSha1;
+                        $cpanel->pass_noencrypt   = $pass;
+                        $cpanel->email            = $email;
+                        $cpanel->carrer           = $carrer;
+                        $cpanel->token            = $token;
+                        $cpanel->requestPassword  = $request;
+                        $cpanel->active           = $active;
+                        $cpanel->addUsers();
+                        if($cpanel->data) {
+                            $dirDoc = "./assets/uploads/$user/";
+                            if(!file_exists(($dirDoc))){
+                                mkdir($dirDoc, 0777);
+                            } 
+                            return "
+                                <script>
+                                    toastr.success('', 'Usuario Creado Correctamente!');            
+                                </script>";
+                        }
+                    } catch (Exception $e) {
+                        echo $e->getMessage();
+                    } 
+                }
+
+
+            } catch (Exception $e) {
+                echo $e->getMessage();
+            } 
+
+        }
+    }
+
+    /**
+     * Metodo para eliminar los articulos
+     * @return string
+     */
+    function deleteData($d) {
+        try {
+            deleteDirectory('./assets/uploads/'.$d[0]['user']);
+            $cpanel = new cpanelModel();
+            $cpanel->user = $d[0]['user'];
+            $cpanel->deleteArticles();
+            $cpanel->id = $d[0]['id'];
+            $cpanel->deleteUser();
+            if($cpanel->data) {
+                return "
+                    <script>
+                        toastr.success('Se elimino el usuario y sus todos sus datos correctamente!', 'Cuenta Eliminada!');          
+                    </script>";
+            } else {
+                return "
+                    <script>
+                        toastr.error('No se pudo eliminar la cuenta', 'Error Datos de Cuenta!');   
+                    </script>";
+            }
+        } catch (Exception $e) {
+            echo $e->getMessage();
+        } 
+    }
+
+    function deleteDirectory($dir) {
+        if(!$dh = @opendir($dir)) return;
+        while (false !== ($current = readdir($dh))) {
+            if($current != '.' && $current != '..') {
+                echo 'Se ha borrado el archivo '.$dir.'/'.$current.'<br/>';
+                if (!@unlink($dir.'/'.$current)) 
+                    deleteDirectory($dir.'/'.$current);
+            }       
+        }
+        closedir($dh);
+        echo 'Se ha borrado el directorio '.$dir.'<br/>';
+        @rmdir($dir);
     }

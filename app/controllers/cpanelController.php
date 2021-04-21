@@ -11,27 +11,36 @@ class cPanelController{
             !isset($_SESSION['id'])) {
             Redirect::to('home');
         }
-        if($_SESSION['rol'] != 3) {
+        if(($_SESSION['rol'] == 0) || ($_SESSION['rol'] == 1)) {
             Redirect::to('home');
         }
         $toasts = "";
-        $users  = loadSetting();
+        if($_SESSION['rol']==2){ $links = getLinkUser(); }
+        if($_SESSION['rol']==3){ 
+            $links = getAllUser(); 
+            $toasts .= addUserAdmin();
+        }
         $data = [
-            'title'           => 'Mi Cuenta',
-            'id'              => $users->data[0]['id'],
-            'rol'             => $users->data[0]['rol'],
-            'name'            => $users->data[0]['name'],
-            'lastname'        => $users->data[0]['lastname'],
-            'user'            => $users->data[0]['user'],
-            'pass'            => $users->data[0]['pass'],
-            'pass_noencrypt'  => $users->data[0]['pass_noencrypt'],
-            'email'           => $users->data[0]['email'],
-            'carrer'          => $users->data[0]['carrer'],
-            'token'           => $users->data[0]['token'],
+            'title'           => 'Panel de Control',
+            'links'           => $links,
             'toast'           => $toasts
         ];
         search();
         View::render('cpanel', $data);
+    }
+
+    function delete() {
+        if( !isset($_SESSION['user']) || 
+            !isset($_SESSION['rol'])  ||
+            !isset($_SESSION['id'])) {
+            Redirect::to('home');
+        }
+        if(($_SESSION['rol'] == 0) || ($_SESSION['rol'] == 1)) {
+            Redirect::to('home');
+        }
+        $links = getAllUserId($_GET['user']);
+        deleteData($links);
+        Redirect::to('cpanel');
     }
 //--------------------------------------------------------------------------------------------------
     function home() {
