@@ -1114,7 +1114,7 @@
     }
 
     /**
-     * Metodo para eliminar los articulos
+     * Metodo para eliminar la cuenta y datos del usuario
      * @return string
      */
     function deleteData($d) {
@@ -1141,6 +1141,10 @@
         } 
     }
 
+    /**
+     * Metodo para eliminar folders y archivos
+     * @return string
+     */
     function deleteDirectory($dir) {
         if(!$dh = @opendir($dir)) return;
         while (false !== ($current = readdir($dh))) {
