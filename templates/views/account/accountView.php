@@ -21,9 +21,17 @@
             <div class="b-example-divider"></div>
             </div>
         <?php endif; ?>
+            <div class="row row-cols-auto">
+                <div class="col">
+                    <h3>Configuración de cuenta</h3>
+                </div>
+                <div class="col align-self-end">
+                    <button onclick="window.location='account'"
+                            type="button" class="btn btn-info"><i class="fas fa-sync"></i></button>
+                </div>
+            </div>
             <div class="row">
                 <div class="col-md-12">
-                    <h3>Configuración de cuenta</h3>
                     <hr>
                 </div>
             </div>
@@ -45,11 +53,9 @@
                             <i class="fas fa-user"></i>
                         </span>
                         <input disabled type="text" class="form-control" value="<?php echo $d->user; ?>" aria-label="Username" aria-describedby="basic-addon1">
-                        <!--
-                            <button disabled type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#user" id="button-addon2">
-                                <i class="fas fa-edit"></i>
-                            </button>
-                        -->
+                        <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#user" id="button-addon2">
+                            <i class="fas fa-edit"></i>
+                        </button>
 
                     </div>
 

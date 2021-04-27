@@ -2,6 +2,7 @@
 
 class articleModel extends Model { 
     public $id;
+    public $id_user;
     public $user;
     public $carrer;
     public $title;
@@ -117,10 +118,11 @@ class articleModel extends Model {
      * @return array
      */
     public function add() {
-        $sql = 'INSERT INTO article (id, user, carrer, title, description, thumb, file) 
-                VALUES (:id, :user, :carrer, :title, :description, :thumb, :file)';
+        $sql = 'INSERT INTO article (id, id_user, user, carrer, title, description, thumb, file) 
+                VALUES (:id, :id_user, :user, :carrer, :title, :description, :thumb, :file)';
         $data = [
             'id'          => $this->id,
+            'id_user'     => $this->id_user,
             'user'        => $this->user,
             'carrer'      => $this->carrer,
             'title'       => $this->title,

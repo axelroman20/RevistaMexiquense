@@ -18,6 +18,7 @@
     <?php require_once MODULES.'register.php'; ?>
 <?php endif; ?>
 <!------------------------------------------------------------------->
+ 
 <script>
     // Example starter JavaScript for disabling form submissions if there are invalid fields
     (function () {

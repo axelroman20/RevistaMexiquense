@@ -1,5 +1,5 @@
 <div class="row row-cols-auto">
-    <div class="col ">
+    <div class="col">
         <h3>Panel de Control</h3>
     </div>
     <div class="col align-self-end">
@@ -13,8 +13,7 @@
             <input class="form-control me-2" type="search" name="search" placeholder="Buscar Usuario" aria-label="Search">
             <button class="btn btn-outline-success" type="submit" form="search-user">Buscar</button>
         </form>
-    </div>
-    
+    </div>   
     
 </div>
 <div class="row">
@@ -23,7 +22,15 @@
     </div>
 </div>
 
-<?php if($d->links): ?>
+<?php if(isset($_GET['search']) && !empty($_GET['search'])): ?>
+    <div class="row">
+        <div class="col">
+            <h5>Resultado de la busqueda: <?php echo $_GET['search']; ?></h5>
+        </div>
+    </div>
+<?php endif; ?>
+
+<?php if($d->links != "false"): ?>
     <div class="table-responsive">
         <table class="table table-light table-striped table-hover">
             <thead>
@@ -35,7 +42,6 @@
                 <th scope="col">Carrera</th>
                 <th scope="col">Correo Electronico</th>
                 <th scope="col">Verificado</th>
-                <th scope="col">Ver</th>
                 <th scope="col">Editar</th>
                 <th scope="col">Eliminar</th>
             </thead>
@@ -56,10 +62,6 @@
                     <?php else: ?>
                         <span class="badge bg-danger"><i class="fas fa-times"></i></span>
                     <?php endif; ?>
-                </td>
-                <td>
-                    <button onclick=""
-                        type="button" class="btn btn-primary btn-sm" ><i class="fas fa-eye"></i></i></button>
                 </td>
                 <td>
                     <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#edit-<?php echo $link->user; ?>">
@@ -98,15 +100,18 @@
                 <div class="modal fade" id="edit-<?php echo $link->user; ?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="staticBackdropLabel-<?php echo $link->user; ?>">Editar cuenta de @<?php echo $link->user; ?></h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="staticBackdropLabel-<?php echo $link->user; ?>">Editar cuenta de @<?php echo $link->user; ?></h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
                         <div class="modal-body">
-                            <form method="post" id="form-add-<?php echo $link->user; ?>" class="needs-validation" novalidate>
+                            <form method="post" id="form-<?php echo $link->user; ?>" class="needs-validation-<?php echo $link->user; ?>" novalidate>
+                                <div class="input-group mb-3">
+                                    <input hidden type="text" class="form-control" name="id" aria-label="id" aria-describedby="basic-addon1" value="<?php echo $link->id; ?>">
+                                </div>
                                 <div class="input-group mb-3">
                                     <span class="input-group-text" id="basic-addon3"><i class="fas fa-user-shield"></i></span>
-                                    <select required class="form-select" id="rol-<?php echo $link->user; ?>" name="rol" onchange="carrerlist();">
+                                    <select required class="form-select" id="rol-<?php echo $link->user; ?>" name="rol">
                                         <option value="" >Rol de Usuario</option>
                                         <?php if($link->rol == 0): ?>
                                             <option selected value="0">Visitante</option>   
@@ -150,13 +155,16 @@
                                 <div class="input-group mb-3">
                                     <span class="input-group-text" id="basic-addon1"><i class="fas fa-at"></i></i></span>
                                     <input required type="email" class="form-control" placeholder="Correo Electronico" name="email" aria-label="email" aria-describedby="basic-addon1" minlength="5" maxlength="50" value="<?php echo $link->email; ?>">
-                                </div>
-                                <?php if($link->rol == 1): ?>   
+                                </div> 
                                     <div id="carrer" class="">
                                         <div class="input-group mb-3">
                                             <span class="input-group-text"><i class="fas fa-university"></i></span>
                                             <select required class="form-select" name="carrer" id="basic-addon2-<?php echo $link->user; ?>">
-                                                <option value="">Selecciona Carrera</option>
+                                                <?php if($link->carrer == 0): ?> 
+                                                    <option selected value="0">Ninguno</option>   
+                                                <?php else: ?>
+                                                    <option value="0">Ninguno</option>
+                                                <?php endif; ?>
                                                 <?php if($link->carrer == 1): ?> 
                                                     <option selected value="1">Ingeniería En Sistemas</option>   
                                                 <?php else: ?>
@@ -225,40 +233,25 @@
                                             </select>
                                         </div>
                                     </div>
-                                <?php else: ?>
-                                    <div id="carrer" class="hidden">
-                                        <div class="input-group mb-3">
-                                            <span class="input-group-text"><i class="fas fa-university"></i></span>
-                                            <select required class="form-select" name="carrer" id="basic-addon2-<?php echo $link->user; ?>">
-                                                <option selected value="">Selecciona Carrera</option>
-                                                <option value="1">Ingeniería En Sistemas</option>
-                                                <option value="2">Ingenieria Industrial</option>
-                                                <option value="3">Psicologia</option>
-                                                <option value="4">Derecho</option>
-                                                <option value="5">Arquitectura</option>
-                                                <option value="6">Ciencias de la Educación</option>
-                                                <option value="7">Contaduria</option>
-                                                <option value="8">Diseño Digital</option>
-                                                <option value="9">Enfermeria</option>
-                                                <option value="10">Informática Administrativa</option>
-                                                <option value="11">Mercadotecnia</option>
-                                                <option value="12">Negocios Internacionales</option>
-                                                <option value="13">Pedagogía</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                <?php endif; ?>
-                                
-
+                            
                                 <div class="">
                                     <label for="validationTextarea" class="form-label">El usuario tiene que verificar su cuenta?</label>
                                     <div class="form-check">
-                                        <input type="radio" class="form-check-input" id="validationFormCheck2-<?php echo $link->user; ?>" name="radio-stacked" required>
-                                        <label class="form-check-label" for="validationFormCheck2">Si tiene que verificar su cuenta</label>
+                                        <?php if($link->active == 0): ?> 
+                                            <input checked type="radio" class="form-check-input" id="validationFormCheck2-<?php echo $link->user; ?>" name="active" value="0" required>
+                                        <?php else: ?>
+                                            <input type="radio" class="form-check-input" id="validationFormCheck2-<?php echo $link->user; ?>" name="active" value="0" required>
+                                        <?php endif; ?>
+                                        <label class="form-check-label" for="validationFormCheck2">Cuenta no Verificada</label>
                                     </div>
                                     <div class="form-check mb-3">
-                                        <input type="radio" class="form-check-input" id="validationFormCheck3-<?php echo $link->user; ?>" name="radio-stacked" required>
-                                        <label class="form-check-label" for="validationFormCheck3">No tiene que verificar su cuenta</label>
+                                        <?php if($link->active == 1): ?> 
+                                            <input checked type="radio" class="form-check-input" id="validationFormCheck3-<?php echo $link->user; ?>" name="active" value="1" required>
+                                        <?php else: ?>
+                                            <input type="radio" class="form-check-input" id="validationFormCheck3-<?php echo $link->user; ?>" name="active" value="1"  required>
+                                        <?php endif; ?>
+                                        
+                                        <label class="form-check-label" for="validationFormCheck3">Cuenta Verificada</label>
                                     </div>
                                 </div>
 
@@ -266,11 +259,52 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                            <button type="submit" class="btn btn-success" form="form-add-<?php echo $link->user; ?>" name="äddUsers">Crear</button>
+                            <button class="btn btn-warning" data-bs-target="#edit-validation-<?php echo $link->user; ?>" data-bs-toggle="modal" data-bs-dismiss="modal">Editar</button>
                         </div>
                         </div>
                     </div>
                 </div>
+                <!-- Second modal dialog -->
+                <div class="modal fade" id="edit-validation-<?php echo $link->user; ?>" aria-hidden="true" aria-labelledby="..." tabindex="-1">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="staticBackdropLabel-<?php echo $link->user; ?>">Confirmar cambios en la cuenta de @<?php echo $link->user; ?></h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                            
+                            <p>¿Estas seguro realizar estos cambios?</p>
+                            </div>
+                            <div class="modal-footer">
+                                <!-- Toogle to first dialog, `data-bs-dismiss` attribute can be omitted - clicking on link will close dialog anyway -->
+                                <button class="btn btn-secondary" data-bs-target="#edit-<?php echo $link->user; ?>" data-bs-toggle="modal" data-bs-dismiss="modal">Volver</button>
+                                <button type="submit" class="btn btn-warning" form="form-<?php echo $link->user; ?>" name="submitEdit">Editar</button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <script>
+                    var user = "<?php echo $link->user; ?>";
+                    (function () {
+                    'use strict'
+
+                    var forms = document.querySelectorAll('.needs-validation-'+user)
+
+                    Array.prototype.slice.call(forms)
+                        .forEach(function (form) {
+                        form.addEventListener('submit', function (event) {
+                            if (!form.checkValidity()) {
+                            event.preventDefault()
+                            event.stopPropagation()
+                            }
+                            form.classList.add('was-validated')
+                        }, false)
+                        })
+                    })()
+                </script>
 
         <?php endforeach; ?>
             </tbody>
@@ -284,7 +318,7 @@
                 <div class="card-body">
                     <h5 class="card-title">No hay nada aqui!</h5>
                     <p class="card-text">
-                        Agrega nuevos estudiantes o vincula estudiantes ya existenes.
+                        No se encontro lo que buscabas! o si no existe, puedes agregar un nuevo usuario presionando el boton verde!
                     </p>
                 </div>
             </div>
@@ -304,7 +338,7 @@
             <form class="needs-validation" novalidate method="post" id="form1">
                 <div class="input-group mb-3">
                     <span class="input-group-text" id="basic-addon3"><i class="fas fa-user-shield"></i></span>
-                    <select required class="form-select" id="rol" name="rol" onchange="carrerlist();">
+                    <select required class="form-select" id="rol" name="rol" onchange="carrerlistadd();">
                         <option selected value="" >Rol de Usuario</option>
                         <option value="0">Visitante</option>
                         <option value="1">Estudiante</option>
@@ -334,10 +368,10 @@
                     <input required type="email" class="form-control" placeholder="Correo Electronico" name="email" aria-label="email" aria-describedby="basic-addon1" minlength="5" maxlength="50">
                 </div>
 
-                <div id="carrer" class="hidden">
+                <div id="carrers" class="hidden">
                     <div class="input-group mb-3">
                         <span class="input-group-text"><i class="fas fa-university"></i></span>
-                        <select class="form-select" name="carrer" id="basic-addon2">
+                        <select class="form-select" name="carrer" id="" >
                             <option selected value="">Selecciona Carrera</option>
                             <option value="1">Ingeniería En Sistemas</option>
                             <option value="2">Ingenieria Industrial</option>
@@ -380,12 +414,13 @@
 
 
 <script>
-    function carrerlist() {
+    function carrerlistadd() {
         var rol = $('#rol').val();
+        var carrer = $('#carrers');
         if(rol == 1) {
-            $('#carrer').removeClass('hidden');
+            carrer.removeClass('hidden');
         } else {
-            $('#carrer').addClass('hidden');
+            carrer.addClass('hidden');
         }
     }
 </script>

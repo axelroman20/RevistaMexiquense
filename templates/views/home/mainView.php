@@ -73,7 +73,7 @@
                     <?php foreach ($d->postsViews as $post) : ?>
                         <div class="col">
                         <figure id="hover-robotica">
-                            <img src="<?php echo UPLOADS.$post->user.'/'.$post->thumb; ?>">
+                            <img src="<?php echo UPLOADS.$post->id_user.'/'.$post->thumb; ?>">
                             <div class="capa">
                                 <a href="publications/single?article=<?php echo $post->id; ?>" style="color: #fff;"> <br>
                                     <h3><?php echo $post->title; ?></h3>

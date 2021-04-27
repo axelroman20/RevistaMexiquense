@@ -67,6 +67,7 @@ class myarticleController {
         
         $data = [
             'title'        => 'Editar Articulo',
+            'id_user'         => $article->data[0]['id_user'],
             'user'         => $article->data[0]['user'],
             'titlee'       => $article->data[0]['title'],
             'description'  => $article->data[0]['description'],

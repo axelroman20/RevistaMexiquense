@@ -8,7 +8,7 @@
             <p class="card-text"><?php echo $post->description; ?></p>
             <p class="card-text"><?php echo getDateFilter($post->created_at); ?></p>
           </div>
-          <img src="<?php echo UPLOADS.$post->user.'/'.$post->thumb; ?>" class="card-img" height="400">
+          <img src="<?php echo UPLOADS.$post->id_user.'/'.$post->thumb; ?>" class="card-img" height="400">
         </a>
       </div>
     </div>

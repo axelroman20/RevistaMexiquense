@@ -12,6 +12,7 @@ class accountController{
          $toasts = "";
         $users = loadSetting();
          $toasts .= updateName($users->data[0]['id']);
+         $toasts .= updateUser($users->data[0]['id']);
          $toasts .= updatePass($users->data[0]['id']);
          $toasts .= updateEmail($users->data[0]['id']);
          $toasts .= updateCarrer($users->data[0]['id']);

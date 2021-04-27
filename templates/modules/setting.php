@@ -42,7 +42,7 @@
         <form method="post" id="form-user" class="needs-validation" novalidate>
             <div class="mb-3">
                 <label for="recipient-user" class="col-form-label">Usuario:</label>
-                <input required type="text" class="form-control" id="recipient-user" name="user-update" minlength="10" maxlength="50">
+                <input required type="text" class="form-control" id="user-update" name="user-update" minlength="5" maxlength="50">
                 <div class="invalid-feedback"> Ingresa un usuario </div>
             </div>
         </form>

@@ -211,14 +211,22 @@
                 $users = new usersModel();
                 $users->user = filter($_POST['user-update']);
                 $users->id = $id;
-                $users->updateUsers();
-                if($users->data) {
-                    return "
-                        <script>
-                            toastr.success('Usuario Actualizado', 'Datos Guardados!');
-                        </script>";
-                    Redirect::to('account');
-                }
+                $users->searchUser();
+                    if($users->data) {
+                        return "
+                            <script>
+                                toastr.error('', 'Usuario Ya Existente!');            
+                            </script>";
+                    } else {
+                        $users->updateUsers();
+                        if($users->data) {
+                            $_SESSION['user'] = filter($_POST['user-update']);
+                            return "
+                                <script>
+                                    toastr.success('Usuario Actualizado', 'Datos Guardados!');
+                                </script>";
+                        }
+                    }
             } catch (Exception $e) {
                 echo $e->getMessage();
             } 
@@ -684,6 +692,7 @@
     function addArticle(){
         if(isset($_POST['submitArticleNew'])) {
             $id          = ''.dechex(rand(0x000000, 0xFFFFFF));
+            $id_user     = $_SESSION['id'];
             $user        = $_SESSION['user'];
             $carrer      = $_SESSION['carrer'];
             $title       = filter($_POST['title']);
@@ -745,9 +754,9 @@
             }
             
             
-            $dirDoc = "./assets/uploads/$user/";
+            $dirDoc = "./assets/uploads/$id_user/";
             $urlDoc = $dirDoc.$file;
-            $dirThumb = "./assets/uploads/$user/";
+            $dirThumb = "./assets/uploads/$id_user/";
             $urlThumb = $dirThumb.$thumb;
             if(!file_exists(($dirDoc))){
                 mkdir($dirDoc, 0777);
@@ -775,6 +784,7 @@
             try { 
                 $article = new articleModel();
                 $article->id          = $id;
+                $article->id_user     = $id_user;
                 $article->user        = $user;
                 $article->carrer      = $carrer;
                 $article->title       = $title;
@@ -822,9 +832,9 @@
                 $extThumb = strtolower(end($extFileThumb));
                 iF(in_array($extThumb, $extListThumb)){
                     if($_FILES['thumb']['size']<($sizeThumb * 1024)){
-                        unlink('./assets/uploads/'.$d->data[0]['user'].'/'.$d->data[0]['thumb']);
+                        unlink('./assets/uploads/'.$d->data[0]['id_user'].'/'.$d->data[0]['thumb']);
                         $thumb = $d->id.'_thumb.'.$extThumb;
-                        $dirThumb = "./assets/uploads/".$_SESSION['user']."/";
+                        $dirThumb = "./assets/uploads/".$_SESSION['id']."/";
                         $urlThumb = $dirThumb.$thumb;
                         if(!file_exists(($dirThumb))){
                             mkdir($dirThumb, 0777);
@@ -860,9 +870,9 @@
                 $ext = strtolower(end($extFile));
                 iF($ext == $extList){
                     if($_FILES['file']['size']<($size * 1024)){
-                        unlink('./assets/uploads/'.$d->data[0]['user'].'/'.$d->data[0]['file']);
+                        unlink('./assets/uploads/'.$d->data[0]['id_user'].'/'.$d->data[0]['file']);
                         $file = $d->id.'_doc.'.'pdf';
-                        $dirDoc = "./assets/uploads/".$_SESSION['user']."/";
+                        $dirDoc = "./assets/uploads/".$_SESSION['id']."/";
                         $urlDoc = $dirDoc.$file;
                         if(!file_exists(($dirDoc))){
                             mkdir($dirDoc, 0777);
@@ -922,8 +932,8 @@
      */
     function deleteArticle($d) {
         try {
-            unlink('./assets/uploads/'.$d->data[0]['user'].'/'.$d->data[0]['thumb']);
-            unlink('./assets/uploads/'.$d->data[0]['user'].'/'.$d->data[0]['file']);
+            unlink('./assets/uploads/'.$d->data[0]['id_user'].'/'.$d->data[0]['thumb']);
+            unlink('./assets/uploads/'.$d->data[0]['id_user'].'/'.$d->data[0]['file']);
             $article = new articleModel();
             $article->id = filter($_GET['article']);
             $article->delete();
@@ -998,10 +1008,10 @@
 
     function getLinkUser() {
         try {
-            $users = new cpanelModel();
-            $users->teacher = $_SESSION['user'];
-            $users->getlinksUsers();
-            return $users->data;
+            $cpanel = new cpanelModel();
+            $cpanel->teacher = $_SESSION['user'];
+            $cpanel->getlinksUsers();
+            return $cpanel->data;
         } catch (Exception $e) {
             echo $e->getMessage();
         } 
@@ -1009,9 +1019,14 @@
 
     function getAllUser() {
         try {
-            $users = new cpanelModel();
-            $users->getUsers();
-            return $users->data;
+            $cpanel = new cpanelModel();
+            if(empty($_GET['search'])){
+                $cpanel->getUsers();
+            } else {
+                $cpanel->search = $_GET['search'];
+                $cpanel->getUserSearch();
+            }
+            return $cpanel->data;
         } catch (Exception $e) {
             echo $e->getMessage();
         } 
@@ -1091,7 +1106,7 @@
                         $cpanel->active           = $active;
                         $cpanel->addUsers();
                         if($cpanel->data) {
-                            $dirDoc = "./assets/uploads/$user/";
+                            $dirDoc = "./assets/uploads/$id/";
                             if(!file_exists(($dirDoc))){
                                 mkdir($dirDoc, 0777);
                             } 
@@ -1114,27 +1129,61 @@
     }
 
     /**
+     * Metodo para editar los dato de la cuenta
+     * @return string
+     */
+    function editUserAdmin() {
+        if(isset($_POST['submitEdit'])) {
+            $id       = filter($_POST['id']);
+            $rol      = filter($_POST['rol']);
+            $name     = filter($_POST['name']);
+            $lastname = filter($_POST['lastname']);
+            $user     = filter($_POST['user']);
+            $pass     = filter($_POST['pass']);
+            $email    = filter($_POST['email']);
+            $carrer   = filter($_POST['carrer']);
+            $active   = filter($_POST['active']);
+            try {
+                $cpanel = new cpanelModel();
+                $cpanel->id               = $id;
+                $cpanel->rol              = $rol;
+                $cpanel->name             = $name;
+                $cpanel->lastname         = $lastname;
+                $cpanel->user             = $user;
+                $passSha1                 = sha1($pass);
+                $cpanel->pass             = $passSha1;
+                $cpanel->pass_noencrypt   = $pass;
+                $cpanel->email            = $email;
+                $cpanel->carrer           = $carrer;
+                $cpanel->active           = $active;
+                $cpanel->editUsers();
+                if($cpanel->data) {
+                    return "<script> toastr.success('Presiona el boton azul para ver los cambios', 'Edicion Realizada');  </script>";
+                } else {
+                    return "<script> toastr.error('', 'No key');  </script>";
+                }
+            } catch (Exception $e) {
+                echo $e->getMessage();
+            } 
+        }
+    }
+
+    /**
      * Metodo para eliminar la cuenta y datos del usuario
      * @return string
      */
     function deleteData($d) {
         try {
-            deleteDirectory('./assets/uploads/'.$d[0]['user']);
+            deleteDirectory('./assets/uploads/'.$d[0]['id']);
             $cpanel = new cpanelModel();
-            $cpanel->user = $d[0]['user'];
+            $cpanel->id_user = $d[0]['id'];
             $cpanel->deleteArticles();
             $cpanel->id = $d[0]['id'];
             $cpanel->deleteUser();
             if($cpanel->data) {
-                return "
-                    <script>
-                        toastr.success('Se elimino el usuario y sus todos sus datos correctamente!', 'Cuenta Eliminada!');          
-                    </script>";
+                return "true";
             } else {
-                return "
-                    <script>
-                        toastr.error('No se pudo eliminar la cuenta', 'Error Datos de Cuenta!');   
-                    </script>";
+                return "false";
             }
         } catch (Exception $e) {
             echo $e->getMessage();
@@ -1158,3 +1207,5 @@
         echo 'Se ha borrado el directorio '.$dir.'<br/>';
         @rmdir($dir);
     }
+
+    

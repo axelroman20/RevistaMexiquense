@@ -15,11 +15,28 @@ class cPanelController{
             Redirect::to('home');
         }
         $toasts = "";
-        if($_SESSION['rol']==2){ $links = getLinkUser(); }
-        if($_SESSION['rol']==3){ 
-            $links = getAllUser(); 
-            $toasts .= addUserAdmin();
+        if($_SESSION['rol']==2){ 
+            $links = getLinkUser(); 
         }
+        if($_SESSION['rol']==3){
+            $links = getAllUser();
+            $toasts .= addUserAdmin();
+            $toasts .= editUserAdmin(); 
+        }
+
+        if(isset($_GET['delete'])){
+            if($_GET['delete'] == "true") {
+                $toasts .= "<script>
+                                toastr.success('Se elimino el usuario y sus todos sus datos correctamente!', 'Cuenta Eliminada!');          
+                            </script>";
+            }
+            if($_GET['delete'] == "false") {
+                $toasts .= "<script>
+                                toastr.error('No se pudo eliminar la cuenta', 'Error Datos de Cuenta!');   
+                            </script>";
+            }
+        }
+
         $data = [
             'title'           => 'Panel de Control',
             'links'           => $links,
@@ -39,9 +56,11 @@ class cPanelController{
             Redirect::to('home');
         }
         $links = getAllUserId($_GET['user']);
-        deleteData($links);
-        Redirect::to('cpanel');
+        $delete = deleteData($links);
+        Redirect::to('cpanel?delete='.$delete);
     }
+
+
 //--------------------------------------------------------------------------------------------------
     function home() {
         Redirect::to('home');

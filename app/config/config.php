@@ -10,16 +10,16 @@ date_default_timezone_set('America/Mexico_City');
 define('LANG'       , 'es');
 
 // Ruta base de nuestro proyecto
-//define('BASEPATH'   , IS_LOCAL ? '//Revista/' : '');
-define('BASEPATH'   , IS_LOCAL ? '/Revista/' : '/Revista/');
+define('BASEPATH'   , IS_LOCAL ? '/Revista/' : '');
+//define('BASEPATH'   , IS_LOCAL ? '/Revista/' : '/Revista/');
 
 // Sal del sistema
 define('AUTH_SALT'  , 'Revista');
 
 // Puerto y la URL del sitio
 define('PORT'       , '80');
-//define('URL'        , IS_LOCAL ? 'http://127.0.0.1:'.PORT.'/Revista/' : 'https://revista-gcm.live/');
-define('URL'        , IS_LOCAL ? 'http://127.0.0.1:'.PORT.'/Revista/' : 'http://192.168.88.222'.BASEPATH);
+define('URL'        , IS_LOCAL ? 'http://127.0.0.1:'.PORT.'/Revista/' : 'https://revista-gcm.live/');
+//define('URL'        , IS_LOCAL ? 'http://127.0.0.1:'.PORT.'/Revista/' : 'http://192.168.88.222'.BASEPATH);
 
 // Las rutas de directorios y archivos
 define('DS'         , DIRECTORY_SEPARATOR);
@@ -50,16 +50,15 @@ define('UPLOADS'    , ASSETS.'uploads/');
 // Credenciales de la base de datos
 // Set para conexión local o de desarrollo
 define('LDB_ENGINE' , 'mysql');
-define('LDB_HOST'   , 'sql458.main-hosting.eu');
+define('LDB_HOST'   , 'localhost');
 define('LDB_NAME'   , 'u730030579_revistagcm');
-define('LDB_USER'   , 'u730030579_revistagcm');
-define('LDB_PASS'   , 'Revista123');
+define('LDB_USER'   , 'root');
+define('LDB_PASS'   , '');
 define('LDB_CHARSET', 'utf8');
 
 // Set para conexión en producción o servidor real
 define('DB_ENGINE'  , 'mysql');
-//define('DB_HOST'    , 'localhost');
-define('DB_HOST'    , 'sql458.main-hosting.eu');
+define('DB_HOST'    , 'localhost');
 define('DB_NAME'    , 'u730030579_revistagcm');
 define('DB_USER'    , 'u730030579_revistagcm');
 define('DB_PASS'    , 'Revista123');

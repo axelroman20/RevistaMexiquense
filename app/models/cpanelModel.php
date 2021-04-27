@@ -4,9 +4,11 @@ class cpanelModel extends Model {
 
     //Data teacher
     public $teacher;
+    public $search;
 
     // Data user
     public $id;
+    public $id_user;
     public $rol;
     public $name;
     public $lastname;
@@ -57,7 +59,7 @@ class cpanelModel extends Model {
     }
 
     /**
-     * Metodo para el usuario
+     * Metodo para el usuario por id
      * @return array
      */
     public function getUserId() {
@@ -67,6 +69,22 @@ class cpanelModel extends Model {
         ];
         try {
             return ($this->data = parent::query($sql, $params));
+        } catch (Exception $e) {
+            throw $e;
+        }
+    }
+
+     /**
+     * Metodo para el usuario por busqueda
+     * @return array
+     */
+    public function getUserSearch() {
+        $sql = "SELECT * FROM users WHERE user LIKE :search or name LIKE :search ";
+        $params = [
+            ':search' => "%$this->search%"
+        ];
+        try {
+            return ($this->data = parent::query($sql, $params)? : "false");
         } catch (Exception $e) {
             throw $e;
         }
@@ -133,6 +151,43 @@ class cpanelModel extends Model {
         }
     }
 
+     /**
+     * Metodo para editar una cuenta de usuario
+     * @return array
+     */
+    public function editUsers() {
+        $sql = 'UPDATE users SET 
+                    rol=:rol, 
+                    name=:name, 
+                    lastname=:lastname, 
+                    user=:user, 
+                    pass=:pass, 
+                    pass_noencrypt=:pass_noencrypt, 
+                    email=:email,
+                    carrer=:carrer,
+                    active=:active
+                WHERE id=:id';
+
+        $params = [
+            'rol'              => $this->rol,
+            'name'             => $this->name,
+            'lastname'         => $this->lastname,
+            'user'             => $this->user,
+            'pass'             => $this->pass,
+            'pass_noencrypt'   => $this->pass_noencrypt,
+            'email'            => $this->email,
+            'carrer'           => $this->carrer,
+            'active'           => $this->active,
+            'id'               => $this->id,
+        ];
+
+        try {
+            return ($this->data = parent::query($sql, $params)? true : false);
+        } catch (Exception $e) {
+            throw $e;
+        }
+    }
+
     /**
      * Metodo para eliminar usuario
      * @return bool
@@ -155,9 +210,9 @@ class cpanelModel extends Model {
      * @return bool
      */
     public function deleteArticles() {
-        $sql = 'DELETE FROM article WHERE user = :user';
+        $sql = 'DELETE FROM article WHERE id_user = :id_user';
         $params = [
-            'user' => $this->user
+            'id_user' => $this->id_user
         ];
 
         try {
