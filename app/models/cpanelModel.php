@@ -25,24 +25,6 @@ class cpanelModel extends Model {
 
 
     /**
-     * Metodo para buscar todos los post article
-     * @return array
-     */
-    public function getlinksUsers() {
-        $sql = "SELECT 
-            l.user, l.teacher, 
-            u.id, u.name, u.lastname, u.user, u.carrer FROM link l INNER JOIN users u ON l.user = u.user WHERE teacher = :teacher";
-        $params = [
-            ':teacher' => $this->teacher
-        ];
-        try {
-            return ($this->data = parent::query($sql, $params));
-        } catch (Exception $e) {
-            throw $e;
-        }
-    }
-
-    /**
      * Metodo para buscar todos los usuarios
      * @return array
      */

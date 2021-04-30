@@ -2,6 +2,7 @@
 
 class articleModel extends Model { 
     public $id;
+    public $id_article;
     public $id_user;
     public $user;
     public $carrer;
@@ -11,6 +12,7 @@ class articleModel extends Model {
     public $file;
     public $views;
     public $likes;
+    public $comment;
     public $post_page;
     public $post_start;
     public $search;
@@ -112,6 +114,60 @@ class articleModel extends Model {
             throw $e;
         }
     }
+
+    /**
+     * Metodo para buscar todos los comentarios del articulo
+     * @return array
+     */
+    public function getPostsComments() {
+        $sql = 'SELECT * FROM comments WHERE id_article = :id_article ORDER BY created_at DESC';
+        $params = [
+            ':id_article' => $this->id_article,
+        ];
+        try {
+            return ($this->data = parent::query($sql, $params));
+        } catch (Exception $e) {
+            throw $e;
+        }
+    }
+
+    /**
+     * Metodo para crear comentarios de los articulos
+     * @return array
+     */
+    public function setPostsComments() {
+        $sql = 'INSERT INTO comments (id, id_article, id_user, username, comment) 
+                VALUES (:id, :id_article, :id_user, :username, :comment)';
+        $params = [
+            ':id'         => $this->id,
+            ':id_article' => $this->id_article,
+            ':id_user'    => $this->id_user,
+            ':username'   => $this->user,
+            ':comment'    => $this->comment,
+        ];
+        try {
+            return ($this->data = parent::query($sql, $params)? "error" : "enviado");
+        } catch (Exception $e) {
+            throw $e;
+        }
+    }
+
+    /**
+     * Metodo para eliminar un aritculo
+     * @return bool
+     */
+    public function deleteComments() {
+        $sql = 'DELETE FROM comments WHERE id = :id';
+        $params = [
+            'id' => $this->id
+        ];
+        try {
+            return ($this->data = parent::query($sql, $params) ? "eliminado" : "error");
+        } catch (Exception $e) {
+            throw $e;
+        }
+    }
+    
 
     /**
      * Metodo para crear un nuevo aritculo

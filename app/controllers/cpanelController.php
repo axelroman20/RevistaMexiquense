@@ -15,14 +15,9 @@ class cPanelController{
             Redirect::to('home');
         }
         $toasts = "";
-        if($_SESSION['rol']==2){ 
-            $links = getLinkUser(); 
-        }
-        if($_SESSION['rol']==3){
-            $links = getAllUser();
-            $toasts .= addUserAdmin();
-            $toasts .= editUserAdmin(); 
-        }
+        $links = getAllUser();
+        $toasts .= addUserAdmin();
+        $toasts .= editUserAdmin(); 
 
         if(isset($_GET['delete'])){
             if($_GET['delete'] == "true") {

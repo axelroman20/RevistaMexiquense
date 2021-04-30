@@ -3,12 +3,7 @@
     <main>
         <section class="cPanel">
             <div class="containerr container-fluid">
-                <?php if($_SESSION['rol']==2): ?>
-                    <?php require_once MODULES.'cpanel_teacher.php'; ?>
-                <?php endif; ?>
-                <?php if($_SESSION['rol']==3): ?>
-                    <?php require_once MODULES.'cpanel_admin.php'; ?>
-                <?php endif; ?>
+                <?php require_once MODULES.'cpanel_admin.php'; ?>
             </div>
         </section>
     </main>

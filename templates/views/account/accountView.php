@@ -3,24 +3,25 @@
 <main>
     <section class="account">
         <div class="container ">
-        <?php if($d->active == 0): ?>
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="card text-center">
-                        <div class="card-body">
-                            <h5 class="card-title">Cuenta no verificada!</h5>
-                            <p class="card-text">Presiona el boton para reenviar el correo de verificacion de cuenta.</p>
-                            <a onclick="toastAccount();" href="<?php echo 'account/resend?email='.$d->email.'&name='.$d->name.'&lastname='.$d->lastname.'&user='.$d->user.'&token='.$d->token; ?>"
-                             class="btn btn-secondary">Enviar Correo</a>
-                             <script>
-                                function toastAccount() {
-                                    toastr.success('Revisa tu bandeja de entrada para verificar tu cuenta', 'Correo Enviado!');
-                                }
-                            </script>
-                    </div>
-            <div class="b-example-divider"></div>
-            </div>
-        <?php endif; ?>
+            <?php if($d->active == 0): ?>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card text-center">
+                            <div class="card-body">
+                                <h5 class="card-title">Cuenta no verificada!</h5>
+                                <p class="card-text">Presiona el boton para reenviar el correo de verificacion de cuenta.</p>
+                                <a onclick="toastAccount();" href="<?php echo 'account/resend?email='.$d->email.'&name='.$d->name.'&lastname='.$d->lastname.'&user='.$d->user.'&token='.$d->token; ?>"
+                                class="btn btn-secondary">Enviar Correo</a>
+                                <script>
+                                    function toastAccount() {
+                                        toastr.success('Revisa tu bandeja de entrada para verificar tu cuenta', 'Correo Enviado!');
+                                    }
+                                </script>
+                        </div>
+                <div class="b-example-divider"></div>
+                </div> <br><br>
+            <?php endif; ?>
+
             <div class="row row-cols-auto">
                 <div class="col">
                     <h3>Configuración de cuenta</h3>

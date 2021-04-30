@@ -83,33 +83,39 @@ $data['status'] = "true";
             VALUES ('$id', '$rol','$name', '$lastname', '$user', '$passSha1', '$pass', '$email', '', '$token', '$request', '$active')";
             $request = $db_handle->query($sql);
             if($request) {
-                folder($user);
+                folder($id);
                 $data['status'] = "true";
             }
             
         }
         if($data['rol'] == "1") {
-            $id       = ''.dechex(rand(0x000000, 0xFFFFFF)); 
-            $rol      = 1;
-            $name     = filter($data['name']);
-            $lastname = filter($data['lastname']);
-            $email    = filter($data['email']);
-            $user     = filter($data['user']);
-            $pass     = filter($data['pass']);
-            $passSha1 = sha1($pass);
-            $carrer   = filter($data['carrer']);
-            $token    = sha1(rand(0,1000));
-            $request  = 0;
-            $active   = 0;
-
-            $sql = "INSERT INTO users (id, rol, name, lastname, user, pass, pass_noencrypt, email, carrer, token, password_request, active) 
-            VALUES ('$id', '$rol','$name', '$lastname', '$user', '$passSha1', '$pass', '$email', '$carrer', '$token', '$request', '$active')";
-            $request = $db_handle->query($sql);
-            if($request) {
-                folder($user);
-                $data['status'] = "true";
+            $typepass = $data['rolpass'];
+            $query = "SELECT * FROM rol WHERE id=1 AND typepass='$typepass'";
+            $user_count = $db_handle->numRows($query);
+            if($user_count=="1") {
+                $id       = ''.dechex(rand(0x000000, 0xFFFFFF)); 
+                $rol      = 1;
+                $name     = filter($data['name']);
+                $lastname = filter($data['lastname']);
+                $email    = filter($data['email']);
+                $user     = filter($data['user']);
+                $pass     = filter($data['pass']);
+                $passSha1 = sha1($pass);
+                $carrer   = filter($data['carrer']);
+                $token    = sha1(rand(0,1000));
+                $request  = 0;
+                $active   = 0;
+    
+                $sql = "INSERT INTO users (id, rol, name, lastname, user, pass, pass_noencrypt, email, carrer, token, password_request, active) 
+                VALUES ('$id', '$rol','$name', '$lastname', '$user', '$passSha1', '$pass', '$email', '$carrer', '$token', '$request', '$active')";
+                $request = $db_handle->query($sql);
+                if($request) {
+                    folder($id);
+                    $data['status'] = "true";
+                }
             }
         }
+        
         if($data['rol'] == "2") {
             $typepass = $data['rolpass'];
             $query = "SELECT * FROM rol WHERE id=2 AND typepass='$typepass'";
@@ -131,7 +137,7 @@ $data['status'] = "true";
                 VALUES ('$id', '$rol','$name', '$lastname', '$user', '$passSha1', '$pass', '$email', '', '$token', '$request', '$active')";
                 $request = $db_handle->query($sql);
                 if($request) {
-                    folder($user);
+                    folder($id);
                     $data['status'] = "true";
                 }
             } 
@@ -148,8 +154,8 @@ $data['status'] = "true";
         return $data;
     }
 
-    function folder($user){
-        $dirDoc = $_SERVER['DOCUMENT_ROOT']."/revista/assets/uploads/$user/";
+    function folder($id_user){
+        $dirDoc = $_SERVER['DOCUMENT_ROOT']."/revista/assets/uploads/$id_user/";
         if(!file_exists(($dirDoc))){
             mkdir($dirDoc, 0777);
         } 

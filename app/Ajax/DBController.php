@@ -1,9 +1,9 @@
 <?php
 class DBController {
-	private $host = "sql458.main-hosting.eu";
-	private $user = "u730030579_revistagcm";
-	private $password = "Revista123";
+	private $host     = "localhost";
 	private $database = "u730030579_revistagcm";
+	private $user     = "root";
+	private $password = "";
 	private $conn;
 	
 	function __construct() {

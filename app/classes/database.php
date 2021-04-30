@@ -1,6 +1,9 @@
 <?php 
 
 class Database {
+  /**
+   * Variables publicas
+   */
   private $link;
   private $engine;
   private $host;
@@ -11,6 +14,8 @@ class Database {
   
   /**
    * Constructor para nuestra clase
+   * Dependiendo si estamos en local o servidor
+   * recupera los valores guardados
    */
   public function __construct() {
     $this->engine  = IS_LOCAL ? LDB_ENGINE  : DB_ENGINE;
@@ -24,7 +29,6 @@ class Database {
 
   /**
    * Método para abrir una conexión a la base de datos
-   *
    * @return void
    */
   private function connect() {
@@ -38,7 +42,6 @@ class Database {
 
   /**
    * Método para hacer un query a la base de datos
-   *
    * @param string $sql
    * @param array $params
    * @return void

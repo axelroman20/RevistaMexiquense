@@ -135,7 +135,7 @@
                     $users->carrer           = $carrer;
                     $users->token            = $token;
                     $users->requestPassword  = $request;
-                    //$users->add();
+                    $users->add();
                     if($users->data) {
                         $_SESSION['user']   = $users->user;
                         $_SESSION['id']     = $users->id;
@@ -591,6 +591,64 @@
     }
 
     /**
+     * Metodo para traer los comentarios 
+     * del articulo
+     * @return array
+     */
+    function getComments($id) {
+        try {
+            $article = new articleModel();
+            $article->id_article = $id;
+            $article->getPostsComments();
+        } catch (Exception $e) {
+            echo $e->getMessage();
+        }
+        return $article->data;
+    }
+
+    /**
+     * Metodo para crear los comentarios 
+     * del articulo
+     * @return array
+     */
+    function setComments($id_article) {
+        if(isset($_POST['submitComment'])) {
+            $id = ''.dechex(rand(0x000000, 0xFFFFFF));
+            $id_user    = $_SESSION['id'];
+            $user       = $_SESSION['user'];
+            $comment    = $_POST['comment'];
+            try {
+                $article = new articleModel();
+                $article->id = $id;
+                $article->id_article = $id_article;
+                $article->id_user = $id_user;
+                $article->user = $user;
+                $article->comment = $comment;
+                $article->setPostsComments();
+                return $article->data;
+            } catch (Exception $e) {
+                echo $e->getMessage();
+            }
+        }
+    }
+
+    /**
+     * Metodo para eliminar comentarios 
+     * del articulo
+     * @return array
+     */
+    function deleteComment($id_comment) {
+        try {
+            $article = new articleModel();
+            $article->id = $id_comment;
+            $article->deleteComments();
+            return $article->data;
+        } catch (Exception $e) {
+            echo $e->getMessage();
+        } 
+    }
+
+    /**
      * Metodo para filtrar el id articulo
      * @return int
      */
@@ -663,7 +721,6 @@
         $rols = [
             'Visitante',
             'Estudiante',
-            'Maestro',
             'Administrador'
         ];
         return $rols[$rol];
@@ -1005,18 +1062,10 @@
     }
 
 //--------------------------------------------------------------------------------------------------
-
-    function getLinkUser() {
-        try {
-            $cpanel = new cpanelModel();
-            $cpanel->teacher = $_SESSION['user'];
-            $cpanel->getlinksUsers();
-            return $cpanel->data;
-        } catch (Exception $e) {
-            echo $e->getMessage();
-        } 
-    }
-
+    /**
+     * Metodo para mostrar todos los usuarios
+     * @return array
+     */
     function getAllUser() {
         try {
             $cpanel = new cpanelModel();
@@ -1031,8 +1080,11 @@
             echo $e->getMessage();
         } 
     }
-
-//--------------------------------------------------------------------------------------------------
+    
+    /**
+     * Metodo para mostrar los usuarios por id
+     * @return array
+     */
     function getAllUserId($id) {
         try {
             $cpanel = new cpanelModel();
@@ -1044,6 +1096,10 @@
         } 
     }
 
+    /**
+     * Metodo para crear un nuevo usuario
+     * @return String
+     */
     function addUserAdmin() {
         $error = '';
         if(isset($_POST['addUsers'])){

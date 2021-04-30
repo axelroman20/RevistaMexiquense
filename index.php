@@ -1,11 +1,7 @@
 <?php 
 
-// Bee Framework versión 1.0.0
-// Desarrollado por Joystick para todos
-// Julio 2019
-
-// Requerir el archivo de la clase Bee.php
+// Requerir el archivo de la clase Main.php
 require_once 'app/classes/Main.php';
 
-// Ejecutar el framework bee
+// Ejecutar el framework mvc
 Main::start();

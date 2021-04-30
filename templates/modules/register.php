@@ -43,7 +43,6 @@
                             <option selected disabled value="">Seleccionar</option>
                             <option value="0">Visitante</option>
                             <option value="1">Estudiante</option>
-                            <option value="2">Maestro</option>
                         </select>
                     </div>
                     <!-- CARRERA -->
@@ -74,9 +73,6 @@
                     <!-- ENVIAR -->
                     <button type="button" onclick="window.step3_back();" name="step3_back" style="width: 49%;">Volver</button>
                     <button class="disabled" disabled type="button" onclick="window.submit();" name="step3_submit" id="step3_submit"style="width: 49%;">Registrarse</button>
-                    <!--
-                    <input  type="submit" onclick="window.step3_submit();" name="submitRegister" value="Registrarse" style="width: 49%;">
-                     -->
                 </div>
 
                 <a id="login-btn-open-popup2">¿Ya tienes una cuenta?</a>
@@ -225,13 +221,9 @@
                         $('#step3_submit').removeAttr('disabled');
                         if(rol == 1) {
                             $('#carrer-list').removeClass('hidden');
+                            $('#typepass').removeClass('hidden');
                         } else {
                             $('#carrer-list').addClass('hidden');
-                        }
-                        if(rol == 2) {
-                            $('#typepass').removeClass('hidden');
-                            
-                        } else {
                             $('#typepass').addClass('hidden');
                         }
                     } else {
@@ -257,8 +249,6 @@
                                 $('.inputcarrer_register').removeClass('errorInput');
                                 error = '';
                             }
-                            break;
-                        case '2':
                             if(rolpass == '') {
                                 $('.labeltypepass_register').addClass('errorLabel');
                                 $('.inputtypepass_register').addClass('errorInput');

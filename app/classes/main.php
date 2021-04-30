@@ -90,13 +90,6 @@ class Main {
   private function init_autoload() {
     require_once CLASSES.'Autoloader.php';
     Autoloader::init();
-    //require_once CLASSES.'Db.php';
-    //require_once CLASSES.'Model.php';
-    //require_once CLASSES.'View.php';
-    //require_once CLASSES.'Controller.php';
-    //require_once CONTROLLERS.DEFAULT_CONTROLLER.'Controller.php';
-    //require_once CONTROLLERS.DEFAULT_ERROR_CONTROLLER.'Controller.php';
-
     return;
   }
 

@@ -967,6 +967,39 @@ h2 {
 
 /*//////////////////////////////////////  SINGLE  //////////////////////////////////////////////////*/
 
+.article button {
+  background: transparent;
+  color: #00000041;
+  font-size: 2em;
+  border: 0;
+  transition: ease 0.3s;
+}
+
+.article:hover .btn-left {
+  color: #000000a6;
+}
+.article:hover .btn-right {
+  color: #000000a6;
+}
+.article:hover .home {
+  color: #000000a6;
+}
+.article:hover .zoomIn {
+  color: #000000a6;
+}
+.article:hover .zoomOut {
+  color: #000000a6;
+}
+.article:hover .zoomNormal {
+  color: #000000a6;
+}
+.article:hover .views {
+  color: #000000a6;
+}
+.article:hover .likes {
+  color: #000000a6;
+}
+
 
 /*///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
 
@@ -1070,6 +1103,10 @@ h2 {
     width: 90%;
   }
 
+  .article button { 
+    font-size: 1.5em;
+  }
+
 }
 
 @media (max-width: 768px) {
@@ -1086,6 +1123,10 @@ h2 {
 
   .info .containerr  {
     width: 90%;
+  }
+
+  .article button { 
+    font-size: 1.2em;
   }
 }
 
@@ -1117,5 +1158,9 @@ h2 {
   
   .info .containerr  {
     width: 100%;
+  }
+
+  .article button { 
+    font-size: 1em;
   }
 }

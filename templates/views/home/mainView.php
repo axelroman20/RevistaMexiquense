@@ -61,7 +61,7 @@
         </section>
         
         <!-- HOVERS -->
-        <section class="hovers">
+        <section>
             <div class="container">
                 <div class="row">
                     <div class="col-12">
@@ -69,21 +69,37 @@
                         <hr>
                     </div>
                 </div>
-                <div class="row">
-                    <?php foreach ($d->postsViews as $post) : ?>
-                        <div class="col">
-                        <figure id="hover-robotica">
-                            <img src="<?php echo UPLOADS.$post->id_user.'/'.$post->thumb; ?>">
-                            <div class="capa">
-                                <a href="publications/single?article=<?php echo $post->id; ?>" style="color: #fff;"> <br>
-                                    <h3><?php echo $post->title; ?></h3>
-                                    <h4><i class="fas fa-eye"></i> <?php echo $post->views; ?></h4> 
-                                </a>
+            </div>
+        </section>
+        <section class="hovers">
+            <div class="container">
+                <?php if($d->postsViews): ?>
+                    <div class="row">
+                        <?php foreach ($d->postsViews as $post) : ?>
+                            <div class="col">
+                            <figure id="hover-robotica">
+                                <img src="<?php echo UPLOADS.$post->id_user.'/'.$post->thumb; ?>">
+                                <div class="capa">
+                                    <a href="publications/single?article=<?php echo $post->id; ?>" style="color: #fff;"> <br>
+                                        <h3><?php echo $post->title; ?></h3>
+                                        <h4><i class="fas fa-eye"></i> <?php echo $post->views; ?></h4> 
+                                    </a>
+                                </div>
+                            </figure>
                             </div>
-                        </figure>
+                        <?php endforeach; ?>
+                    </div>
+                <?php else: ?>
+                    <div class="row justify-content-center">
+                        <div class="col"> 
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="text-center">No hay articulos publicados</h5>
+                                </div>
+                            </div> 
                         </div>
-                    <?php endforeach; ?>
-                </div>
+                    </div>
+                <?php endif; ?>
             </div>
         </section>
     </main>
