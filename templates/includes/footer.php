@@ -8,7 +8,7 @@
                     <li><a href="https://twitter.com/colegiomexiquen?lang=es">Twitter</a></li>
                     <li><a href= "https://www.instagram.com/grupocolegiomexiquense">Instagram</a></li>
                     <li><a href="https://www.youtube.com/user/ColegioMexiquense92">Youtube</a></li>
-                    <li><a href="https://www.grupocolegiomexiquense.edu.mx">Página Web</a></li>
+                    <li><a href="https://www.grupocolegiomexiquense.edu.mx">Sitio Oficial</a></li>
                 </ul>
             </div>
             <div class="col-md-3 mb-3">
@@ -34,8 +34,10 @@
 <!-------------------------------------------------------------------------------------------------------->
     <!-- BUTTON BO UP -->    
     <a class="gotopbtn" href="#"><i class="fas fa-arrow-up"></i></a>
+    <!-- BUTTON CONTACT -->    
+    <a class="btnContact" href="contact"><i class="fas fa-question-circle"></i></a>
     <!-- SOCIAL BAR -->
-    <?php if(CONTROLLER == 'home'): ?>
+    <?php if(!isset($_SESSION['user'])): ?>
         <section class="social">
             <ul>
                 <li><a href="https://www.facebook.com/GrupoColegioMexiquense" 

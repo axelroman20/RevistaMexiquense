@@ -31,7 +31,7 @@ class publicationsController {
 
     function single() {
         if(empty($_GET['article'])) {
-            Redirect::to('error');
+            //Redirect::to('error');
         }
         if(!isset($_SESSION['user'])) {
             $errorLogin    = login();
@@ -41,24 +41,33 @@ class publicationsController {
             $errorRegister = '';
         }
         $toasts = "";
+        $existslike = "";
+        $likes;
         $article = getPostId($_GET['article']);
         views($_GET['article'], $article[0]['views']);
         $active = statusAccount();
         $comments = getComments($_GET['article']);
         $commentsStatus = setComments($_GET['article']);
 
-        if(isset($_GET['delete']) && !empty($_GET['delete'])) {
-            $commentsStatus = deleteComment($_GET['delete']);
+        if(isset($_SESSION['user'])) {
+            $existslike = existslike($_GET['article']);
+            if($existslike) {
+                $likes = subLike($_GET['article'], $article[0]['likes']);
+                if($likes) {
+                    Redirect::to('publications/single?article='.$_GET['article']); 
+                }
+            } else {
+                $likes = addlike($_GET['article'], $article[0]['likes']);
+                if($likes) {
+                    Redirect::to('publications/single?article='.$_GET['article']); 
+                }
+            }
         }
-
+        
         if($commentsStatus == "enviado") {
+            Redirect::to('publications/single?article='.$_GET['article']);
             $toasts .= "<script>
                             toastr.success('Recarga la pagina para ver los nuevos comentarios.', 'Comentario Enviado!');
-                        </script>";
-        }
-        if($commentsStatus == "eliminado") {
-            $toasts .= "<script>
-                            toastr.success('Recarga la pagina para ver los comentarios.', 'Comentario Eliminado!');
                         </script>";
         }
         if($commentsStatus == "error") {
@@ -73,10 +82,23 @@ class publicationsController {
             'toast'         => $toasts,
             'article'       => $article,
             'comments'      => $comments,
-            'active'        => $active
+            'active'        => $active,
+            'existslike'    => $existslike
         ];
         search();
         View::render('single', $data);
+    }
+
+    function delete() {
+        if(empty($_GET['article'])) {
+            Redirect::to('error');
+        }
+        if(isset($_GET['delete']) && !empty($_GET['delete'])) {
+            $commentsStatus = deleteComment($_GET['delete']);
+        }
+        if($commentsStatus == "eliminado") {
+            Redirect::to('publications/single?article='.$_GET['article']);
+        }
     }
 
     function search() {
@@ -114,6 +136,9 @@ class publicationsController {
     }
     function myarticle() {
         Redirect::to('myarticle');
+    }
+    function cpanel() {
+        Redirect::to('cpanel');
     }
     function account() {
         Redirect::to('account');

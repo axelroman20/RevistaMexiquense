@@ -36,7 +36,7 @@
                     <hr>
                 </div>
             </div>
-            <div class="row justify-content-md-center ">
+            <div class="row justify-content-md-center">
                 <div class="col-md-12">
                     <div class="input-group mb-3">
                         <span class="input-group-text">

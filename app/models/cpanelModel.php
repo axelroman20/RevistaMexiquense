@@ -203,5 +203,40 @@ class cpanelModel extends Model {
             throw $e;
         }
     }
+
+    /**
+     * Metodo para eliminar los likes
+     * @return bool
+     */
+    public function deleteLikes() {
+        $sql = 'DELETE FROM likes WHERE id_user = :id_user';
+        $params = [
+            'id_user' => $this->id_user
+        ];
+
+        try {
+            return ($this->data = parent::query($sql, $params) ? true : false);
+        } catch (Exception $e) {
+            throw $e;
+        }
+    }
+
+     /**
+     * Metodo para eliminar los comments
+     * @return bool
+     */
+    public function deleteComments() {
+        $sql = 'DELETE FROM comments WHERE id_user = :id_user';
+        $params = [
+            'id_user' => $this->id_user
+        ];
+
+        try {
+            return ($this->data = parent::query($sql, $params) ? true : false);
+        } catch (Exception $e) {
+            throw $e;
+        }
+    }
+
     
  } 

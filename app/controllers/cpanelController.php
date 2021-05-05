@@ -18,7 +18,9 @@ class cPanelController{
         $links = getAllUser();
         $toasts .= addUserAdmin();
         $toasts .= editUserAdmin(); 
-
+        if(!empty($toasts)) {
+            Redirect::to('cpanel');
+        }
         if(isset($_GET['delete'])){
             if($_GET['delete'] == "true") {
                 $toasts .= "<script>

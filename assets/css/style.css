@@ -1,6 +1,9 @@
 ::-webkit-scrollbar {
   display: none;
 }
+
+
+
 html {
   scroll-behavior: smooth;
 }
@@ -191,7 +194,7 @@ header {
   color: #464646 !important;
   font-size: 1.3em;
   transition: 0.5s;
-  width: 0px;
+  width: 230px;
 }
 .search-box:hover > .search-txt {
   width: 230px;
@@ -552,10 +555,40 @@ h2 {
   padding: 10px 30px;
   background: #df1313;
 }
+
+/*///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+
+/*-------------------------------------BOTON-CONTACTOS------------------------------------------*/
+.btnContact {
+  font-size: 3em;
+  color: #19647e;
+  position: fixed;
+  width: 50px;
+  height: 50px;
+  background: #ddcecd;
+  border-radius: 100%;
+  bottom: 2%;
+  left: 2%;
+  text-decoration: none;
+  text-align: center;
+  line-height: 50px;
+}
+
+.btnContact:hover {
+  color: #28afb0;
+  background: #eee5e5dd;
+}
+
+.btnContact i {
+  padding: 0px;
+  margin: 0px;
+}
+
 /*///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
 
 /*-------------------------------------BOTON-TOP------------------------------------------*/
 .gotopbtn {
+  font-size: 1.5em;
   color: #19647e;
   position: fixed;
   width: 50px;
@@ -975,6 +1008,16 @@ h2 {
   transition: ease 0.3s;
 }
 
+.article .likes {
+  background: transparent;
+  color: #00000041;
+  font-size: 2em;
+  border: 0;
+  padding: 0px 10px;
+  border-radius: 15%;
+  transition: ease 0.3s;
+}
+
 .article:hover .btn-left {
   color: #000000a6;
 }
@@ -987,16 +1030,13 @@ h2 {
 .article:hover .zoomIn {
   color: #000000a6;
 }
-.article:hover .zoomOut {
+.article:hover .zoomOutt {
   color: #000000a6;
 }
 .article:hover .zoomNormal {
   color: #000000a6;
 }
 .article:hover .views {
-  color: #000000a6;
-}
-.article:hover .likes {
   color: #000000a6;
 }
 
@@ -1027,6 +1067,24 @@ h2 {
 
 /*//////////////////////////////////////  CPANEL  //////////////////////////////////////////////////*/
 .cPanel .containerr {
+  width: 90%;
+  margin-bottom: 100px;
+}
+
+.cTable::-webkit-scrollbar {
+  display: block;
+  height: 10px;
+  background-color: #ddd;
+}
+
+.cTable::-webkit-scrollbar-thumb {
+  background-color: #999999;
+}
+
+/*///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+
+/*//////////////////////////////////////  CONTACT  //////////////////////////////////////////////////*/
+.contact .containerr {
   width: 90%;
   margin-bottom: 100px;
 }
@@ -1106,7 +1164,9 @@ h2 {
   .article button { 
     font-size: 1.5em;
   }
-
+  .article .likes {
+    font-size: 1.5em;
+  }
 }
 
 @media (max-width: 768px) {
@@ -1126,6 +1186,9 @@ h2 {
   }
 
   .article button { 
+    font-size: 1.2em;
+  }
+  .article .likes { 
     font-size: 1.2em;
   }
 }
@@ -1155,12 +1218,19 @@ h2 {
   .social {
     display: none;
   }
+
+  .btnContact {
+    display: none;
+  }
   
   .info .containerr  {
     width: 100%;
   }
 
   .article button { 
+    font-size: 1em;
+  }
+  .article .likes { 
     font-size: 1em;
   }
 }

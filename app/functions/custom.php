@@ -155,11 +155,7 @@
             }
         }
         return $errorRegister;
-    }
-//--------------------------------------------------------------------------------------------------
-
-    
-
+    }  
 //--------------------------------------------------------------------------------------------------
     /**
      * Metodo para cargar datos de cuenta del usuario
@@ -646,6 +642,77 @@
         } catch (Exception $e) {
             echo $e->getMessage();
         } 
+    }
+
+    /**
+     * Metodo para ver si ya se dio un like  
+     * al articulo
+     * @return void
+     */
+    function existslike($id_article) {
+        try {
+            $article = new articleModel();
+            $article->id_article = $id_article;
+            $article->id_user = $_SESSION['id'];
+            $article->existsLike();
+            if($article->data) {
+                return false;
+            } else {
+                return true;
+            }
+        } catch (Exception $e) {
+            echo $e->getMessage();
+        }
+    }
+
+    /**
+     * Metodo para dar un like  
+     * al articulo
+     * @return void
+     */
+    function addlike($id_article, $likes) {
+        if(isset($_POST['submitLikes'])) {
+            try {
+                $article = new articleModel();
+                $id = ''.dechex(rand(0x000000, 0xFFFFFF));
+                $article->id = $id;
+                $article->id_article = $id_article;
+                $article->likes = $likes+1;
+                $article->addLikes();
+                $article->id_user = $_SESSION['id'];
+                $article->user = $_SESSION['user'];
+                $article->addLikesLog();
+                return true;
+            } catch (Exception $e) {
+                echo $e->getMessage();
+            }
+        }
+    }
+
+    /**
+     * Metodo para quitar un like  
+     * al articulo
+     * @return void
+     */
+    function sublike($id_article, $likes) {
+        if(isset($_POST['submitLikes'])) {
+            try {
+                $article = new articleModel();
+                $article->id_article = $id_article;
+                if($likes<=0){
+                    $article->likes = 0;
+                } else {
+                    $article->likes = $likes-1;
+                }
+                $article->subLikes();
+                $article->id_user = $_SESSION['id'];
+                $article->user = $_SESSION['user'];
+                $article->subLikesLog();
+                return true;
+            } catch (Exception $e) {
+                echo $e->getMessage();
+            }
+        }
     }
 
     /**
@@ -1233,8 +1300,10 @@
             deleteDirectory('./assets/uploads/'.$d[0]['id']);
             $cpanel = new cpanelModel();
             $cpanel->id_user = $d[0]['id'];
-            $cpanel->deleteArticles();
             $cpanel->id = $d[0]['id'];
+            $cpanel->deleteLikes();
+            $cpanel->deleteComments();
+            $cpanel->deleteArticles();
             $cpanel->deleteUser();
             if($cpanel->data) {
                 return "true";
@@ -1263,5 +1332,45 @@
         echo 'Se ha borrado el directorio '.$dir.'<br/>';
         @rmdir($dir);
     }
+//--------------------------------------------------------------------------------------------------
+    /**
+     * Metodo para enviar mensaje de contacto
+     * @return String
+     */
 
+     function sendEmailContact() {
+        if(isset($_POST['submitContact'])) {
+            try {
+                $email = filter($_POST['email']);
+                $username = filter($_POST['username']);
+                $subject = filter($_POST['subject']);
+                $message = filter($_POST['message']);
+                SendEmailsContact::send(
+                    $username, 
+                    $subject, 
+                    'Usuario: '.$username.'<br>'.
+                    'Correo: '.$email.'<br>'.
+                    'Asunto: '.$subject.'<br>'.
+                    'Mensaje: '.$message);
+                return "
+                    <script>
+                        toastr.success('', 'Correo Enviado!');
+                    </script>";
+            } catch (Exception $e) {
+                echo $e->getMessage();
+            } 
+        }
+        return "";
+     }
     
+
+    function waitMe() {
+        if(isset($_POST['submitContact'])) {
+            return "
+            <script>
+                $('body').waitMe({ effect : 'ios' });
+            </script>
+            ";
+        }
+        
+    }

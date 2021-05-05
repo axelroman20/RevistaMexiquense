@@ -3,7 +3,7 @@
     <main>
         <section class="cPanel">
             <div class="containerr container-fluid">
-                <?php require_once MODULES.'cpanel_admin.php'; ?>
+                <?php require_once MODULES.'cpanel.php'; ?>
             </div>
         </section>
     </main>

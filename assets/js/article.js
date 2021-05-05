@@ -60,16 +60,16 @@ document.querySelector('#prev-page').addEventListener('click', function () {
 document.querySelector('#next-page').addEventListener('click', function () {
         $('.book').turn('next');
 });
-document.querySelector('.home').addEventListener('click', function () {
+document.querySelector('#home').addEventListener('click', function () {
    $("#book").turn("page", 1);
 });
-document.querySelector('.zoomIn').addEventListener('click', function () {
+document.querySelector('#zoomIn').addEventListener('click', function () {
     $("#book").turn("zoom", zoom-=0.1);
 });
-document.querySelector('.zoomOut').addEventListener('click', function () {
+document.querySelector('#zoomOut').addEventListener('click', function () {
     $("#book").turn("zoom", zoom+=0.1);
 });
-document.querySelector('.zoomNormal').addEventListener('click', function () {
+document.querySelector('#zoomNormal').addEventListener('click', function () {
     $("#book").turn("zoom", zoom=1);
 });
 

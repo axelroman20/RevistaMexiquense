@@ -17,7 +17,7 @@
     
 </div>
 <div class="row">
-    <div class="col-md-12">
+    <div class="col">
         <hr>
     </div>
 </div>
@@ -31,7 +31,7 @@
 <?php endif; ?>
 
 <?php if($d->links != "false"): ?>
-    <div class="table-responsive">
+    <div class="cTable table-responsive ">
         <table class="table table-light table-striped table-hover">
             <thead>
                 <th scope="col">ID Alumno</th>
@@ -123,15 +123,10 @@
                                         <?php else: ?>
                                             <option value="1">Estudiante</option>
                                         <?php endif; ?>
-                                        <?php if($link->rol == 2): ?>   
-                                            <option selected value="2">Maestro</option> 
+                                        <?php if($link->rol == 2): ?>    
+                                            <option selected value="2">Administrador</option>
                                         <?php else: ?>
-                                            <option value="2">Maestro</option>
-                                        <?php endif; ?>
-                                        <?php if($link->rol == 3): ?>    
-                                            <option selected value="3">Administrador</option>
-                                        <?php else: ?>
-                                            <option value="3">Administrador</option>
+                                            <option value="2">Administrador</option>
                                         <?php endif; ?>
                                     </select>
                                 </div>
@@ -342,8 +337,7 @@
                         <option selected value="" >Rol de Usuario</option>
                         <option value="0">Visitante</option>
                         <option value="1">Estudiante</option>
-                        <option value="2">Maestro</option>
-                        <option value="3">Administrador</option>
+                        <option value="2">Administrador</option>
                     </select>
                 </div>
 

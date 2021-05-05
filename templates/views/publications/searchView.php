@@ -17,20 +17,20 @@
                 <?php foreach ($d->posts as $post) : ?>
                     <div class="col-md-6 col-lg-4 col-xl-4 g-4">
                         <div class="card mb-3 shadow">
-                            <a href="publications/single?user=<?php echo $post->user; ?>&file=<?php echo $post->file; ?>">
-                                <img src="<?php echo UPLOADS.$post->user.'/'.$post->thumb; ?>" class="card-img-top" alt="..." width="100%"  height="300">
+                            <a href="single?article=<?php echo $post->id; ?>">
+                                <img src="<?php echo UPLOADS.$post->id_user.'/'.$post->thumb; ?>" class="card-img-top" alt="..." width="100%"  height="300">
                             </a>
                             <div class="card-body">
                                 <h5 class="card-title"><?php echo $post->title; ?> </h5>
                                 <p class="card-text"><?php echo $post->description; ?></p>
-                                <a href="publications/single?user=<?php echo $post->user; ?>&file=<?php echo $post->file; ?>">Continuar Leyendo</a>
+                                <a href="single?article=<?php echo $post->id; ?>">Continuar Leyendo</a>
                             <br><br>
                                 <p class="card-text d-flex justify-content-end">
                                     <small class="text-muted">
                                         <i class="fas fa-eye"></i> <?php echo $post->views; ?> &nbsp
                                         <i class="fas fa-heart"></i>  <?php echo $post->likes; ?> &nbsp
                                         <span class="badge bg-dark"><?php echo $post->user; ?></span> &nbsp
-                                        <span class="badge bg-secondary"><?php echo $post->carrer; ?></span> &nbsp
+                                        <span class="badge bg-secondary"><?php echo getCarrerFilter($post->carrer); ?></span> &nbsp
                                     </small>
                                 </p>
                             </div>

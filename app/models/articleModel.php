@@ -167,6 +167,95 @@ class articleModel extends Model {
             throw $e;
         }
     }
+
+    /**
+     * Metodo para buscar likes del articulo
+     * @return array
+     */
+    public function existsLike() {
+        $sql = 'SELECT * FROM likes WHERE id_article = :id_article AND id_user = :id_user';
+        $params = [
+            ':id_article' => $this->id_article,
+            ':id_user' => $this->id_user
+        ];
+        try {
+            return ($this->data = parent::query($sql, $params)? false : true);
+        } catch (Exception $e) {
+            throw $e;
+        }
+    }
+
+    /**
+     * Metodo para agregar likes al articulo
+     * @return array
+     */
+    public function addLikes() {
+        $sql = 'UPDATE article SET likes = :likes WHERE id = :id_article';
+        $params = [
+            ':likes'      => $this->likes,
+            ':id_article' => $this->id_article
+        ];
+        try {
+            return ($this->data = parent::query($sql, $params)? false : true);
+        } catch (Exception $e) {
+            throw $e;
+        }
+    }
+
+    /**
+     * Metodo para agregar log de likes del articulo
+     * @return array
+     */
+    public function addLikesLog() {
+        $sql = 'INSERT INTO likes (id_like, id_article, id_user, user) 
+        VALUES (:id_like, :id_article, :id_user, :user)';
+        $params = [
+            ':id_like' => $this->id,
+            ':id_article' => $this->id_article,
+            ':id_user' => $this->id_user,
+            ':user' => $this->user
+        ];
+        try {
+            return ($this->data = parent::query($sql, $params)? false : true);
+        } catch (Exception $e) {
+            throw $e;
+        }
+    }
+
+    /**
+     * Metodo para quitar likes al articulo
+     * @return array
+     */
+    public function subLikes() {
+        $sql = 'UPDATE article SET likes = :likes WHERE id = :id_article';
+        $params = [
+            ':likes'      => $this->likes,
+            ':id_article' => $this->id_article
+        ];
+        try {
+            return ($this->data = parent::query($sql, $params)? false : true);
+        } catch (Exception $e) {
+            throw $e;
+        }
+    }
+
+    /**
+     * Metodo para quitar log de likes del articulo
+     * @return array
+     */
+    public function subLikesLog() {
+        $sql = 'DELETE FROM likes WHERE id_article = :id_article AND id_user = :id_user';
+        $params = [
+            ':id_article' => $this->id_article,
+            ':id_user' => $this->id_user
+        ];
+        try {
+            return ($this->data = parent::query($sql, $params)? false : true);
+        } catch (Exception $e) {
+            throw $e;
+        }
+    }
+
     
 
     /**
@@ -237,7 +326,7 @@ class articleModel extends Model {
      * @return array
      */
     public function search() {
-        $sql = 'SELECT * FROM article WHERE title LIKE :search or description LIKE :search';
+        $sql = 'SELECT * FROM article WHERE title LIKE :search or description LIKE :search ORDER BY created_at DESC';
         $params = [
             'search' => $this->search
         ];
