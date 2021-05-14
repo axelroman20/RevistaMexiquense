@@ -31,7 +31,7 @@ class publicationsController {
 
     function single() {
         if(empty($_GET['article'])) {
-            //Redirect::to('error');
+            Redirect::to('error');
         }
         if(!isset($_SESSION['user'])) {
             $errorLogin    = login();
@@ -142,6 +142,9 @@ class publicationsController {
     }
     function account() {
         Redirect::to('account');
+    }
+    function policiesprivacy(){
+        Redirect::to('policiesprivacy');
     }
     function close() {
         close();

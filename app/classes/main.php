@@ -128,6 +128,8 @@ class Main {
     // Filtrar la URL y separar la URI
     $this->filter_url();
 
+    
+     
     /////////////////////////////////////////////////////////////////////////////////
     // Necesitamos saber si se está pasando el nombre de un controlador en nuestro URI
     // $this->uri[0] es el controlador en cuestión
@@ -183,7 +185,7 @@ class Main {
     } else {
       call_user_func_array([$controller, $current_method], $params);
     }
-
+     
     return; // Línea final todo sucede entre esta línea y el comienzo
   }
 
@@ -193,7 +195,7 @@ class Main {
    * @return void
    */
   public static function start() {
-    $bee = new self();
+    $main = new self();
     return;
   }
 }

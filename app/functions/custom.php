@@ -565,7 +565,7 @@
         } catch (Exception $e) {
             echo $e->getMessage();
         }
-        return $article->data;
+        return $article->data; 
     }
 
     /**
@@ -583,7 +583,7 @@
         } catch (Exception $e) {
             echo $e->getMessage();
         }
-        return $article->data;
+        return $article->data; 
     }
 
     /**
@@ -733,7 +733,6 @@
             $article = new articleModel();
             $article->getNumPages();
             $data = $article->data[0][0];
-
             $numPage = ceil($data / $post_page);
         } catch (Exception $e) {
             echo $e->getMessage();

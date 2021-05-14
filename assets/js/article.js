@@ -1,5 +1,4 @@
 
-
 // Set Varible
 let pdfDoc = null,
     pageNum = 1,

@@ -116,6 +116,9 @@ class accountController{
     function account() {
         Redirect::to('account');
     }
+    function policiesprivacy(){
+        Redirect::to('policiesprivacy');
+    }
     function close() {
         close();
     }

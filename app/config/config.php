@@ -10,16 +10,14 @@ date_default_timezone_set('America/Mexico_City');
 define('LANG'       , 'es');
 
 // Ruta base de nuestro proyecto
-define('BASEPATH'   , IS_LOCAL ? '/Revista/' : '');
-//define('BASEPATH'   , IS_LOCAL ? '/Revista/' : '/Revista/');
+define('BASEPATH'   , IS_LOCAL ? '/Revista/' : '/Revista/');
 
 // Sal del sistema
 define('AUTH_SALT'  , 'Revista');
 
 // Puerto y la URL del sitio
 define('PORT'       , '80');
-define('URL'        , IS_LOCAL ? 'http://127.0.0.1:'.PORT.'/Revista/' : 'https://revista-gcm.live/');
-//define('URL'        , IS_LOCAL ? 'http://127.0.0.1:'.PORT.'/Revista/' : 'http://192.168.88.222'.BASEPATH);
+define('URL'        , IS_LOCAL ? 'http://127.0.0.1:'.PORT.BASEPATH : 'http://revista-gcm.live'.BASEPATH);
 
 // Las rutas de directorios y archivos
 define('DS'         , DIRECTORY_SEPARATOR);

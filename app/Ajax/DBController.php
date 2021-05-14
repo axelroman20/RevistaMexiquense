@@ -50,4 +50,3 @@ class DBController {
         return $rowcount;
     }
 }
-?>
