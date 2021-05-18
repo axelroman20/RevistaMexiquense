@@ -17,7 +17,11 @@ define('AUTH_SALT'  , 'Revista');
 
 // Puerto y la URL del sitio
 define('PORT'       , '80');
+<<<<<<< HEAD
 define('URL'        , IS_LOCAL ? 'http://127.0.0.1:'.PORT.'/Revista/' : 'http://192.168.88.222'.BASEPATH);
+=======
+define('URL'        , IS_LOCAL ? 'http://127.0.0.1:'.PORT.BASEPATH : 'http://revista-gcm.live'.BASEPATH);
+>>>>>>> edits
 
 // Las rutas de directorios y archivos
 define('DS'         , DIRECTORY_SEPARATOR);

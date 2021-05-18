@@ -1,7 +1,8 @@
 <div class="register-overlay" id="register-overlay">
     <div class="register-popup" id="register-popup">
         <div class="register-box">
-            <a href="#" id="register-btn-close-popup" class="register-btn-close-popup"><i class="fa fa-times" aria-hidden="true"></i></a>
+            <a href="#" id="register-btn-close-popup" class="register-btn-close-popup">
+            <i class="fa fa-times" aria-hidden="true"></i></a>
             <img src="<?php echo IMAGES.'icono.png';?>" class="register-avatar" alt="Avatar Image">
             <h1>Registro de usuario</h1>
             <form method="post" id="form-register">
@@ -9,29 +10,37 @@
                     <h4>Paso 1</h4>
                     <!-- CORREO -->
                     <label class="labelemail_register" for="email">Correo Electronico</label>
-                    <input class="inputemail_register" type="email" name="email" id="email" placeholder="Ingresar Correo Electronico">
+                    <input class="inputemail_register" type="email" name="email" id="email" "
+                        placeholder="Ingresar Correo Electronico">
                     <!-- CONTRASEÑA -->
                     <label class="labelpass_register" for="password">Contraseña</label>
-                    <input class="inputpass_register" type="password" name="pass" id="pass" placeholder="Ingresar Contraseña" minlength="5" maxlength="50">
+                    <input class="inputpass_register" type="password" name="pass" id="pass" 
+                        placeholder="Ingresar Contraseña" minlength="5" maxlength="50">
                     <div id="resp"></div>
                     <!-- SIGUIENTE -->
-                    <button type="button" onclick="window.step1_next();" name="step1_next" style="width: 100%;">Siguente</button>
+                    <button type="button" onclick="window.step1_next();" name="step1_next" 
+                        style="width: 100%;">Siguente</button>
                 </div>
                 
                 <div id="step2" class="hidden">
                     <h4>Paso 2</h4>
                     <!-- USUARIO -->
                     <label class="labeluser_register" for="user">Usuario</label>
-                    <input class="inputuser_register"  type="text" name="user" id="user" placeholder="Ingresar Usuario" minlength="5" maxlength="50">
+                    <input class="inputuser_register"  type="text" name="user" id="user" 
+                        placeholder="Ingresar Usuario" minlength="5" maxlength="50">
                     <!-- NOMBRE -->
                     <label class="labelname_register" for="name">Nombre</label>
-                    <input class="inputname_register" type="text" name="name" id="name" placeholder="Ingresar Nombre" maxlength="50">
+                    <input class="inputname_register" type="text" name="name" id="name" 
+                        placeholder="Ingresar Nombre" maxlength="50">
                     <!-- APELLIDO -->
                     <label class="labellastname_register" for="lastname">Apellido</label>
-                    <input class="inputlastname_register" type="text" name="lastname" id="lastname" placeholder="Ingresar Apellido" maxlength="50">
+                    <input class="inputlastname_register" type="text" name="lastname" id="lastname" 
+                        placeholder="Ingresar Apellido" maxlength="50">
                     <!-- SIGUEINTE -->
-                    <button type="button" onclick="window.step2_back();" name="step2_back" style="width: 49%;">Volver</button>
-                    <button type="button" onclick="window.step2_next();" name="step2_next" style="width: 49%;">Siguente</button>
+                    <button type="button" onclick="window.step2_back();" name="step2_back" 
+                        style="width: 49%;">Volver</button>
+                    <button type="button" onclick="window.step2_next();" name="step2_next" 
+                        style="width: 49%;">Siguente</button>
                 </div>
 
                 <div id="step3" class="hidden">
@@ -122,7 +131,7 @@
                     if(error == '') {
                         $.ajax({
                             type: "POST",
-                            url: './app/ajax/register.php',
+                            url: '../Revista/app/Ajax/formsAjax.php',
                             dataType: "json",
                             data:{email:email, pass:pass},
                             success:function (data){
@@ -139,6 +148,7 @@
                                 }
                                 
                                 if(data.email != 'false' && data.pass != 'false'){
+                                    window.history.replaceState(null, null, window.location.href);
                                     $('#step1').addClass('hidden');
                                     $('#step2').removeClass('hidden');
                                 }
@@ -186,7 +196,7 @@
                     if(error == '') {
                         $.ajax({
                             type: "POST",
-                            url: './app/ajax/register.php',
+                            url: '../Revista/app/Ajax/formsAjax.php',
                             dataType: "json",
                             data:{user:user, name:name, lastname:lastname},
                             success:function (data){
@@ -200,6 +210,7 @@
                                     $('.labeluser_register').addClass('errorLabel');
                                     $('.inputuser_register').addClass('errorInput');
                                 } else {
+                                    window.history.replaceState(null, null, window.location.href);
                                     $('#step2').addClass('hidden');
                                     $('#step3').removeClass('hidden');
                                 }
@@ -234,7 +245,6 @@
                     var error = '';
                     carrer = $('#carrer').val();
                     rolpass = $('#rolpass').val();
-                    
                     switch(rol) {
                         case '0':
                             rol = 'visitante';
@@ -263,21 +273,23 @@
                     if(error == '') {
                         $.ajax({
                             type: "POST",
-                            url: './app/ajax/register.php',
+                            url: '../Revista/app/Ajax/formsAjax.php',
                             dataType: "json",
                             data:{
-                                email:email,
-                                pass:pass, 
-                                user:user, 
-                                name:name, 
-                                lastname:lastname, 
-                                rol:rol, 
-                                carrer:carrer,
-                                rolpass:rolpass
+                                submitEmail:email,
+                                submitPass:pass, 
+                                submitUser:user, 
+                                submitName:name, 
+                                submitLastname:lastname, 
+                                submitRol:rol, 
+                                submitCarrer:carrer,
+                                submitRolpass:rolpass,
+                                submit:""
                             },
                             success:function (data){
                                 console.log(data);
                                 if(data.status == "true") {
+                                    window.history.replaceState(null, null, window.location.href);
                                     toastr.success('Ya puedes iniciar sesion!', 'Registro Correcto!');
                                     overlayRegister.classList.remove('active');
                                     popupRegister.classList.remove('active');

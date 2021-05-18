@@ -21,9 +21,6 @@
                         <a class="nav-link active">Politicas y Privacidad</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="https://www.grupocolegiomexiquense.edu.mx/Colegio/Contacto">Servicio al cliente</a>
-                    </li>
-                    <li class="nav-item">
                         <a class="nav-link" href="contact">Contacto</a>
                     </li>
                 </ul>

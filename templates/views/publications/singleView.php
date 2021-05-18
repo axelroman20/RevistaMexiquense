@@ -193,7 +193,7 @@
     <?php require_once MODULES.'register.php'; ?>
 <?php endif; ?>
 <script>
-    const url = "<?php echo UPLOADS.$d->article[0]->id_user.'/'.$d->article[0]->file; ?>";
+    const url = "<?php echo '../assets/uploads/'.$d->article[0]->id_user.'/'.$d->article[0]->file; ?>";
 </script>
 <!------------------------------------------------------------------->
 <script src="http://mozilla.github.io/pdf.js/build/pdf.js"></script>

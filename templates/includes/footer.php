@@ -20,7 +20,7 @@
             <div class="col-md-3 mb-3">
                 <h2>Legal</h2>
                 <ul class="box">
-                    <li><a href="https://www.grupocolegiomexiquense.edu.mx/Colegio/AvisoPrivacidad">Politica de privacidad</a></li>
+                    <li><a href="policiesprivacy">Politica de privacidad</a></li>
                 </ul>
             </div>
         </div>
