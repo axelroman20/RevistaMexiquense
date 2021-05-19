@@ -1264,4 +1264,13 @@
      }
     
 
-   
+     function waitMe() {
+        if(isset($_POST['submitContact'])) {
+            return "
+            <script>
+                $('body').waitMe({ effect : 'ios' });
+            </script>
+            ";
+        }
+        
+    }

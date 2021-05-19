@@ -1,7 +1,11 @@
 ::-webkit-scrollbar {
-  display: none;
+  display: block;
+  width: 5px;
+  background-color: #f2f2f2;
 }
-
+::-webkit-scrollbar-thumb {
+  background-color: #28afb0;
+}
 
 
 html {
@@ -163,16 +167,12 @@ header {
 
 /*-- SEARCH --*/
 .search-box {
-  position: absolute;
-  top: 65px;
-  left: 12%;
-  z-index: 210;
-  transform: translate(-50%, -50%);
   background: #eee5e5;
   height: 45px;
   border-radius: 40px;
   padding: 5px;
   box-shadow: 1px 3px 5px #000000;
+  margin: 0px 20px 0px 0px;
 }
 .search-btn {
   color: #248caf !important;
@@ -182,9 +182,7 @@ header {
   height: 35px;
   border-radius: 40px;
   background: transparent;
-  transition: 0 1s;
   border: none;
-  
   cursor: pointer;
 }
 .search-txt {
@@ -193,35 +191,18 @@ header {
   outline: none;
   color: #464646 !important;
   font-size: 1.3em;
-  transition: 0.5s;
   width: 230px;
-}
-.search-box:hover > .search-txt {
-  width: 230px;
-  color: #248caf;
-}
-.search-box:hover > .search-btn {
-  background: transparent;
-  color: #35b6e0;
 }
 
 /*-- MENU --*/
+
 header .menu {
-  position: absolute;
   top: 30px;
-  right: 10%;
-  background: transparent !important; 
-  z-index: 200;
-}
-header .menu ul {
-  list-style: none;
-}
-header .menu ul li {
-  display: inline-block;
+  z-index: 9000;
 }
 header .menu ul li a {
   text-shadow: 3px 3px 5px #000000;
-  display: block;
+
   font-weight: 300;
   font-size: 1.3em;
   cursor: pointer;
@@ -239,6 +220,7 @@ header .menu .active {
 header .menu .hidden {
   display: none;
 }
+
 
 /*-- TITLE --*/
 header .textos-header {
@@ -572,6 +554,7 @@ h2 {
   text-decoration: none;
   text-align: center;
   line-height: 50px;
+  z-index: 6000;
 }
 
 .btnContact:hover {
@@ -1140,34 +1123,36 @@ h2 {
 /*///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
 /*//////////////////////// MEDIAQUERY ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
 /*///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+@media (max-width: 1440px) { 
+  
+}
 
 @media (max-width: 1024px) {
-  .search-box {
-    position: absolute;
-    top: 58px;
-  }
-
-  .search-box {
-    left: 20%;
-  }
-
   header .menu {
     position: absolute;
     top: 30px;
-    right: 10%;
+    right: 5%;
   }
-
+  /*------------------*/
+  .search-box {
+    margin: 0px 20px 0px 0px;
+  }
+  .search-txt {
+    font-size: 1.3em;
+    width: 130px;
+  }
+  /*------------------*/
   .info .containerr  {
     width: 90%;
   }
-
+  /*------------------*/
   .article button { 
     font-size: 1.5em;
   }
   .article .likes {
     font-size: 1.5em;
   }
-
+  /*------------------*/
   .info h2 {
     font-size: 3em;
   }
@@ -1177,27 +1162,38 @@ h2 {
 }
 
 @media (max-width: 768px) {
+  header .menu {
+    position: absolute;
+    top: 30px;
+    right: 0%;
+  }
+  /*------------------*/
   header .textos-header h1 {
     font-size: 3em ;
   }
   header .textos-header h2 {
     font-size: 3em;
   }
-  
+  /*------------------*/
   .search-box {
-    left: 25%;
+    margin: 0px 20px 0px 20px;
   }
-
+  .search-txt {
+    font-size: 1.3em;
+    width: 230px;
+  }
+  /*------------------*/
   .info .containerr  {
     width: 90%;
   }
-
+  /*------------------*/
   .article button { 
     font-size: 1.2em;
   }
   .article .likes { 
     font-size: 1.2em;
   }
+  /*------------------*/
   .info h2 {
     font-size: 2em;
   }
@@ -1224,23 +1220,12 @@ h2 {
   }
 }
 
-@media (max-width: 425px) {
+@media (max-width: 430px) {
   header .textos-header h1 {
     font-size: 3em ;
   }
   header .textos-header h2 {
     font-size: 3em;
-  }
-  .search-box {
-    left: 20%;
-    display: none;
-  }
-  .search-box:hover {
-    left: 30%;
-    width: 220px;
-  }
-  .search-txt {
-    width: 0px;
   }
   .social {
     display: none;
