@@ -33,7 +33,6 @@ class publicationsController {
         }
         if(!isset($_SESSION['user'])) {
             $errorLogin    = login();
-            $errorRegister = register();
         } else {
             $errorLogin    = '';
             $errorRegister = '';

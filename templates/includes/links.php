@@ -1,7 +1,7 @@
 <!-- Favicon -->
 <link rel="shortcut icon" type="image/jpg" href="<?php echo FAVICON.'icono.png'?>"/>
 <!-- Main -->
-<link rel="stylesheet" href="<?php echo CSS.'style.css'?>">
+<link rel="stylesheet" href="<?php echo CSS.'styles.css'?>">
 <!-- Bootstrap -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" >
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">  

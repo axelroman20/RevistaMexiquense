@@ -3,8 +3,8 @@ class DBController {
 /* ------------- Parametros para la conexion a la base de datos ------------- */
 	private $host     = "localhost";
 	private $database = "u730030579_revistagcm";
-	private $user     = "root";
-	private $password = "";
+	private $user     = "u730030579_revistagcm";
+	private $password = "Revista123";
 	private $conn;
 /* ----------------- Constructor inicializador de funciones ----------------- */
 	function __construct() {

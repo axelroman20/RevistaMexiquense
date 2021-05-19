@@ -88,7 +88,7 @@ class Main {
    * @return void
    */
   private function init_autoload() {
-    require_once CLASSES.'Autoloader.php';
+    require_once CLASSES.'autoloader.php';
     Autoloader::init();
     return;
   }

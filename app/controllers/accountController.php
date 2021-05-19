@@ -38,14 +38,12 @@ class accountController{
 //--------------------------------------------------------------------------------------------------
     function recover_password() {
         $errorLogin = login();
-        $errorRegister = register();
         $toasts = "";
         if(isset($_SESSION['user'])) {
             $users = loadSetting();
             $data = [
                 'title'           => 'Recuperar Contraseña',
                 'errorLogin'      => $errorLogin,
-                'errorRegister'   => $errorRegister,
                 'email'           => $users->data[0]['email'],
                 'toast'           => $toasts
             ];
@@ -54,7 +52,6 @@ class accountController{
         $data = [
             'title'         => 'Recuperar Contraseña', 
             'errorLogin'    => $errorLogin,
-            'errorRegister' => $errorRegister,
             'toast'         => $toasts
         ];
         search();

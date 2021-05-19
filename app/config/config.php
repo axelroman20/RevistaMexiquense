@@ -58,8 +58,8 @@ define('LDB_CHARSET', 'utf8');
 define('DB_ENGINE'  , 'mysql');
 define('DB_HOST'    , 'localhost');
 define('DB_NAME'    , 'u730030579_revistagcm');
-define('DB_USER'    , 'root');
-define('DB_PASS'    , '');
+define('DB_USER'    , 'u730030579_revistagcm');
+define('DB_PASS'    , 'Revista123');
 define('DB_CHARSET' , 'utf8');
 
 // El controlador por defecto / el método por defecto / y el controlador de errores por defecto
