@@ -102,7 +102,6 @@ class publicationsController {
     function search() {
         if(!isset($_SESSION['user'])) {
             $errorLogin    = login();
-            $errorRegister = register();
         } else {
             $errorLogin    = '';
             $errorRegister = '';
@@ -117,7 +116,6 @@ class publicationsController {
         $data = [
             'title'         => 'Busqueda', 
             'errorLogin'    => $errorLogin,
-            'errorRegister' => $errorRegister,
             'posts'         => $posts,
             'numPage'       => $numPages
         ];
