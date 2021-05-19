@@ -33,7 +33,7 @@
 </footer>
 <!-------------------------------------------------------------------------------------------------------->
     <!-- BUTTON BO UP -->    
-    <a class="gotopbtn" href="#"><i class="fas fa-arrow-up"></i></a>
+    <a class="gotopbtn" href="home"><i class="fas fa-arrow-up"></i></a>
     <!-- BUTTON CONTACT -->    
     <a class="btnContact" href="contact"><i class="fas fa-question-circle"></i></a>
     <!-- SOCIAL BAR -->
@@ -54,7 +54,6 @@
             </ul>
         </section>
     <?php endif; ?>
-        
 <!-------------------------------------------------------------------------------------------------------->
 
 <script src="<?php echo JS.'main.js'; ?>"></script>

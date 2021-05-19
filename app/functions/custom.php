@@ -1,5 +1,4 @@
 <?php
-
     /**
      * Metodo para inicio de sesion de usuario
      * @return string
@@ -53,109 +52,6 @@
         return $errorLogin;
     }
 
-    /**
-     * Metodo para registrar un usuario
-     * @return string
-     */
-    function register() {
-        $errorRegister = "";    
-        if(isset($_POST['submitRegister'])) {
-            $id       = ''.dechex(rand(0x000000, 0xFFFFFF));
-            $rol      = filter($_POST['rol']);
-            $name     = filter($_POST['name']);
-            $lastname = filter($_POST['lastname']);
-            $email    = filter($_POST['email']);
-            $user     = filter($_POST['user']);
-            $pass     = filter($_POST['pass']);
-            $carrer   = filter($_POST['carrer']);
-            $request  = 0;
-            $token    = sha1(rand(0,1000));
-
-            if(empty($name)) {
-                $errorRegister .= "
-                    <script>
-                        $('.labelname_register').addClass('errorLabel');
-                        $('.inputname_register').addClass('errorInput');
-                    </script>";
-            } 
-            if(empty($lastname)) {
-                $errorRegister .= "
-                    <script>
-                        $('.labellastname_register').addClass('errorLabel');
-                        $('.inputlastname_register').addClass('errorInput');
-                    </script>";
-            } 
-            if(empty($email)) {
-                $errorRegister .= "
-                    <script>
-                        $('.labelemail_register').addClass('errorLabel');
-                        $('.inputemail_register').addClass('errorInput');
-                    </script>";
-            } 
-            if(empty($user)) {
-                $errorRegister .= "
-                    <script>
-                        $('.labeluser_register').addClass('errorLabel');
-                        $('.inputuser_register').addClass('errorInput');
-                    </script>";
-            } 
-            if(empty($pass)) {
-                $errorRegister .= "
-                    <script>
-                        $('.labelpass_register').addClass('errorLabel');
-                        $('.inputpass_register').addClass('errorInput');
-                    </script>";
-            }
-            if(empty($rol)) {
-                $errorRegister .= "
-                    <script>
-                        $('.labelrol_register').addClass('errorLabel');
-                        $('.inputrol_register').addClass('errorInput');
-                    </script>";
-            } 
-            if(empty($carrer)) {
-                $errorRegister .= "
-                    <script>
-                        $('.labelcarrer_register').addClass('errorLabel');
-                        $('.inputcarrer_register').addClass('errorInput');
-                    </script>";
-            } 
-
-            if(empty($errorRegister)) {
-                try {
-                    $users->id               = $id;
-                    $users->rol              = $rol;
-                    $users->name             = $name;
-                    $users->lastname         = $lastname;
-                    $users->user             = $user;
-                    $passSha1                = sha1($pass);
-                    $users->pass             = $passSha1;
-                    $users->pass_noencrypt   = $pass;
-                    $users->email            = $email;
-                    $users->carrer           = $carrer;
-                    $users->token            = $token;
-                    $users->requestPassword  = $request;
-                    $users->add();
-                    if($users->data) {
-                        $_SESSION['user']   = $users->user;
-                        $_SESSION['id']     = $users->id;
-                        $_SESSION['rol']    = $users->rol;
-                        $_SESSION['carrer'] = $carrer;
-                        $_SESSION['search'] = '';
-                        
-                    } else {
-                        $errorRegister .= "
-                            <script>
-                                toastr.error('Revisa tu información algo puede estar mal.', 'Registro no realizado!');
-                            </script>";
-                    }
-                } catch (Exception $e) {
-                    echo $e->getMessage();
-                } 
-            }
-        }
-        return $errorRegister;
-    }  
 //--------------------------------------------------------------------------------------------------
     /**
      * Metodo para cargar datos de cuenta del usuario
@@ -609,7 +505,7 @@
      */
     function setComments($id_article) {
         if(isset($_POST['submitComment'])) {
-            $id = ''.dechex(rand(0x000000, 0xFFFFFF));
+            $id = HEX();
             $id_user    = $_SESSION['id'];
             $user       = $_SESSION['user'];
             $comment    = $_POST['comment'];
@@ -674,7 +570,7 @@
         if(isset($_POST['submitLikes'])) {
             try {
                 $article = new articleModel();
-                $id = ''.dechex(rand(0x000000, 0xFFFFFF));
+                $id = HEX();
                 $article->id = $id;
                 $article->id_article = $id_article;
                 $article->likes = $likes+1;
@@ -814,7 +710,7 @@
      */
     function addArticle(){
         if(isset($_POST['submitArticleNew'])) {
-            $id          = ''.dechex(rand(0x000000, 0xFFFFFF));
+            $id          = HEX();
             $id_user     = $_SESSION['id'];
             $user        = $_SESSION['user'];
             $carrer      = $_SESSION['carrer'];
@@ -1115,16 +1011,21 @@
      * Metodo para incrementar views de un articulo
      * @return void
      */
-    function views($id, $views) {
+    function views($id_article, $views, $ip) {
         try {
             $article = new articleModel();
+            $article->id = HEX();
+            $article->id_article = $id_article;
             $article->views = $views+1;
-            $article->id = $id;
-            $article->setViews();
+            $article->ip = crypt($ip, AUTH_SALT);
+            $article->validateViews();
+            if(!$article->data) {
+                $article->setViews();                        
+                $article->addViewsLog();
+            }
         } catch (Exception $e) {
             echo $e->getMessage();
         } 
-        
     }
 
 //--------------------------------------------------------------------------------------------------
@@ -1169,7 +1070,7 @@
     function addUserAdmin() {
         $error = '';
         if(isset($_POST['addUsers'])){
-            $id       = ''.dechex(rand(0x000000, 0xFFFFFF));
+            $id       = 
             $rol      = filter($_POST['rol']);
             $name     = filter($_POST['name']);
             $lastname = filter($_POST['lastname']);
@@ -1363,7 +1264,7 @@
      }
     
 
-    function waitMe() {
+     function waitMe() {
         if(isset($_POST['submitContact'])) {
             return "
             <script>

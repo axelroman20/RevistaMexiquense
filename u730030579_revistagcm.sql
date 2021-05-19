@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 05-05-2021 a las 07:38:20
+-- Tiempo de generación: 19-05-2021 a las 05:41:49
 -- Versión del servidor: 10.4.17-MariaDB
 -- Versión de PHP: 7.3.27
 
@@ -41,14 +41,6 @@ CREATE TABLE `article` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Volcado de datos para la tabla `article`
---
-
-INSERT INTO `article` (`id`, `id_user`, `user`, `carrer`, `title`, `description`, `thumb`, `file`, `views`, `likes`, `created_at`, `updated_at`) VALUES
-('588aff', '58dd60', 'axel01', 1, 'Articulo de Pruebas', 'Descripcion de Pruebas', '588aff_thumb.jpg', '588aff_doc.pdf', 870, 2, '2021-04-30 06:55:09', '2021-05-04 01:21:15'),
-('c2ca54', '58dd60', 'axel01', 1, 'Editar Articulos', 'asdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasda', 'c2ca54_thumb.jpg', 'c2ca54_doc.pdf', 24, 1, '2021-04-30 06:59:20', '2021-05-04 01:16:02');
 
 -- --------------------------------------------------------
 
@@ -96,14 +88,6 @@ CREATE TABLE `comments` (
   `created_at` timestamp NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Volcado de datos para la tabla `comments`
---
-
-INSERT INTO `comments` (`id`, `id_article`, `id_user`, `username`, `comment`, `created_at`) VALUES
-('1aca98', '588aff', '58dd60', 'axel01', 'Comentario de Pruebas 2', '2021-04-30 07:37:13'),
-('893dc8', '588aff', '58dd60', 'axel01', 'Comentario de Pruebas 1', '2021-04-30 07:37:06');
-
 -- --------------------------------------------------------
 
 --
@@ -117,13 +101,6 @@ CREATE TABLE `likes` (
   `user` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Volcado de datos para la tabla `likes`
---
-
-INSERT INTO `likes` (`id_like`, `id_article`, `id_user`, `user`, `created_at`) VALUES
-('9e398d', '588aff', '58dd60', 'axel01', '2021-05-03 05:27:53');
 
 -- --------------------------------------------------------
 
@@ -175,6 +152,19 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`id`, `rol`, `name`, `lastname`, `user`, `pass`, `pass_noencrypt`, `email`, `carrer`, `token`, `password_request`, `active`, `created_at`) VALUES
 ('58dd60', 1, 'Axel', 'Roman', 'axel01', '8cb2237d0679ca88db6464eac60da96345513964', '12345', 'axelroman20@gmail.com', 1, 'af53d4aa0b9131f18f84130767ee5b1dcbcb63be', 0, 1, '2021-04-21 11:41:30'),
 ('8f9842', 2, 'Admin', 'Revista', 'AdminRevista', '1351c617f92019082add5249ded0e6ad9ea1c717', 'Revista12345', 'admin@revista-gcm.live', 0, 'bd7c809d7d47026e7390ba3c6b253d24efcbe8cf', 0, 1, '2021-04-30 06:42:32');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `views`
+--
+
+CREATE TABLE `views` (
+  `id_view` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `id_article` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `ip` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Índices para tablas volcadas
@@ -228,6 +218,13 @@ ALTER TABLE `users`
   ADD KEY `rol` (`rol`);
 
 --
+-- Indices de la tabla `views`
+--
+ALTER TABLE `views`
+  ADD PRIMARY KEY (`id_view`),
+  ADD KEY `id_article` (`id_article`);
+
+--
 -- Restricciones para tablas volcadas
 --
 
@@ -260,6 +257,12 @@ ALTER TABLE `likes`
 ALTER TABLE `users`
   ADD CONSTRAINT `users_ibfk_1` FOREIGN KEY (`carrer`) REFERENCES `carrer` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `users_ibfk_2` FOREIGN KEY (`rol`) REFERENCES `rol` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `views`
+--
+ALTER TABLE `views`
+  ADD CONSTRAINT `views_ibfk_1` FOREIGN KEY (`id_article`) REFERENCES `article` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

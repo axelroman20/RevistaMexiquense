@@ -16,6 +16,7 @@ class articleModel extends Model {
     public $post_page;
     public $post_start;
     public $search;
+    public $ip;
     public $data;
 
 
@@ -343,13 +344,41 @@ class articleModel extends Model {
      * @return bool
      */
     public function setViews() {
-        $sql = "UPDATE article SET views = ".$this->views." WHERE id = '".$this->id."'";
+        $sql = "UPDATE article SET views=:views WHERE id=:id";
         $params = [
-            'data' => $this->data
+            ':views' => $this->views,
+            ':id' => $this->id_article
         ];
 
         try {
             return ($this->data = parent::query($sql, $params)? true : false);
+        } catch (Exception $e) {
+            throw $e;
+        }
+    }
+
+    public function validateViews() {
+        $sql = "SELECT * FROM views WHERE ip=:ip";
+        $params = [
+            ':ip' => $this->ip
+        ];
+        try {
+            return ($this->data = parent::query($sql, $params)? true : false);
+        } catch (Exception $e) {
+            throw $e;
+        }
+    }
+
+    public function addViewsLog(){
+        $sql = 'INSERT INTO views (id_view, id_article, ip) 
+        VALUES (:id_view, :id_article, :ip)';
+        $params = [
+            ':id_view' => $this->id,
+            ':id_article' => $this->id_article,
+            ':ip' => $this->ip
+        ];
+        try {
+            return ($this->data = parent::query($sql, $params)? false : true);
         } catch (Exception $e) {
             throw $e;
         }

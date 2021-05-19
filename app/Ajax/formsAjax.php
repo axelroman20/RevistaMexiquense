@@ -1,10 +1,10 @@
 <?php
-
+/* ------------------- Requiere el archivo de la conexion ------------------- */
 require_once "DBController.php";
 
 Class formsAjax {
     public $data = array();
-
+/* ---------------- Funcion que valida el correo del usuario ---------------- */
     /**
      * Funcion para validar si el correo ya existe
      * @return array
@@ -28,7 +28,7 @@ Class formsAjax {
         }
         echo json_encode($data);
     }
-
+/* ----------------- Funcion que valida el nombre de usuario ---------------- */
     /**
      * Funcion para validar usario, nombre y apellido
      * @return array
@@ -51,7 +51,7 @@ Class formsAjax {
         }
         echo json_encode($data);
     }
-
+/* ------------- Funcion que registra los datos el nuevo usuario ------------ */
     /**
      * Funcion que registra al usuario nuevo
      * @return array
@@ -181,21 +181,32 @@ Class formsAjax {
         }
         echo json_encode($data);
     }
+/* ------------------ Funcion para ver la cantidad de views ----------------- */
+    public function getViews() {
+        $db_handle = new DBController();
+        $query = "SELECT views FROM article WHERE id='" . $_POST["id_article"] . "'";
+        $data = $db_handle->runQuery($query);
+        echo json_encode($data);
+    }
 }
 
-/* -------------------------------------------------------------------------- */
-
+/* ----------------------- Llama la funcion del paso 1 ---------------------- */
 if(isset($_POST['email']) && isset($_POST['pass'])) {
     $valEmail = new formsAjax();
     $valEmail->validateStep1();
 }
-
+/* ----------------------- Llama la funcion del paso 2 ---------------------- */
 if(isset($_POST['user']) && isset($_POST['name']) && isset($_POST['lastname'])) {
     $valUser = new formsAjax();
     $valUser->validateStep2();
 }
-
+/* ----------------------- Llama la funcion del paso 3 ---------------------- */
 if(isset($_POST['submit'])){
     $valUser = new formsAjax();
     $valUser->registerStep3();
+}
+/* ------------------ Llamar la funcion para ver las views ------------------ */
+if(isset($_POST['views'])) {
+    $valView = new formsAjax();
+    $valView->getViews();
 }
