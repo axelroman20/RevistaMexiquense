@@ -9,7 +9,6 @@ class publicationsController {
     function index() {
         if(!isset($_SESSION['user'])) {
             $errorLogin    = login();
-            $errorRegister = register();
         } else {
             $errorLogin    = '';
             $errorRegister = '';
@@ -21,7 +20,6 @@ class publicationsController {
         $data = [
             'title'         => 'Publicaciones', 
             'errorLogin'    => $errorLogin,
-            'errorRegister' => $errorRegister,
             'posts'         => $posts,
             'numPage'       => $numPages
         ];
@@ -44,11 +42,11 @@ class publicationsController {
         $existslike = "";
         $likes;
         $article = getPostId($_GET['article']);
-        views($_GET['article'], $article[0]['views']);
+        $view = views($_GET['article'], $article[0]['views'], getRealIP());
         $active = statusAccount();
         $comments = getComments($_GET['article']);
         $commentsStatus = setComments($_GET['article']);
-
+        
         if(isset($_SESSION['user'])) {
             $existslike = existslike($_GET['article']);
             if($existslike) {
@@ -78,12 +76,12 @@ class publicationsController {
         $data = [
             'title'         => 'Articulo', 
             'errorLogin'    => $errorLogin,
-            'errorRegister' => $errorRegister,
             'toast'         => $toasts,
             'article'       => $article,
             'comments'      => $comments,
             'active'        => $active,
-            'existslike'    => $existslike
+            'existslike'    => $existslike,
+            'view' => $view
         ];
         search();
         View::render('single', $data);

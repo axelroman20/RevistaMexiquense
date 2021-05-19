@@ -7,12 +7,10 @@ class policiesprivacyController{
 //--------------------------------------------------------------------------------------------------
     function index() {
         $errorLogin    = login();
-        $errorRegister = register();
         $toasts = "";
         $data = [
             'title'           => 'Politicas y Privacidad',
             'errorLogin'      => $errorLogin,
-            'errorRegister'   => $errorRegister,
             'toast'           => $toasts
         ];
         View::render('policiesprivacy', $data);

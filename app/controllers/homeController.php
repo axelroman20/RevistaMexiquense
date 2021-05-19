@@ -7,13 +7,11 @@ class homeController extends Controller {
     
     function index() {
         $errorLogin    = login();
-        $errorRegister = register();
         $postsLikes    = getPostLikes(3);
         $postsViews    = getPostViews(8);
         $data = [
             'title'         => 'Bienvenido', 
             'errorLogin'    => $errorLogin,
-            'errorRegister' => $errorRegister,
             'postsLikes'    => $postsLikes,
             'postsViews'    => $postsViews
         ];

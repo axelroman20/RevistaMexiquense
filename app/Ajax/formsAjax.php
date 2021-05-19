@@ -181,6 +181,13 @@ Class formsAjax {
         }
         echo json_encode($data);
     }
+/* ------------------ Funcion para ver la cantidad de views ----------------- */
+    public function getViews() {
+        $db_handle = new DBController();
+        $query = "SELECT views FROM article WHERE id='" . $_POST["id_article"] . "'";
+        $data = $db_handle->runQuery($query);
+        echo json_encode($data);
+    }
 }
 
 /* ----------------------- Llama la funcion del paso 1 ---------------------- */
@@ -197,4 +204,9 @@ if(isset($_POST['user']) && isset($_POST['name']) && isset($_POST['lastname'])) 
 if(isset($_POST['submit'])){
     $valUser = new formsAjax();
     $valUser->registerStep3();
+}
+/* ------------------ Llamar la funcion para ver las views ------------------ */
+if(isset($_POST['views'])) {
+    $valView = new formsAjax();
+    $valView->getViews();
 }

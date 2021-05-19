@@ -34,7 +34,7 @@
                         <ul class="nav">
                             <li class="article nav-item">
                                 <button class="views" id="views">
-                                    <i class="fas fa-eye"></i> <?php echo $d->article[0]->views; ?>
+                                    <i class="fas fa-eye"></i><label id="label-views"></label>
                                 </button>
                             </li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             <li class="article nav-item">                                   
@@ -181,8 +181,6 @@
                     </div>
                 <?php endif; ?>
 
-               
-            
             </div>
 
     </section>
@@ -194,6 +192,21 @@
 <?php endif; ?>
 <script>
     const url = "<?php echo '../assets/uploads/'.$d->article[0]->id_user.'/'.$d->article[0]->file; ?>";
+    var id_article = "<?php echo $d->article[0]->id; ?>";
+    $.ajax({
+        type: "POST",
+        url: '../../Revista/app/Ajax/formsAjax.php',
+        dataType: "json",
+        data:{
+            id_article: id_article,
+            views: ""
+        },
+        success:function (data){
+            $('#label-views').text(data[0][0]);
+        },
+        error: function (){}
+    });
+
 </script>
 <!------------------------------------------------------------------->
 <script src="http://mozilla.github.io/pdf.js/build/pdf.js"></script>
