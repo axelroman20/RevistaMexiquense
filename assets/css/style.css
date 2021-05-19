@@ -1167,6 +1167,13 @@ h2 {
   .article .likes {
     font-size: 1.5em;
   }
+
+  .info h2 {
+    font-size: 3em;
+  }
+  .info p {
+    font-size: 1.8em;
+  }
 }
 
 @media (max-width: 768px) {
@@ -1191,8 +1198,31 @@ h2 {
   .article .likes { 
     font-size: 1.2em;
   }
+  .info h2 {
+    font-size: 2em;
+  }
+  .info p {
+    font-size: 1.8em;
+  }
 }
 
+@media (max-width: 680px) { 
+  .info h2 {
+    font-size: 2em;
+  }
+  .info p {
+    font-size: 1.6em;
+  }
+}
+
+@media (max-width: 575px) { 
+  .info h2 {
+    font-size: 2em;
+  }
+  .info p {
+    font-size: 1.4em;
+  }
+}
 
 @media (max-width: 425px) {
   header .textos-header h1 {
@@ -1201,36 +1231,36 @@ h2 {
   header .textos-header h2 {
     font-size: 3em;
   }
-
   .search-box {
     left: 20%;
     display: none;
   }
-
   .search-box:hover {
     left: 30%;
     width: 220px;
   }
-
   .search-txt {
     width: 0px;
   }
   .social {
     display: none;
   }
-
   .btnContact {
     display: none;
   }
-  
   .info .containerr  {
     width: 100%;
   }
-
   .article button { 
     font-size: 1em;
   }
   .article .likes { 
     font-size: 1em;
+  }
+  .info h2 {
+    font-size: 2em;
+  }
+  .info p {
+    font-size: 1.4em;
   }
 }

@@ -15,8 +15,6 @@ class contactController{
         ];
         View::render('contact', $data);
     }
-
-
 //--------------------------------------------------------------------------------------------------
     function home() {
         Redirect::to('home');
