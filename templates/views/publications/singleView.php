@@ -204,7 +204,10 @@
         success:function (data){
             $('#label-views').text(data[0][0]);
         },
-        error: function (){}
+        error: function (data){
+            console.log(data);
+            $('#label-views').text("Error");                                                                                                                                                       
+        }
     });
 
 </script>

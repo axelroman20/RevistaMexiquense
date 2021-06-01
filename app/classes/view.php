@@ -1,7 +1,18 @@
 <?php 
-
+/**
+ * Clase que se encarga de renderizar o visualziar el contenido html
+ * a los usuarios mediente los llamados del metodo render que vienen
+ * desde los controladores.
+ */
 class View {
-
+  /**
+   * Metodo render que trae el archivo con el contenido html
+   * 
+   * @param string $view
+   * @param array $data
+   * 
+   * @return void
+   */
   public static function render($view, $data = []) {
     // Convertir el array asociativo en objeto
     $d = to_object($data); // $data en array assoc o $d en objectos

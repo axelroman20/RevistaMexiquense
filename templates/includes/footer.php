@@ -35,7 +35,9 @@
     <!-- BUTTON BO UP -->    
     <a class="gotopbtn" href="home"><i class="fas fa-arrow-up"></i></a>
     <!-- BUTTON CONTACT -->    
-    <a class="btnContact" href="contact"><i class="fas fa-question-circle"></i></a>
+    <?php if(METHOD == 'index'): ?>
+        <a class="btnContact" href="contact"><i class="fas fa-question-circle"></i></a>
+    <?php endif; ?>
     <!-- SOCIAL BAR -->
     <?php if(!isset($_SESSION['user'])): ?>
         <section class="social">

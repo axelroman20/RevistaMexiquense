@@ -1,5 +1,9 @@
 <?php 
-
+/**
+ * Clase que realiza las redirecciones a las
+ * diferentes partes del proyecto mediante
+ * php o javascript dependiendo del caso.
+ */
 class Redirect {
   private $location;
 

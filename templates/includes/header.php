@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="<?php echo LANG; ?>">
 <head>
     <base href="">
     <meta charset="UTF-8">
@@ -24,7 +24,6 @@
         <div class="container">
             <?php require_once INCLUDES.'nav.php'; ?>
         </div>  
-        <?php //require_once MODULES.'search.php'; ?>
         
         <div class="wave" style= "height: 150px; overflow: hidden;" >
             <svg viewBox="0 0 500 150" preserveAspectRatio="none" style="height: 100%; width: 100%;">

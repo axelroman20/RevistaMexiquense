@@ -1,9 +1,10 @@
 <?php 
-
+/**
+ * Clase  que crea la conexion a la base de datos y filtra las sentencia sql
+ * que se envian a la base de datos.
+ */
 class Database {
-  /**
-   * Variables publicas
-   */
+  // Variables publicas
   private $link;
   private $engine;
   private $host;
@@ -13,9 +14,10 @@ class Database {
   private $charset;
   
   /**
-   * Constructor para nuestra clase
-   * Dependiendo si estamos en local o servidor
-   * recupera los valores guardados
+   * Constructor para nuestra clase que Dependiendo si estamos 
+   * en local o servidor recupera los valores guardados.
+   * 
+   * @return $this
    */
   public function __construct() {
     $this->engine  = IS_LOCAL ? LDB_ENGINE  : DB_ENGINE;
@@ -28,7 +30,8 @@ class Database {
   }
 
   /**
-   * Método para abrir una conexión a la base de datos
+   * Método para abrir una conexión a la base de datos.
+   * 
    * @return void
    */
   private function connect() {
@@ -41,7 +44,8 @@ class Database {
   }
 
   /**
-   * Método para hacer un query a la base de datos
+   * Método para hacer un query a la base de datos.
+   * 
    * @param string $sql
    * @param array $params
    * @return void
@@ -67,7 +71,6 @@ class Database {
 
     // SELECT | INSERT | UPDATE | DELETE | ALTER TABLE
     // Manejando el tipo de query
-    // SELECT * FROM usuarios;
     if(strpos($sql, 'SELECT') !== false) {
       
       return $query->rowCount() > 0 ? $query->fetchAll() : false; // no hay resultados

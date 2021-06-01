@@ -1,37 +1,43 @@
 <?php
-
+/**
+ * Clase Controlador de la página de contacto donde se envia
+ * peticiones o mensajes a los adminsitradores del proeyecto.
+ */
 class contactController{
-    function __construct() {
-        
-    }
-//--------------------------------------------------------------------------------------------------
+    // Función que se ejecuta al iniciar la página
     function index() {
         $toasts = "";
-        $toasts .= waitMe();
-        $toasts .= sendEmailContact();
-        $data = [
+        $toasts .= sendEmailContact();          // Envia el correo electronico
+        $data = [                               // Captura los datos para usarlos dentro de la página
             'title'           => 'Contacto',
             'toast'           => $toasts
         ];
-        View::render('contact', $data);
+        search();                               // Motor de busqueda de articulo del proyecto
+        View::render('contact', $data);         // Renderiza la página
     }
-//--------------------------------------------------------------------------------------------------
+/* -------------------------------------------------------------------------- */
+    // Redirige al usuario a otra página
     function home() {
         Redirect::to('home');
     }
+    // Redirige al usuario a otra página
     function publications() {
         Redirect::to('publications');
     }
+    // Redirige al usuario a otra página
     function myarticle() {
         Redirect::to('myarticle');
     }
+    // Redirige al usuario a otra página
     function account() {
         Redirect::to('account');
     }
+    // Redirige al usuario a otra página
+    function policiesprivacy(){
+        Redirect::to('policiesprivacy');
+    }
+    // Redirige al usuario a la funcion close
     function close() {
         close();
-    }
-    function back() {
-        Redirect::to('myarticle');
     }
 }

@@ -1,12 +1,17 @@
 <?php
-/* ------------------- Requiere el archivo de la conexion ------------------- */
+/**
+ * Clase que maneja todas las peticiones Ajax
+ * que se envian de las vistas mediante Javascript
+ */
+
+// Requiere el archivo de la conexion
 require_once "DBController.php";
 
 Class formsAjax {
+    // Inicializando variable
     public $data = array();
-/* ---------------- Funcion que valida el correo del usuario ---------------- */
     /**
-     * Funcion para validar si el correo ya existe
+     * Función para validar si el correo ya existe
      * @return array
      */
     public function validateStep1() {
@@ -28,9 +33,8 @@ Class formsAjax {
         }
         echo json_encode($data);
     }
-/* ----------------- Funcion que valida el nombre de usuario ---------------- */
     /**
-     * Funcion para validar usario, nombre y apellido
+     * Función para validar usario, nombre y apellido
      * @return array
      */
     public function validateStep2() {
@@ -51,9 +55,8 @@ Class formsAjax {
         }
         echo json_encode($data);
     }
-/* ------------- Funcion que registra los datos el nuevo usuario ------------ */
     /**
-     * Funcion que registra al usuario nuevo
+     * Función que registra al usuario nuevo
      * @return array
      */
     public function registerStep3() {
@@ -181,7 +184,10 @@ Class formsAjax {
         }
         echo json_encode($data);
     }
-/* ------------------ Funcion para ver la cantidad de views ----------------- */
+    /**
+     * Función para ver la cantidad de views
+     * @return array
+     */
     public function getViews() {
         $db_handle = new DBController();
         $query = "SELECT views FROM article WHERE id='" . $_POST["id_article"] . "'";
@@ -189,24 +195,26 @@ Class formsAjax {
         echo json_encode($data);
     }
 }
-
-/* ----------------------- Llama la funcion del paso 1 ---------------------- */
-if(isset($_POST['email']) && isset($_POST['pass'])) {
-    $valEmail = new formsAjax();
-    $valEmail->validateStep1();
-}
-/* ----------------------- Llama la funcion del paso 2 ---------------------- */
-if(isset($_POST['user']) && isset($_POST['name']) && isset($_POST['lastname'])) {
-    $valUser = new formsAjax();
-    $valUser->validateStep2();
-}
-/* ----------------------- Llama la funcion del paso 3 ---------------------- */
-if(isset($_POST['submit'])){
-    $valUser = new formsAjax();
-    $valUser->registerStep3();
-}
-/* ------------------ Llamar la funcion para ver las views ------------------ */
-if(isset($_POST['views'])) {
-    $valView = new formsAjax();
-    $valView->getViews();
-}
+/**
+ * Condiciones que hacen el llamdo del metodo que le corresponde
+ */
+    // Llama la funcion del paso 1
+    if(isset($_POST['email']) && isset($_POST['pass'])) {
+        $valEmail = new formsAjax();
+        $valEmail->validateStep1();
+    }
+    // Llama la funcion del paso 2
+    if(isset($_POST['user']) && isset($_POST['name']) && isset($_POST['lastname'])) {
+        $valUser = new formsAjax();
+        $valUser->validateStep2();
+    }
+    // Llama la funcion del paso 3
+    if(isset($_POST['submit'])){
+        $valUser = new formsAjax();
+        $valUser->registerStep3();
+    }
+    // Llamar la funcion para ver las views
+    if(isset($_POST['views'])) {
+        $valView = new formsAjax();
+        $valView->getViews();
+    }

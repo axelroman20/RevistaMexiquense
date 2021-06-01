@@ -13,7 +13,9 @@
                 <input class="inputpass_login" type="password" name="pass" placeholder="Ingresar Contraseña" maxlength="50">
                 <input type="submit" name="submitLogin" value="Iniciar Sesión">
                 <a href="account/recover-password">¿Olvidaste tu contraseña?</a><br>
-                <a id="register-btn-open-popup">¿No tienes una cuenta?</a>
+                <?php if(METHOD == 'index'): ?>
+                    <a id="register-btn-open-popup">¿No tienes una cuenta?</a>
+                <?php endif; ?>
                 <?php if(!empty($d->errorLogin)) : ?>
                     <div class="login-error"><?php echo $d->errorLogin; ?></div>
                     <script type="text/javascript" charset="utf-8">

@@ -1,5 +1,7 @@
 <?php 
-
+/**
+ * Clase que genera un token cuando se carga el proyecto .
+ */
 class Csrf {
   
   private $length = 32; // longitud de nuestro token
@@ -7,7 +9,7 @@ class Csrf {
   private $token_expiration; // tiempo de expiración
   private $expiration_time = 60 * 5; // 5 minutos de expiración
   
-  // Crear nuestro token si no existe y es el primer ingreso al sitio
+  // Crear nuestro token si no existe y es el primer ingreso al sitio.
   public function __construct() {
     if(!isset($_SESSION['csrf_token'])) {
       $this->generate();
@@ -26,17 +28,17 @@ class Csrf {
   }
   
   /**
-   * Método para generar un nuevo token
+   * Método para generar un nuevo token.
    *
    * @return void
    */
   private function generate() {
     if (function_exists('bin2hex')) {
-      $this->token = bin2hex(random_bytes($this->length)); // ASDFUHASIO32Jasdasdjf349mfjads9mfas4asdf
+      $this->token = bin2hex(random_bytes($this->length)); 
     } elseif (function_exists('mcrypt_create_iv')) {
-      $this->token = bin2hex(mcrypt_create_iv($this->length, MCRYPT_DEV_URANDOM)); // asdfajs09f34829ra9sfda4f4asdfa4
+      $this->token = bin2hex(mcrypt_create_iv($this->length, MCRYPT_DEV_URANDOM)); 
     } else {
-      $this->token = bin2hex(openssl_random_pseudo_bytes($this->length)); // asdfuhasi487a9s49mafmsau84
+      $this->token = bin2hex(openssl_random_pseudo_bytes($this->length)); 
     }
 
     $this->token_expiration = time() + $this->expiration_time;
@@ -44,7 +46,7 @@ class Csrf {
   }
 
   /**
-   * Validar el token de la petición con el del sistema
+   * Validar el token de la petición con el del sistema.
    *
    * @param string $csrf_token
    * @param boolean $validate_expiration
@@ -66,7 +68,7 @@ class Csrf {
   }
 
   /**
-   * Método para obtener el token
+   * Método para obtener el token.
    *
    * @return void
    */
@@ -75,7 +77,7 @@ class Csrf {
   }
 
   /**
-   * Método para obtener la expiración del token
+   * Método para obtener la expiración del token.
    *
    * @return void
    */

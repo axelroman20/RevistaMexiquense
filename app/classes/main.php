@@ -1,24 +1,33 @@
 <?php 
-
+/**
+ * Clase principal que se encarga de ir inicializando y
+ * cargando todos los archivos de forma automatica para 
+ * que pueda funcionar el proyecto de forma correcta.
+ */
 class Main {
 
-  // Propiedades del framework
+  // Propiedades iniciales del proyecto 
   private $framework = 'RevistaGCM';
   private $verion = '1.0.0';
   private $uri = [];
 
-  // La función principal que se ejecuta al instanciar nuestra clase
+  /**
+   * El constructor inicializa el metodo init que ejecuta los
+   * demas metodos primarios del proyecto.
+   * 
+   * @return void
+   */
   function __construct() {
     $this->init();
   }
 
   /**
-   * Método para ejecutar cada "método" de forma subsecuente
+   * Inicia todos los metodos necesarios para el funcionamiento.
    *
    * @return void
    */
   private function init() {
-    // Todos los métodos que queremos ejecutar consecutivamente
+    // Todos los métodos que queremos ejecutar consecutivamente.
     $this->init_session();
     $this->init_load_config();
     $this->init_load_functions();
@@ -28,7 +37,7 @@ class Main {
   }
 
   /**
-   * Método para iniciar la sesión en el sistema
+   * Inicia la session del proyecto.
    * 
    * @return void
    */
@@ -36,12 +45,11 @@ class Main {
     if(session_status() == PHP_SESSION_NONE) {
       session_start();
     }
-
     return;
   }
 
   /**
-   * Método para cargar la configuración del sistema
+   * Carga el archivo de configuracion del proyecto.
    *
    * @return void
    */ 
@@ -58,7 +66,7 @@ class Main {
   }
 
   /**
-   * Método para cargar todas las funciones del sistema y del usuario
+   * Cargar todas las funciones del sistema (core.php) y del usuario (custom.php).
    *
    * @return void
    */
@@ -68,7 +76,7 @@ class Main {
       die(sprintf('El archivo %s no se encuentra, es requerido para que %s funcione.', $file, $this->framework));
     }
 
-    // Cargando el archivo de funciones core
+    // Cargando el archivo de funciones core [Principal]
     require_once FUNCTIONS.$file;
 
     $file = 'custom.php';
@@ -76,14 +84,16 @@ class Main {
       die(sprintf('El archivo %s no se encuentra, es requerido para que %s funcione.', $file, $this->framework));
     }
 
-    // Cargando el archivo de funciones custom
+    // Cargando el archivo de funciones custom [Segundarios]
     require_once FUNCTIONS.$file;
 
     return;
   }
 
   /**
-   * Método para cargar todos los archivos de forma automática
+   * Metodo que ejecuta el autoloader que requiere todos los
+   * archivos necesarios del proyecto de forma automatica
+   * tanto los existentes como los nuevos que se creen.
    *
    * @return void
    */
@@ -94,7 +104,7 @@ class Main {
   }
 
   /**
-   * Método para crear un nuevo token de la sesión del usuario
+   * Crear un nuevo token de la sesión del usuario
    *
    * @return void
    */
@@ -103,23 +113,29 @@ class Main {
   }
 
   /**
-   * Método para filtrar y descomponer los elementos de nuestra url y uri
+   * Filtra y descompone los elementos de nuestra url y uri
+   * para obtener una url mas amigable para el usuario
    *
-   * @return void
+   * @return string
    */
   private function filter_url() {
+    // Revisa si existe la variable uri en la url
     if(isset($_GET['uri'])) {
+      // Obtiene la variable uri de la url
       $this->uri = $_GET['uri'];
+      // Se elimina de la uri el caracter '/'
       $this->uri = rtrim($this->uri, '/');
+      // Filtra la variable uri de que venga con caracteres especiales
       $this->uri = filter_var($this->uri, FILTER_SANITIZE_URL);
+      // Cambia a miniscula el contenido de la variable uri y la divide mediante los '/'
       $this->uri = explode('/', strtolower($this->uri));
       return $this->uri;
     }
   }
 
   /**
-   * Método para ejecutar y cargar de forma automática el controlador solicitado por el usuario
-   * su método y pasar parametros a él.
+   * Es el motor de la pagina, aqui es donde se hace la obtenecion y el control de
+   * las clases y metodos que el usuario va requiriendo.
    *
    * @return void
    */
@@ -128,8 +144,6 @@ class Main {
     // Filtrar la URL y separar la URI
     $this->filter_url();
 
-    
-     
     /////////////////////////////////////////////////////////////////////////////////
     // Necesitamos saber si se está pasando el nombre de un controlador en nuestro URI
     // $this->uri[0] es el controlador en cuestión
@@ -190,7 +204,7 @@ class Main {
   }
 
   /**
-   * Correr nuestro framework
+   * Instancia la clase main para poner a funcionar el proyecto.
    *
    * @return void
    */

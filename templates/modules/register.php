@@ -153,7 +153,10 @@
                                     $('#step2').removeClass('hidden');
                                 }
                             },
-                            error: function (){}
+                            error: function (data){
+                                console.log(data);
+                                toastr.error('Algo esta impidiendo obtener los datos con el servidor!', 'Error en la petición');
+                            }
                         });
                     }
 
@@ -216,7 +219,10 @@
                                 }
 
                             },
-                            error: function (){}
+                            error: function (){
+                                console.log(data);
+                                toastr.error('Algo esta impidiendo obtener los datos con el servidor!', 'Error en la petición');
+                            }
                         });
                     }
                 }
@@ -300,7 +306,10 @@
                                     toastr.error('Comprueba tus datos que esten escritos correctamente', 'Error al Registrarse!');
                                 }
                             },
-                            error: function (){}
+                            error: function (){
+                                console.log(data);
+                                toastr.error('Algo esta impidiendo obtener los datos con el servidor!', 'Error en la petición');
+                            }
                         });
                     }
                     

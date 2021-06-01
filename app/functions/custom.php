@@ -1,4 +1,9 @@
 <?php
+/**
+ * Funciónes del proyecto variadas. Estas suele 
+ * ser usadas 1 o 2 veces en el codigo.
+ */
+/* -------------------------------------------------------------------------- */
     /**
      * Metodo para inicio de sesion de usuario
      * @return string
@@ -52,7 +57,7 @@
         return $errorLogin;
     }
 
-//--------------------------------------------------------------------------------------------------
+/* -------------------------------------------------------------------------- */
     /**
      * Metodo para cargar datos de cuenta del usuario
      * @return array
@@ -67,7 +72,7 @@
         } 
         return $users;
     }
-//--------------------------------------------------------------------------------------------------
+/* -------------------------------------------------------------------------- */
     /**
      * Metodo para actualizar el nombre del usuario
      * @return string
@@ -92,7 +97,7 @@
             } 
         }
     }
-
+/* -------------------------------------------------------------------------- */
     /**
      * Metodo para actualizar el usuario del usuario
      * @return string
@@ -124,7 +129,7 @@
             } 
         }
     }
-
+/* -------------------------------------------------------------------------- */
     /**
      * Metodo para actualizar la contraseña del usuario
      * @return string
@@ -165,7 +170,7 @@
             } 
         }
     }
-
+/* -------------------------------------------------------------------------- */
     /**
      * Metodo para actualizar el correo del usuario
      * @return string
@@ -197,7 +202,7 @@
             } 
         }
     }
-
+/* -------------------------------------------------------------------------- */
     /**
      * Metodo para actualizar la carrera del usuario
      * @return string
@@ -227,7 +232,7 @@
             } 
         }
     }
-//--------------------------------------------------------------------------------------------------
+/* -------------------------------------------------------------------------- */
     /**
      * Metodo para reenviar correo de activacion
      * @return void
@@ -240,7 +245,7 @@
             'Hola <strong>'.$user.'</strong> Gracias por Registrate! <br>'.
             URL.'account/active?token='.$token);
     }
-
+/* -------------------------------------------------------------------------- */
     /**
      * Metodo para enviar correo de recuperacion de contraseña
      * @return string
@@ -275,7 +280,7 @@
             } 
         }
     }
-
+/* -------------------------------------------------------------------------- */
     /**
      * Metodo para restablecer contraseña del usuario
      * @return string
@@ -317,7 +322,7 @@
             } 
         }
     }
-    
+/* -------------------------------------------------------------------------- */
     /**
      * Metodo para activar la recuperacion de contraseña
      * @return void
@@ -332,7 +337,7 @@
             echo $e->getMessage();
         } 
     }
-
+/* -------------------------------------------------------------------------- */
     /**
      * Metodo para ver el estado de cuenta del usuario
      * @return int
@@ -351,7 +356,7 @@
             } 
         }
     }
-
+/* -------------------------------------------------------------------------- */
     /**
      * Metodo para activar la cuenta del usuario
      * @return void
@@ -368,7 +373,7 @@
             } 
         }
     }
-
+/* -------------------------------------------------------------------------- */
     /**
      * Metodo para ver el estado de peticion de restablecion de contraseña
      * @return int
@@ -388,7 +393,7 @@
         }
     }
 
-//--------------------------------------------------------------------------------------------------
+/* -------------------------------------------------------------------------- */
     /**
      * Metodo para saber en que numero de pagina se encuentra
      * @return int
@@ -413,7 +418,7 @@
         }
         return $article->data;
     }
-
+/* -------------------------------------------------------------------------- */
     /**
      * Metodo para consegir todos los articulos creados
      * por el id de articulo
@@ -429,7 +434,7 @@
         }
         return $article->data;
     }
-
+/* -------------------------------------------------------------------------- */
     /**
      * Metodo para consegir todos los articulos creados
      * que el usuario creo
@@ -445,7 +450,7 @@
         }
         return $article->data;
     }
-
+/* -------------------------------------------------------------------------- */
     /**
      * Metodo para traer los articulos
      * por cantidad de likes
@@ -463,7 +468,7 @@
         }
         return $article->data; 
     }
-
+/* -------------------------------------------------------------------------- */
     /**
      * Metodo para traer los articulos
      * por cantidad views
@@ -481,7 +486,7 @@
         }
         return $article->data; 
     }
-
+/* -------------------------------------------------------------------------- */
     /**
      * Metodo para traer los comentarios 
      * del articulo
@@ -497,7 +502,7 @@
         }
         return $article->data;
     }
-
+/* -------------------------------------------------------------------------- */
     /**
      * Metodo para crear los comentarios 
      * del articulo
@@ -523,7 +528,7 @@
             }
         }
     }
-
+/* -------------------------------------------------------------------------- */
     /**
      * Metodo para eliminar comentarios 
      * del articulo
@@ -539,7 +544,7 @@
             echo $e->getMessage();
         } 
     }
-
+/* -------------------------------------------------------------------------- */
     /**
      * Metodo para ver si ya se dio un like  
      * al articulo
@@ -560,7 +565,7 @@
             echo $e->getMessage();
         }
     }
-
+/* -------------------------------------------------------------------------- */
     /**
      * Metodo para dar un like  
      * al articulo
@@ -584,7 +589,7 @@
             }
         }
     }
-
+/* -------------------------------------------------------------------------- */
     /**
      * Metodo para quitar un like  
      * al articulo
@@ -610,7 +615,7 @@
             }
         }
     }
-
+/* -------------------------------------------------------------------------- */
     /**
      * Metodo para filtrar el id articulo
      * @return int
@@ -618,7 +623,7 @@
     function idArticle($id) {
         return (int) filter($id);
     }
-
+/* -------------------------------------------------------------------------- */
     /**
      * Metodo para crear el numero
      * de paginas que hay
@@ -635,7 +640,7 @@
         }
         return $numPage;
     }
-
+/* -------------------------------------------------------------------------- */
     /**
      * Metodo para dale formato de fecha
      * al timestamp de la base de datos
@@ -650,7 +655,7 @@
         $date = "$day de $months[$month] del $year";
         return $date;
     }
-
+/* -------------------------------------------------------------------------- */
     /**
      * Metodo para dale formato a la carrera
      * @return string
@@ -674,7 +679,7 @@
         ];
         return $carrers[$carrer];
     }
-
+/* -------------------------------------------------------------------------- */
     /**
      * Metodo para dale formato al rol
      * @return string
@@ -687,8 +692,7 @@
         ];
         return $rols[$rol];
     }
-
-//--------------------------------------------------------------------------------------------------
+/* -------------------------------------------------------------------------- */
     /**
      * Metodo para cargar el articulo
      * @return array
@@ -703,7 +707,7 @@
     }
         return $article;
     }
-
+/* -------------------------------------------------------------------------- */
     /**
      * Metodo para crear un articulo
      * @return string
@@ -831,7 +835,7 @@
             }
         }
     }
-
+/* -------------------------------------------------------------------------- */
     /**
      * Metodo para editar un articulo
      * @return string
@@ -944,7 +948,7 @@
             } 
         }
     }
-
+/* -------------------------------------------------------------------------- */
     /**
      * Metodo para eliminar un articulo
      * @return string
@@ -971,8 +975,7 @@
             echo $e->getMessage();
         } 
     }
-    
-//--------------------------------------------------------------------------------------------------
+/* -------------------------------------------------------------------------- */
     /**
      * Metodo para enviar datos de la busqueda y
      * enviarlo a la pagina de busqueda
@@ -1005,8 +1008,7 @@
             Redirect::to('error');
         }
     }
-
-//--------------------------------------------------------------------------------------------------
+/* -------------------------------------------------------------------------- */
     /**
      * Metodo para incrementar views de un articulo
      * @return void
@@ -1027,8 +1029,7 @@
             echo $e->getMessage();
         } 
     }
-
-//--------------------------------------------------------------------------------------------------
+/* -------------------------------------------------------------------------- */
     /**
      * Metodo para mostrar todos los usuarios
      * @return array
@@ -1047,7 +1048,7 @@
             echo $e->getMessage();
         } 
     }
-    
+/* -------------------------------------------------------------------------- */
     /**
      * Metodo para mostrar los usuarios por id
      * @return array
@@ -1062,7 +1063,7 @@
             echo $e->getMessage();
         } 
     }
-
+/* -------------------------------------------------------------------------- */
     /**
      * Metodo para crear un nuevo usuario
      * @return String
@@ -1150,7 +1151,7 @@
 
         }
     }
-
+/* -------------------------------------------------------------------------- */
     /**
      * Metodo para editar los dato de la cuenta
      * @return string
@@ -1190,7 +1191,7 @@
             } 
         }
     }
-
+/* -------------------------------------------------------------------------- */
     /**
      * Metodo para eliminar la cuenta y datos del usuario
      * @return string
@@ -1214,7 +1215,7 @@
             echo $e->getMessage();
         } 
     }
-
+/* -------------------------------------------------------------------------- */
     /**
      * Metodo para eliminar folders y archivos
      * @return string
@@ -1232,12 +1233,11 @@
         echo 'Se ha borrado el directorio '.$dir.'<br/>';
         @rmdir($dir);
     }
-//--------------------------------------------------------------------------------------------------
+/* -------------------------------------------------------------------------- */
     /**
      * Metodo para enviar mensaje de contacto
      * @return String
      */
-
      function sendEmailContact() {
         if(isset($_POST['submitContact'])) {
             try {
@@ -1262,8 +1262,7 @@
         }
         return "";
      }
-    
-
+/* -------------------------------------------------------------------------- */
      function waitMe() {
         if(isset($_POST['submitContact'])) {
             return "
